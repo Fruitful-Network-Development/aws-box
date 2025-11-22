@@ -5,8 +5,8 @@
 ---
 
 ## Project Layout
-          
-- /infra-aws-linux                  # <-- project folder
+
+- /infra-aws-linux                          # <-- project folder
 - ├── /ect 
   - └── nginx/
     - ├── nginx.conf
@@ -29,53 +29,101 @@
         - └── pos_integration.py            # shared POS logic
       - └── requirements.txt
     - └── clients/
-      - ├── front9farm.com/
-        - ├── frontend/
-          - ├── index.html                  # main entry; links to pages/ or SPA
-          - ├── pages/
-            - ├── product_browser.html
-            - ├── csa_browser.html
-            - ├── happenings.html
-            - ├── about_us.html
-            - ├── about_csa_program.html
-          - ├── assets/
-            - ├── style.css
-            - ├── imgs/
-              - ...
-          - ├── widgets/                    # client-specific UI components
-            - ├── product/
-              - ...                         # templates/js for product widget(s)
-            - ├── csa/
-              - ...
-          - ├── js/
-            - ├── widget-loader.js          # loads widgets, calls /api endpoints
-        - ├── data/                         # NOT web-exposed; backend only
-          inventory.json
-          products.json                     # (I'd add .json here)
-          csa_offerings.json                # (give it an extension)
-          customers.json
-
-        - └── config/                       # (I'd add this back)
-          settings.json                     # feature flags, widget config, etc.
-          paypal.json                       # client-specific credentials
-          pos.json                          # POS API keys/urls
-      - ├── CuyahogaValleyCountryside.com/
-        - ...
-      - ├── front9farm.com/
-        - ...
-      - ├── FruitfulNetwork.com/
-        - ...
-      - └── TrappFamilyFarm.com/
-        - ...
+          └── client1-example.com/
+              ├── frontend/
+              │   ├── index.html
+              │   ├── style.css
+              │   ├── pages/
+              │   │   ├── product_browser.html
+              │   │   ├── csa_browser.html
+              │   │   ├── happenings.html
+              │   │   ├── about_us.html
+              │   │   └── about_csa_program.html
+              │   ├── components/
+              │   │   ├── component-loader.js
+              │   │   ├── header/
+              │   │   │   └── header-001.html
+              │   │   ├── footer/
+              │   │   │   └── footer-003.html
+              │   │   ├── buttons/
+              │   │   │   ├── button-001.html
+              │   │   │   └── button-017.html
+              │   │   └── widgets/
+              │   │       ├── widget-loader.js
+              │   │       ├── product/
+              │   │       └── csa/
+              │   └── assets/
+              │       └── imgs/
+              │           ├── button-img-home.svg
+              │           └── logo.jpeg
+              ├── data/                     # BACKEND ONLY — NOT served by Nginx
+              │   ├── inventory.json
+              │   ├── products.json
+              │   ├── csa_offerings.json
+              │   └── customers.json
+              └── config/
+                  ├── settings.json
+                  ├── paypal.json
+                  └── pos.json
+          - ├── cuyahogavalleycountryside.com/
+          - ├── front9farm.com/
+          - ├── fruitfulnetwork.com/
+          - └── trappfamilyfarm.com/
 - └── [README](README.md)                   # <-- this file
 
 ---
 
-## Core Components
-
----
-
 ## How It Works
+
+The lego-style, modular, snap-in component, website system has three major layers:
+- PRESENTATION LAYER (Client Frontend)
+- CONTENT LAYER (Client Data)
+- CONFIG LAYER (Client Feature Definitions)
+
+### How Pages Load Components
+index.html chooses:
+  - which header
+  - which footer
+  - which pages (links/navigation)
+And each page HTML loads component-loader.js:
+        <div data-component="header"></div>
+        <div data-page></div>
+        <div data-component="footer"></div>
+
+        <script src="../components/component-loader.js"></script>
+
+### Pages
+Each HTML page uses:
+1. Load config/settings.json
+2. For each component placeholder:
+   - fetch component HTML (e.g., 'components/header/header-001.html')
+   - insert into DOM
+   - find all data-text/data-img/data-button attributes
+   - replace with mapped content defined in 'bindings'
+3. If component is actually a widget, load widget-loader.js
+
+### Widgets
+product browser, CSA, donation box, etc. live in:
+        components/widgets/
+And:
+  - Their HTML is imported like any other component
+  - Their JS connects to backend APIs
+  - They pull data dynamically from /api/products, /api/csa, /api/inventory, etc.
+
+### Relationship Between Frontend + Backend
+Your frontend consumes backend APIs like:
+        /api/inventory
+        /api/products
+        /api/csa
+        /api/customers
+        /api/donations
+        /api/paypal/create-order
+        /api/pos/sync
+The backend:
+  - uses client_context.py to know client from request
+  - uses data_access.py to open correct JSON files
+  - uses each module (donations, payments, pos_integration) to handle logic
+This is clean, scalable, multi-tenant.
 
 ---
 
