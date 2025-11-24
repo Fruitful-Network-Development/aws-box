@@ -209,10 +209,7 @@ body {
   margin-bottom: 1rem;
 }
 
-/* -------------------------
-   COMPENDIUM BLOCK
--------------------------- */
-
+/* ---------- COMPENDIUM CONTAINER ---------- */
 .block-title {
   text-align: center;
   font-size: 0.85rem;
@@ -220,59 +217,51 @@ body {
 }
 
 .block-rect {
-  position: relative;          /* for internal lines */
-  width: 100%;
-  aspect-ratio: 5 / 9;        /* height = 13/5 * width */
-  border: 1px solid #898f96;
-  background-color: #202122;
-}
-
-/* Ensure the Compendium box behaves like a vertical stack:
-   top image grid + bottom empty area */
-.block-rect {
   position: relative;
   width: 100%;
   border: 1px solid #898f96;
   background-color: #202122;
+  padding: 4px;
   display: flex;
   flex-direction: column;
+
+  /* master small-cell height variable – tweak once, everything follows */
+  --comp-small-h: 80px;
 }
 
-/* TOP SECTION: image grid with vertical divider */
+/* ---------- TOP IMAGE GRID ---------- */
+
 .compendium-top {
   position: relative;
   display: flex;
-  padding: 4px;
-  /* This controls how tall the image area is relative to the whole box */
-  flex: 0 0 45%;   /* ~top half; tweak if you want more/less */
+  margin-bottom: 4px;
 }
 
-/* Vertical divider, inset so it doesn't touch outer border */
+/* vertical divider, inset from outer border */
 .compendium-top::before {
   content: "";
   position: absolute;
   top: 4px;
   bottom: 4px;
-  left: 40%;              /* 2/5 of width */
+  left: 40%;                /* 2/5 of width */
   width: 1px;
   background-color: #898f96;
 }
 
-/* LEFT 2/5 column */
+/* left = 2/5, right = 3/5 */
 .comp-left {
-  width: 40%;             /* 2/5 */
+  width: 40%;
   display: flex;
   flex-direction: column;
 }
 
-/* RIGHT 3/5 column */
 .comp-right {
-  width: 60%;             /* 3/5 */
+  width: 60%;
   display: flex;
   flex-direction: column;
 }
 
-/* Each image cell */
+/* base image cell */
 .comp-img {
   padding: 4px;
   display: flex;
@@ -280,45 +269,151 @@ body {
   justify-content: center;
 }
 
-/* Split left column into 3 equal-height rows with separating lines */
+/* stack 3 equal-height rows on left, with lines between */
 .comp-left .comp-img {
-  flex: 1 1 0;
+  height: var(--comp-small-h);
   border-bottom: 1px solid #898f96;
 }
 
 .comp-left .comp-img:last-child {
-  border-bottom: none;    /* no line at bottom edge */
+  border-bottom: none;
 }
 
-/* Right column gets two taller cells; let them share space */
+/* right column: each big image about double height */
 .comp-right .comp-img {
-  flex: 1 1 0;
+  height: calc(var(--comp-small-h) * 1.5);
+  border-bottom: 1px solid #898f96;
 }
 
-/* Image styling */
+.comp-right .comp-img:last-child {
+  border-bottom: none;
+}
+
+/* images shrink to fit, never crop */
 .comp-img img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
   display: block;
+  background-color: #ffffff;
 }
 
-/* OPTIONAL: make small vs large feel different via aspect ratios */
-.comp-small img {
-  aspect-ratio: 4 / 3;
-  object-fit: contain;
+/* micro images are 1/5 the small-cell height */
+.comp-micro {
+  width: calc(var(--comp-small-h) / 5);
+  height: calc(var(--comp-small-h) / 5);
+  padding: 0;                 /* no extra padding inside the micro cell */
 }
 
-.comp-large img {
-  aspect-ratio: 16 / 9;
-  object-fit: contain;
-}
+/* ---------- BOTTOM STACK OF SECTIONS ---------- */
 
-/* BOTTOM SECTION OF COMPENDIUM (blank for now) */
 .compendium-bottom {
-  flex: 1 1 auto;
-  border-top: 1px solid #898f96;   /* line under image grid */
-  /* you can later add rows or text here */
+  border-top: 1px solid #898f96;
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
 }
+
+/* generic section styling */
+.comp-section {
+  padding: 6px 8px;
+  border-bottom: 1px solid #898f96;
+}
+
+/* last section has no bottom border */
+.comp-section:last-child {
+  border-bottom: none;
+}
+
+/* section heights based on small-cell height */
+.comp-profile {
+  min-height: var(--comp-small-h);                  /* 1 × small */
+}
+
+.comp-links {
+  min-height: calc(var(--comp-small-h) / 2);        /* 0.5 × small */
+}
+
+.comp-orgs {
+  min-height: calc(var(--comp-small-h) * 2);        /* 2 × small */
+}
+
+/* ---------- PROFILE SECTION ---------- */
+
+.comp-profile {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 10px;
+  align-items: center;
+}
+
+.comp-profile-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.comp-profile-right {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.comp-profile-name {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.comp-profile-handle {
+  font-size: 0.8rem;
+  color: #d0d0d0;
+}
+
+.comp-profile-bottom-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.comp-profile-link {
+  font-size: 0.8rem;
+}
+
+/* ---------- LINKS SECTION ---------- */
+
+.comp-links {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.comp-link-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.comp-link-text {
+  font-size: 0.8rem;
+}
+
+/* ---------- ORGANIZATIONS SECTION ---------- */
+
+.comp-orgs-title {
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.comp-orgs-list {
+  margin-left: 1.1rem;   /* indent bullets */
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
 
 /* -------------------------
    ANTHOLOGY (inside main text column)

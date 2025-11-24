@@ -116,6 +116,8 @@
                 <div class="block-title">Compendium</div>
 
                 <div class="block-rect">
+
+                  <!-- TOP IMAGE GRID (same idea as before) -->
                   <div class="compendium-top">
                     <!-- LEFT 2/5: 3 stacked small images -->
                     <div class="comp-left">
@@ -141,13 +143,62 @@
                     </div>
                   </div>
 
-                  <!-- Lower part of compendium (empty slots for now) -->
+                  <!-- BOTTOM STACK OF SECTIONS -->
                   <div class="compendium-bottom">
-                    <!-- You can later turn these into rows/slots; for now it's a blank area. -->
+
+                    <!-- SECTION 1: PROFILE CARD (height = 1 × small-cell) -->
+                    <section class="comp-section comp-profile">
+                      <div class="comp-profile-left">
+                        <div class="comp-img comp-small">
+                          <img src="assets/profile-main.png" alt="Profile main">
+                        </div>
+                      </div>
+
+                      <div class="comp-profile-right">
+                        <div class="comp-profile-name">Dylan Montgomery</div>
+                        <div class="comp-profile-handle">dylcmonty • he/him</div>
+
+                        <div class="comp-profile-bottom-row">
+                          <div class="comp-img comp-micro">
+                            <img src="assets/profile-micro.png" alt="Profile micro icon">
+                          </div>
+                          <div class="comp-profile-link">@Fruitful-Network-Development</div>
+                        </div>
+                      </div>
+                    </section>
+
+                    <!-- SECTION 2: LINKS (height = ½ small-cell) -->
+                    <section class="comp-section comp-links">
+                      <div class="comp-link-row">
+                        <div class="comp-img comp-micro">
+                          <img src="assets/location-icon.png" alt="Location">
+                        </div>
+                        <span class="comp-link-text">Cuyahoga Valley</span>
+                      </div>
+
+                      <div class="comp-link-row">
+                        <div class="comp-img comp-micro">
+                          <img src="assets/linkedin-icon.png" alt="LinkedIn">
+                        </div>
+                        <span class="comp-link-text">in/dylan-montgomery-352813196</span>
+                      </div>
+
+                      <!-- you can add more rows of the same pattern later -->
+                    </section>
+
+                    <!-- SECTION 3: ORGANIZATIONS (height = 2 × small-cell) -->
+                    <section class="comp-section comp-orgs">
+                      <div class="comp-orgs-title">Organizations</div>
+                      <ul class="comp-orgs-list">
+                        <li>Trade/Commodity Affiliated</li>
+                        <li>Vendor License</li>
+                        <li>Cooperatives</li>
+                      </ul>
+                    </section>
+
                   </div>
                 </div>
               </aside>
-
             </div>
           </article>
 
