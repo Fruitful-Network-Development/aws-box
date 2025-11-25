@@ -6,22 +6,20 @@
 
 ## Project Layout
 
-- /infra-aws-linux                          # <-- project folder
+- /infra-aws-linux
 - ├── /ect 
   - └── nginx/
     - ├── nginx.conf
     - ├── sites-available/
-      - ├── client1-example.com.conf
-      - └── client2-nonprofit.org.conf
+      - └── fruitfulnetwork.com.conf
     - └── sites-enabled/
-      - ├── client1-example.com.conf        # -> ../sites-available/client1-example.com.conf
-      - └── client2-nonprofit.org.conf      # -> ../sites-available/client2-nonprofit.org.conf
+      - └── fruitfulnetwork.com.conf
 - ├── /srv
   - └── webapps/
     - ├── platform/                         # shared Flask backend
       - ├── app.py                          # main Flask app
       - ├── client_context.py               # figure out which client from Host etc.
-      - ├── data_access.py                  # read/write JSON (or DB later)
+      - ├── data_access.py                  # read/write JSON for backend_data.json
       - ├── modules/                        # reusable backend "tools"
         - ├── __init__.py
         - ├── donations.py                  # shared donation logic
@@ -29,45 +27,30 @@
         - └── pos_integration.py            # shared POS logic
       - └── requirements.txt
     - └── clients/
-          └── client1-example.com/
+          └── fruitfulnetwork.com/
               ├── frontend/
               │   ├── index.html
+              │   ├── mycite.html
+              │   ├── webpage.html
               │   ├── style.css
-              │   ├── pages/
-              │   │   ├── product_browser.html
+              │   ├── app.js
+              │   ├── script.js
+              │   ├── user_data.js
+              │   ├── webpage/
+              │   │   ├── home.html
               │   │   ├── csa_browser.html
               │   │   ├── happenings.html
               │   │   ├── about_us.html
               │   │   └── about_csa_program.html
-              │   ├── components/
-              │   │   ├── component-loader.js
-              │   │   ├── header/
-              │   │   │   └── header-001.html
-              │   │   ├── footer/
-              │   │   │   └── footer-003.html
-              │   │   ├── buttons/
-              │   │   │   ├── button-001.html
-              │   │   │   └── button-017.html
-              │   │   └── widgets/
-              │   │       ├── widget-loader.js
-              │   │       ├── product/
-              │   │       └── csa/
               │   └── assets/
               │       └── imgs/
-              │           ├── button-img-home.svg
+              │           ├── profile.png
               │           └── logo.jpeg
-              ├── data/                     # BACKEND ONLY — NOT served by Nginx
-              │   ├── inventory.json
-              │   ├── products.json
-              │   ├── csa_offerings.json
-              │   └── customers.json
+              ├── backend_data.json
               └── config/
-                  ├── settings.json
-                  ├── paypal.json
-                  └── pos.json
+                  └── settings.json
           - ├── cuyahogavalleycountryside.com/
           - ├── front9farm.com/
-          - ├── fruitfulnetwork.com/
           - └── trappfamilyfarm.com/
 - └── [README](README.md)                   # <-- this file
 

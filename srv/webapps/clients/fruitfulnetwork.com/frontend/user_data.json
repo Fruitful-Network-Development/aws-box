@@ -1,59 +1,42 @@
 {
-  "Compendium": {
-    "name": "Dylan Montgomery",
-    "title": "Cognitive Systems & Network Development",
-    "location": "Akron, Ohio, USA",
-    "profileImage": "profile.png",
-    "maps": [
-      { "label": "Birthplace", "image": "map_1.png" },
-      { "label": "Region",    "image": "map_2.png" },
-      { "label": "Focus",     "image": "map_3.png" }
-    ],
-    "meta": [
-      { "label": "Org",   "value": "Mycite Network Development" },
-      { "label": "Site",  "value": "dylanhomepage.com", "url": "https://dylanhomepage.com" },
-      { "label": "Role",  "value": "Systems / Data Design" }
-    ]
-  },
 
-  "Oeuvre": {
-    "headline": "Oeuvre",
-    "paragraphs": [
-      "This profile summarizes Dylan's ongoing work in systems design, data representation, and local network development. It is written so that any host (co-op, market, directory, or personal site) can embed it without inheriting local styling.",
-      "The emphasis is on creating standardized, interoperable structures that multiple sites can share, remix, and recombine, while still allowing space for expressive, project–specific design elsewhere.",
-      "This Mycite view is the neutral, canonical representation; personal homepages and curated profiles can layer their own designs on top of the same underlying data."
-    ]
-  },
-
-  "Anthology": [
-    {
-      "id": "home-splash",
-      "title": "Home splash",
-      "summary": "Entry point to the free-form homepage design.",
-      "kind": "page",
-      "target": "webpage/pages/home-splash.html",
-      "image": "gallery_img-1.jpeg"
-    },
-    {
-      "id": "essays",
-      "title": "Essay collection",
-      "summary": "Long-form writing stored as documents.",
-      "kind": "collection",
-      "target": "assets/docs/",
-      "docs": [
-        { "label": "Essay 1", "file": "essay-1.pdf" },
-        { "label": "Essay 2", "file": "essay-2.pdf" },
-        { "label": "Essay 3", "file": "essay-3.pdf" }
-      ]
-    },
-    {
-      "id": "personal-site",
-      "title": "Personal website",
-      "summary": "Full custom design for exploration beyond the neutral profile.",
-      "kind": "external",
-      "link": "https://dylanhomepage.com",
-      "image": "mycite_logo.png"
-    }
+  "MSS": [
+    {"MSS": "ecto" }
+    {"MSN": "########" }
+    {"compendium": [
+      {"title": "Compendium"},
+      {"name": "Dylan Montgomery"},
+      {"bio": [
+        { "pronouns": "he/him"},
+        { "profile_type": "individual"},
+        { "Organizations": [
+          { "company": "Fruitful Network Design"},
+          { "university": "Major"}
+        ] }
+      ] }
+    ] },
+    {"dossier": [
+      {"Oeuvre": [
+        {"title": "Oeuvre"},
+        {"paragraphs": [
+          {"p1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent laoreet vel lorem et dictum. Sed semper, neque sed mattis euismod, dui leo tincidunt risus, nec semper libero mi a magna. Pellentesque quis porttitor turpis, id hendrerit dui. Cras non mauris elementum, dapibus nisl vitae, varius urna. Suspendisse nec risus efficitur, commodo felis eget, vulputate urna. Vestibulum dapibus tellus cursus, suscipit eros sed, malesuada orci. Vestibulum blandit egestas efficitur. Duis sit amet lorem, feugiat vel metus in, mattis dictum lorem. Proin vel imperdiet est. Integer sed nibh at magna pharetra euismod non vel sem." },
+          {"p2": "Quisque a nibh sit amet lorem pretium euismod. Nunc eget ipsum eu erat ultrices faucibus. Duis commodo a lectus at convallis. Fusce vel volutpat nibh. Morbi ut sollicitudin odio, nec interdum eros. Fusce sollicitudin, purus sit amet efficitur interdum, erat felis sollicitudin sapien, vel maximus leo ipsum a urna. Pellentesque laoreet, purus vitae semper rhoncus, justo tellus placerat est, a aliquam ante lectus mattis tellus, et rhoncus odio quis metus." },
+          {"p3": "Cras id maximus nunc, nec imperdiet sem. Morbi maximus, nulla vel egestas scelerisque, orci libero consequat orci, id gravida enim lorem sed turpis. Morbi ullamcorper pulvinar libero. Proin porta velit, sit amet suscipit nisl. Ut fermentum tellus at nunc vulputate pretium. Nulla vitae arcu et ipsum molestie finibus sit amet eu erat. Proin congue fermentum leo tincidunt scelerisque." },
+          {"p4": "Praesent varius venenatis dui, quis maximus enim placerat et. Mauris sed nulla maximus, cursus nunc nec, gravida ex. Nunc molestie consequat suscipit." }
+        ] },
+      ] },
+      {"anthology": [
+        {"title": "Anthology"},
+        {"blocks": [
+          { "b1": "..." },
+          { "b2": "..." },
+          { "b3": "..." },
+          { "b4": "..." },
+          { "b5": "..." },
+          { "b6": "..." }
+        ] },
+      ] }
+    ]}
   ]
 }
 

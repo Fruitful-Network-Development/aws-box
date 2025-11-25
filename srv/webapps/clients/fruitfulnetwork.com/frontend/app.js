@@ -1,3 +1,4 @@
+// /srv/webapps/clients/fruitfulnetwork.com/frontend/app.js
 document.addEventListener("DOMContentLoaded", () => {
   const dateEl = document.getElementById("current-date");
   if (!dateEl) return;
