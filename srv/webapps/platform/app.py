@@ -1,26 +1,36 @@
 # /srv/webapps/platform/app.py
 
-from flask import Flask, request, jsonify, send_from_directory, abort
-from client_context import get_client_slug, get_client_paths
-from data_access import load_json, save_json
-
-# Placeholder module imports
-from modules import payments
-
 import json
 from pathlib import Path
+
+from flask import Flask, request, jsonify, send_from_directory, abort
+from client_context import get_client_slug, get_client_paths
+from data_access import load_json  # save_json not needed here
 
 app = Flask(__name__)
 
 
 # -------------------------------------------------------------------
-# Helper functions for client-specific FRONTEND behavior
+# Helpers for client-specific frontend behavior
 # -------------------------------------------------------------------
 
 def load_client_settings(client_slug: str, paths=None) -> dict:
     """
-    Load settings.json for a given client and derive useful paths.
-    Expects settings at: <client_root>/config/settings.json
+    Load config/settings.json for a given client and derive useful paths.
+
+    Expected layout for a client (e.g. fruitfulnetwork.com):
+
+      client_root/
+        config/settings.json
+        frontend/
+          mycite.html
+          index.html (optional)
+          webpage/home.html
+          assets/...
+
+    settings.json keys that matter here:
+      - frontend_root: e.g. "frontend"
+      - backend_data_file (optional)
     """
     if paths is None:
         paths = get_client_paths(client_slug)
@@ -30,24 +40,30 @@ def load_client_settings(client_slug: str, paths=None) -> dict:
 
     settings_path = config_dir / "settings.json"
     if not settings_path.exists():
-        raise FileNotFoundError(f"settings.json not found for client {client_slug}: {settings_path}")
+        raise FileNotFoundError(
+            f"settings.json not found for client {client_slug}: {settings_path}"
+        )
 
     with settings_path.open("r") as f:
         settings = json.load(f)
 
-    # Figure out where the frontend root lives
-    frontend_dir = paths.get("frontend_dir", client_root / settings.get("frontend_root", "frontend"))
+    # Where the frontend lives relative to client_root
+    frontend_dir = paths.get(
+        "frontend_dir",
+        client_root / settings.get("frontend_root", "frontend"),
+    )
     if not frontend_dir.exists():
-        raise FileNotFoundError(f"Frontend dir not found for client {client_slug}: {frontend_dir}")
+        raise FileNotFoundError(
+            f"Frontend dir not found for client {client_slug}: {frontend_dir}"
+        )
 
-    # Attach handy derived paths
+    # Attach handy derived paths onto the settings dict
     settings["_client_root"] = client_root
     settings["_config_dir"] = config_dir
     settings["_frontend_dir"] = frontend_dir
 
-    # Backend data file (if you want to use it)
     backend_name = settings.get("backend_data_file", "backend_data.json")
-    settings["_backend_data_path"] = client_root / backend_name
+    settings["_backend_data_path"] = client_root / "data" / backend_name
 
     return settings
 
@@ -55,28 +71,29 @@ def load_client_settings(client_slug: str, paths=None) -> dict:
 def serve_client_file(frontend_root: Path, rel_path: str):
     """
     Serve a file relative to the client's frontend root.
+
     rel_path examples:
       'mycite.html'
       'webpage/home.html'
       'assets/imgs/logo.jpeg'
+      'style.css'
     """
     full_path = frontend_root / rel_path
     if not full_path.exists():
         abort(404)
 
-    directory = str(full_path.parent)
-    filename = full_path.name
-    return send_from_directory(directory, filename)
+    return send_from_directory(full_path.parent, full_path.name)
 
 
 def get_default_page(settings: dict) -> str:
     """
     Decide which page to serve at "/" based on settings.json.
-    Settings keys:
+
+    settings.json keys used:
       - default_view_mode: "auto" | "mysite" | "webpage"
-      - mysite_page: e.g. "mycite.html"
-      - webpage_home: e.g. "webpage/home.html"
-      - fallback_index: e.g. "index.html"
+      - mysite_page:      e.g. "mycite.html"
+      - webpage_home:     e.g. "webpage/home.html"
+      - fallback_index:   e.g. "index.html"
     """
     mode = settings.get("default_view_mode", "auto")
     mysite_page = settings.get("mysite_page", "mycite.html")
@@ -85,23 +102,24 @@ def get_default_page(settings: dict) -> str:
 
     frontend_root: Path = settings["_frontend_dir"]
 
-    home_full = frontend_root / webpage_home
     mysite_full = frontend_root / mysite_page
+    home_full = frontend_root / webpage_home
     fallback_full = frontend_root / fallback_index
 
+    # Explicit overrides
     if mode == "mysite":
-        # Always mycite.html
         if not mysite_full.exists():
             abort(404)
         return mysite_page
 
     if mode == "webpage":
-        # Always webpage/home.html and 404 if missing
         if not home_full.exists():
             abort(404)
         return webpage_home
 
-    # mode == "auto"
+    # "auto" mode:
+    # Prefer a traditional webpage home if it exists,
+    # then Mycite, then a simple index.html fallback.
     if home_full.exists():
         return webpage_home
     if mysite_full.exists():
@@ -113,17 +131,18 @@ def get_default_page(settings: dict) -> str:
 
 
 # -------------------------------------------------------------------
-# FRONTEND routes (client-specific HTML and static assets)
+# Frontend routes (per-client HTML + static assets)
 # -------------------------------------------------------------------
 
 @app.route("/")
 def client_root():
     """
     Root route for the domain.
-    Uses client-specific settings.json to choose the landing page:
-      - webpage/home.html (if present)
-      - else mycite.html
-      - else index.html (fallback)
+
+    Uses the client's settings.json to choose the landing page:
+      - webpage_home (e.g. webpage/home.html), if present
+      - else mysite_page (e.g. mycite.html), if present
+      - else fallback_index (e.g. index.html)
     """
     client_slug = get_client_slug(request)
     paths = get_client_paths(client_slug)
@@ -136,7 +155,8 @@ def client_root():
 @app.route("/mysite")
 def mysite_view():
     """
-    Explicit route to the MySite framework (e.g. mycite.html).
+    Explicit route to the Mycite / MySite framework (mysite_page).
+    e.g. /mysite -> frontend/mycite.html
     """
     client_slug = get_client_slug(request)
     paths = get_client_paths(client_slug)
@@ -150,9 +170,10 @@ def mysite_view():
 def webpage_page(page_slug: str):
     """
     Serve pages under frontend/webpage/.
-    Uses optional 'routes' mapping from settings.json, else pattern:
-      /webpage/home            -> webpage/home.html
-      /webpage/csa_browser     -> webpage/csa_browser.html
+
+    Uses optional 'routes' mapping from settings.json; otherwise:
+      /webpage/home        -> frontend/webpage/home.html
+      /webpage/csa_browser -> frontend/webpage/csa_browser.html
     """
     client_slug = get_client_slug(request)
     paths = get_client_paths(client_slug)
@@ -170,7 +191,7 @@ def webpage_page(page_slug: str):
 @app.route("/assets/<path:asset_path>")
 def client_assets(asset_path: str):
     """
-    Serve client-specific assets (images, etc.).
+    Serve client-specific assets (images, fonts, etc.) under frontend/assets/.
       /assets/imgs/logo.jpeg -> frontend/assets/imgs/logo.jpeg
     """
     client_slug = get_client_slug(request)
@@ -184,12 +205,11 @@ def client_assets(asset_path: str):
 @app.route("/frontend/<path:static_path>")
 def client_frontend_static(static_path: str):
     """
-    Generic mapping for frontend files referenced like:
+    Serve files addressed explicitly under /frontend/, like:
       /frontend/style.css
       /frontend/app.js
       /frontend/script.js
       /frontend/user_data.js
-    which live under frontend/.
     """
     client_slug = get_client_slug(request)
     paths = get_client_paths(client_slug)
@@ -198,21 +218,19 @@ def client_frontend_static(static_path: str):
     return serve_client_file(settings["_frontend_dir"], static_path)
 
 
-# Catch-all for other front-end files that live directly under frontend/
-# Placed AFTER all specific routes and AFTER /api/..., so it won't
-# override your API endpoints.
 @app.route("/<path:filename>")
 def client_catch_all(filename: str):
     """
-    For URLs like:
+    Catch-all for other front-end files that live directly under frontend/.
+
+    Examples:
       /style.css
       /app.js
       /script.js
       /user_data.js
-      /webpage.html
-    that correspond directly to files under frontend/.
+      /mycite.html
+    (Note: /api/... is reserved for API endpoints.)
     """
-    # Let /api/... be handled by API routes, not here.
     if filename.startswith("api/"):
         abort(404)
 
@@ -224,7 +242,7 @@ def client_catch_all(filename: str):
 
 
 # -------------------------------------------------------------------
-# EXISTING API routes
+# API routes
 # -------------------------------------------------------------------
 
 @app.route("/api/health")
@@ -232,46 +250,6 @@ def health():
     return jsonify({"status": "ok"})
 
 
-@app.route("/api/inventory", methods=["GET"])
-def get_inventory():
-    """
-    Example: GET /api/inventory
-    Returns this client's inventory.json content.
-    """
-    client_slug = get_client_slug(request)
-    paths = get_client_paths(client_slug)
-    inventory_path = paths["data_dir"] / "inventory.json"
-
-    inventory = load_json(inventory_path, default=[])
-    return jsonify(inventory)
-
-
-@app.route("/api/customers", methods=["GET"])
-def get_customers():
-    """
-    Example: GET /api/customers
-    Returns this client's customers.json (or donors.json, etc.).
-    """
-    client_slug = get_client_slug(request)
-    paths = get_client_paths(client_slug)
-    customers_path = paths["data_dir"] / "customers.json"  # adjust per client
-
-    customers = load_json(customers_path, default=[])
-    return jsonify(customers)
-
-
-# --- Placeholder PayPal route ---
-@app.route("/api/paypal/create-order", methods=["POST"])
-def paypal_create_order():
-    client_slug = get_client_slug(request)
-    paths = get_client_paths(client_slug)
-
-    # Delegate to payments module (placeholder)
-    order = payments.create_order(request, client_slug, paths)
-    return jsonify(order), 201
-
-
 if __name__ == "__main__":
-    # For development only; in production you'll use gunicorn/uwsgi
+    # For development only; in production use gunicorn/uwsgi behind NGINX
     app.run(host="0.0.0.0", port=5000, debug=True)
-
