@@ -1,42 +1,53 @@
 {
+  "MSS": {
+    "ecto": "ecto",
+    "MSN": "########",
 
-  "MSS": [
-    {"MSS": "ecto" }
-    {"MSN": "########" }
-    {"compendium": [
-      {"title": "Compendium"},
-      {"name": "Dylan Montgomery"},
-      {"bio": [
-        { "pronouns": "he/him"},
-        { "profile_type": "individual"},
-        { "Organizations": [
-          { "company": "Fruitful Network Design"},
-          { "university": "Major"}
-        ] }
-      ] }
-    ] },
-    {"dossier": [
-      {"Oeuvre": [
-        {"title": "Oeuvre"},
-        {"paragraphs": [
-          {"p1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent laoreet vel lorem et dictum. Sed semper, neque sed mattis euismod, dui leo tincidunt risus, nec semper libero mi a magna. Pellentesque quis porttitor turpis, id hendrerit dui. Cras non mauris elementum, dapibus nisl vitae, varius urna. Suspendisse nec risus efficitur, commodo felis eget, vulputate urna. Vestibulum dapibus tellus cursus, suscipit eros sed, malesuada orci. Vestibulum blandit egestas efficitur. Duis sit amet lorem, feugiat vel metus in, mattis dictum lorem. Proin vel imperdiet est. Integer sed nibh at magna pharetra euismod non vel sem." },
-          {"p2": "Quisque a nibh sit amet lorem pretium euismod. Nunc eget ipsum eu erat ultrices faucibus. Duis commodo a lectus at convallis. Fusce vel volutpat nibh. Morbi ut sollicitudin odio, nec interdum eros. Fusce sollicitudin, purus sit amet efficitur interdum, erat felis sollicitudin sapien, vel maximus leo ipsum a urna. Pellentesque laoreet, purus vitae semper rhoncus, justo tellus placerat est, a aliquam ante lectus mattis tellus, et rhoncus odio quis metus." },
-          {"p3": "Cras id maximus nunc, nec imperdiet sem. Morbi maximus, nulla vel egestas scelerisque, orci libero consequat orci, id gravida enim lorem sed turpis. Morbi ullamcorper pulvinar libero. Proin porta velit, sit amet suscipit nisl. Ut fermentum tellus at nunc vulputate pretium. Nulla vitae arcu et ipsum molestie finibus sit amet eu erat. Proin congue fermentum leo tincidunt scelerisque." },
-          {"p4": "Praesent varius venenatis dui, quis maximus enim placerat et. Mauris sed nulla maximus, cursus nunc nec, gravida ex. Nunc molestie consequat suscipit." }
-        ] },
-      ] },
-      {"anthology": [
-        {"title": "Anthology"},
-        {"blocks": [
-          { "b1": "..." },
-          { "b2": "..." },
-          { "b3": "..." },
-          { "b4": "..." },
-          { "b5": "..." },
-          { "b6": "..." }
-        ] },
-      ] }
-    ]}
-  ]
+    "compendium": {
+      "title": "Compendium",
+      "profile": {
+        "name": "Dylan Montgomery",
+        "username": "dylcmonty",
+        "pronouns": "he/him",
+
+        "handleLine": "dylcmonty • he/him",
+
+        "avatar": "assets/profile-main.png",
+        "micro_icon": "assets/profile-micro.png",
+
+        "displayHandle": "@Fruitful-Network-Development",
+        "location": "Cuyahoga Valley",
+        "linkedin": "in/dylan-montgomery-352813196"
+      },
+
+      "organizations": [
+        "Fruitful Network Design",
+        "Major"
+      ]
+    },
+
+    "dossier": {
+      "oeuvre": {
+        "title": "Oeuvre",
+        "paragraphs": [
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent laoreet vel lorem et dictum. Sed semper, neque sed mattis euismod, dui leo tincidunt risus, nec semper libero mi a magna. Pellentesque quis porttitor turpis, id hendrerit dui. Cras non mauris elementum, dapibus nisl vitae, varius urna. Suspendisse nec risus efficitur, commodo felis eget, vulputate urna. Vestibulum dapibus tellus cursus, suscipit eros sed, malesuada orci. Vestibulum blandit egestas efficitur. Duis sit amet lorem, feugiat vel metus in, mattis dictum lorem. Proin vel imperdiet est. Integer sed nibh at magna pharetra euismod non vel sem.",
+          "Quisque a nibh sit amet lorem pretium euismod. Nunc eget ipsum eu erat ultrices faucibus. Duis commodo a lectus at convallis. Fusce vel volutpat nibh. Morbi ut sollicitudin odio, nec interdum eros. Fusce sollicitudin, purus sit amet efficitur interdum, erat felis sollicitudin sapien, vel maximus leo ipsum a urna. Pellentesque laoreet, purus vitae semper rhoncus, justo tellus placerat est, a aliquam ante lectus mattis tellus, et rhoncus odio quis metus.",
+          "Cras id maximus nunc, nec imperdiet sem. Morbi maximus, nulla vel egestas scelerisque, orci libero consequat orci, id gravida enim lorem sed turpis. Morbi ullamcorper pulvinar libero. Proin porta velit, sit amet suscipit nisl. Ut fermentum tellus at nunc vulputate pretium. Nulla vitae arcu et ipsum molestie finibus sit amet eu erat. Proin congue fermentum leo tincidunt scelerisque.",
+          "Praesent varius venenatis dui, quis maximus enim placerat et. Mauris sed nulla maximus, cursus nunc nec, gravida ex. Nunc molestie consequat suscipit."
+        ]
+      },
+
+      "anthology": {
+        "title": "Anthology",
+        "blocks": [
+          "...",
+          "...",
+          "...",
+          "...",
+          "...",
+          "..."
+        ]
+      }
+    }
+  }
 }
-
