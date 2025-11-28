@@ -44,15 +44,15 @@
             "id": "resume",
             "kind": "pdf",
             "title": "Resume",
-            "target": "assets/resume.pdf",
-            "thumbnail": null
+            "target": "assets/resume-preview.png",
+            "thumbnail": "assets/resume-preview.png"
           },
           {
             "id": "linkedin",
             "kind": "url",
             "title": "LinkedIn",
             "target": "https://www.linkedin.com/in/dylan-montgomery-352813196",
-            "thumbnail": null
+            "thumbnail": "assets/linkedin-preview.png"
           },
           {
             "id": "github",
