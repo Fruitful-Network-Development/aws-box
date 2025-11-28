@@ -5,6 +5,7 @@ import asyncio
 import json
 import hashlib
 from pathlib import Path
+from urllib.parse import urlparse
 
 from playwright.async_api import async_playwright
 
@@ -27,6 +28,20 @@ def get_client_paths(client_name: str):
     thumbs_dir = client_root / "assets" / "anthology"
     thumbs_dir.mkdir(parents=True, exist_ok=True)
     return client_root, data_path, thumbs_dir
+
+
+def to_absolute_url(client: str, target: str) -> str:
+    """
+    Turn a target into an absolute URL.
+
+    - If target already has a scheme (http/https), return as-is.
+    - If target is relative (e.g. '/demo-design-1'), prepend 'https://{client}'.
+    """
+    parsed = urlparse(target)
+    if parsed.scheme:
+        return target
+    # treat target as a path on this client's domain
+    return f"https://{client.rstrip('/')}/{target.lstrip('/')}"
 
 
 async def capture_url(page, url: str, out_path: Path):
@@ -75,7 +90,7 @@ async def process_client(client: str):
                 # skip any placeholder strings, e.g. "..."
                 continue
 
-            # skip already-thumbnailed blocks
+            # skip already-thumbnailed blocks (static PNGs, etc.)
             if block.get("thumbnail"):
                 continue
 
@@ -92,11 +107,13 @@ async def process_client(client: str):
 
             try:
                 if kind == "url":
-                    await capture_url(page, target, out_path)
+                    url = to_absolute_url(client, target)
+                    await capture_url(page, url, out_path)
                 elif kind == "pdf":
                     pdf_fs_path = client_root / target
                     await capture_pdf(page, pdf_fs_path, out_path)
                 else:
+                    # e.g. "image" or other custom kinds → skip
                     print(f"  - skipping unknown kind={kind}")
                     continue
 
