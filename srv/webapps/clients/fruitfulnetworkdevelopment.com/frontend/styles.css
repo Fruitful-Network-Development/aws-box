@@ -487,3 +487,86 @@ img[data-slot="compendium.profile.avatar"] {
   font-size: 0.85rem;
   line-height: 1.4;
 }
+
+/* =========================
+   RESPONSIVE: TABLET & DOWN
+   (stack main columns, drop side bars)
+========================= */
+@media (max-width: 900px) {
+  body {
+    display: block; /* don't force the left/right margin columns */
+  }
+
+  .margin-left,
+  .margin-right {
+    display: none;  /* hide the side strips on smaller screens */
+  }
+
+  .content-area {
+    width: 100vw;   /* use full width on small devices */
+    min-height: auto;
+  }
+
+  .content-inner {
+    padding: 0.75rem 0.75rem 1.5rem;
+  }
+
+  /* Stack the three big columns (left, middle, right) vertically */
+  .columns {
+    flex-direction: column;
+  }
+
+  .col-left,
+  .col-middle,
+  .col-right {
+    width: 100%;
+  }
+
+  /* Inner middle columns (Oeuvre/Anthology vs Compendium) also stack */
+  .middle-columns {
+    flex-direction: column;
+  }
+
+  .middle-main,
+  .middle-compendium {
+    flex: none;
+    width: 100%;
+  }
+
+  /* Anthology grid: go from 3 → 2 columns */
+  .anthology-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* =========================
+   RESPONSIVE: PHONE
+   (narrow screens)
+========================= */
+@media (max-width: 600px) {
+  /* Header: stack logo + title/search vertically */
+  .header-main-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  /* Meta bar spacing and text sizing */
+  .meta-bar {
+    gap: 0.4rem;
+  }
+
+  .meta-name {
+    font-size: 0.85rem;
+  }
+
+  /* Anthology grid: single column on very small screens */
+  .anthology-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Slightly tighter padding on sections */
+  .section-block {
+    padding: 0.6rem 0.7rem;
+  }
+}
