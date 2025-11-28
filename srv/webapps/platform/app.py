@@ -18,7 +18,7 @@ def load_client_settings(client_slug: str, paths=None) -> dict:
     """
     Load config/settings.json for a given client and derive useful paths.
 
-    Expected layout for a client (e.g. fruitfulnetwork.com):
+    Expected layout for a client (e.g. fruitfulnetworkdevelopment.com):
 
       client_root/
         config/settings.json
@@ -188,6 +188,20 @@ def webpage_page(page_slug: str):
     return serve_client_file(settings["_frontend_dir"], rel_path)
 
 
+@app.route("/demo-design-1")
+def demo_design_1():
+    """
+    Serve the specific demo subpage:
+      /demo-design-1 -> frontend/webpage/demo-design-1/demo-design-1.html
+    """
+    client_slug = get_client_slug(request)
+    paths = get_client_paths(client_slug)
+    settings = load_client_settings(client_slug, paths=paths)
+
+    rel_path = "webpage/demo-design-1/demo-design-1.html"
+    return serve_client_file(settings["_frontend_dir"], rel_path)
+
+
 @app.route("/assets/<path:asset_path>")
 def client_assets(asset_path: str):
     """
@@ -216,35 +230,6 @@ def client_frontend_static(static_path: str):
     settings = load_client_settings(client_slug, paths=paths)
 
     return serve_client_file(settings["_frontend_dir"], static_path)
-
-
-@app.route("/", defaults={"path": ""})
-@app.route("/<path:path>")
-def client_catch_all(path: str):
-    client_slug = get_client_slug(request)
-    paths = get_client_paths(client_slug)
-
-    frontend_root = paths["frontend_public"]  # e.g. /srv/webapps/clients/.../frontend
-
-    # 1) Root → mycite.html
-    if path == "" or path == "/":
-        return send_from_directory(frontend_root, "mycite.html")
-
-    # 2) Try a simple “/slug” → frontend/webpage/<slug>/<slug>.html
-    slug = path.strip("/")
-
-    demo_candidate = (
-        Path(frontend_root)
-        / "webpage"
-        / slug
-        / f"{slug}.html"
-    )
-
-    if demo_candidate.is_file():
-        return send_from_directory(demo_candidate.parent, demo_candidate.name)
-
-    # 3) Fall back to 404 (or to mycite.html if you prefer)
-    abort(404)
 
 
 # -------------------------------------------------------------------
