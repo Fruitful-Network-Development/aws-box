@@ -83,8 +83,7 @@
                     <!-- JS will inject .anthology-box items here -->
                   </div>
                 </section>
-                :contentReference[oaicite:0]{index=0}
-                
+
               </article>
 
               <!-- SECOND INNER COLUMN: COMPENDIUM BOX -->
@@ -201,6 +200,95 @@
   </main>
 
   <div class="margin-right"></div>
+
+  <!-- =========================
+       ANTHOLOGY OVERLAY WIDGET
+       (opens when an anthology tile is clicked)
+  ========================== -->
+  <div class="anthology-overlay is-hidden" id="anthology-overlay">
+    <div class="anthology-shell">
+
+      <!-- URL / toolbar row -->
+      <header class="anthology-toolbar">
+        <div class="anthology-url-wrapper">
+          <div class="anthology-url-bar">
+            <div class="anthology-url-icon">
+              <!-- globe / site icon -->
+              <img src="assets/overlay-globe.png" alt="Site icon">
+            </div>
+            <span class="anthology-url-text" id="anthology-overlay-url">
+              <!-- filled by JS with block.target -->
+              http://fruitfulnetworkdevelopment.com/
+            </span>
+          </div>
+
+          <!-- follow-link button (image only, behavior can be added later) -->
+          <button class="overlay-icon-btn" type="button">
+            <img src="assets/overlay-follow-link.png" alt="Follow link">
+          </button>
+        </div>
+      </header>
+
+      <!-- Main body: left canvas + right meta card -->
+      <section class="anthology-main">
+        <!-- Left: large white canvas / thumbnail -->
+        <div class="anthology-canvas-wrapper">
+          <div class="anthology-canvas" id="anthology-overlay-canvas">
+            <!-- background or thumbnail image is controlled via JS/CSS -->
+          </div>
+        </div>
+
+        <!-- Right: meta/info panel -->
+        <aside class="anthology-meta">
+          <div class="anthology-meta-card">
+            <h2 class="anthology-meta-title" id="anthology-overlay-title">
+              Anthology item
+            </h2>
+
+            <p class="anthology-meta-description" id="anthology-overlay-description">
+              More information about this entry will go here as the data model evolves.
+            </p>
+
+            <dl class="anthology-meta-details">
+              <div>
+                <dt>Type</dt>
+                <dd id="anthology-overlay-kind">—</dd>
+              </div>
+              <div>
+                <dt>Target</dt>
+                <dd id="anthology-overlay-target-label">—</dd>
+              </div>
+            </dl>
+
+            <div class="anthology-meta-buttons">
+              <button class="meta-btn-pill" type="button">
+                <img src="assets/overlay-view.png" alt="View">
+              </button>
+              <button class="meta-btn-pill" type="button">
+                <img src="assets/overlay-actions.png" alt="Actions">
+              </button>
+            </div>
+          </div>
+
+          <!-- lower reserved region (empty for now, matches mock) -->
+          <div class="anthology-meta-lower"></div>
+        </aside>
+      </section>
+
+      <!-- Close + nav arrows -->
+      <button class="anthology-close" id="anthology-overlay-close" type="button">
+        <img src="assets/overlay-close.png" alt="Close overlay">
+      </button>
+
+      <button class="anthology-arrow anth-arrow-prev" id="anthology-overlay-prev" type="button">
+        <img src="assets/overlay-arrow-left.png" alt="Previous item">
+      </button>
+
+      <button class="anthology-arrow anth-arrow-next" id="anthology-overlay-next" type="button">
+        <img src="assets/overlay-arrow-right.png" alt="Next item">
+      </button>
+    </div>
+  </div>
 
   <script src="app.js"></script>
   <script src="script.js"></script>
