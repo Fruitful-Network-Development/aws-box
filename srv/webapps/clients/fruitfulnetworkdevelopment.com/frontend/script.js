@@ -1,7 +1,7 @@
 // /srv/webapps/clients/fruitfulnetworkdevelopment.com/frontend/script.js
 
 async function loadUserData() {
-  const response = await fetch('user_data.json');
+  const response = await fetch('/frontend/user_data.json');
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
