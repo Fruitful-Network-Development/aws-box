@@ -32,6 +32,19 @@
   └── trappfamilyfarm.com/
 └── [README](README.md)                   # <-- this file
 
+### Server Layout
+project-root/
+├── repo/
+│   └── srv/webapps/…      # Flask app and front‑end code
+├── deploy/
+│   ├── etc/nginx/…        # a local copy of the server’s /etc/nginx configuration
+│   └── srv/webapps/…      # a local copy of /srv/webapps from the server
+├── scripts/
+│   ├── pull_srv.sh
+│   ├── deploy_repo.sh
+│   └── deploy_etc.sh
+└── README.md
+
 ---
 
 ## Matenance Scipts
