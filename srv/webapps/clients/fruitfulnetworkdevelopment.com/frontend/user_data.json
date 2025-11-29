@@ -48,18 +48,11 @@
             "thumbnail": "assets/resume-preview.png"
           },
           {
-            "id": "demo-design-1",
+            "id": "demo",
             "kind": "url",
-            "title": "Demo Design 1",
-            "target": "/demo-design-1",
-            "thumbnail": null
-          },
-          {
-            "id": "demo-design-2",
-            "kind": "url",
-            "title": "Demo Design 2",
-            "target": "/demo-design-2",
-            "thumbnail": null
+            "title": "Demo Design",
+            "target": "webpages/demo/index.html",
+            "thumbnail": "assets/wrench.png"
           },
           {
             "id": "linkedin",
@@ -73,14 +66,14 @@
             "kind": "url",
             "title": "GitHub",
             "target": "https://github.com/dylcmonty",
-            "thumbnail": null
+            "thumbnail": "assets/github-preview.png"
           },
           {
             "id": "other-site",
             "kind": "url",
             "title": "Fruitful Network Dev",
             "target": "https://sites.google.com/view/fruitful-network-design/home",
-            "thumbnail": null
+            "thumbnail": "assets/google-cite-preview.png"
           }
         ]
       }
