@@ -46,26 +46,38 @@
 
 ---
 
-## How It Works
+## Matenance Scipts
 
-The lego-style, modular, snap-in component, website system has three major layers:
-- PRESENTATION LAYER (Client Frontend)
-- CONTENT LAYER (Client Data)
-- CONFIG LAYER (Client Feature Definitions)
+### pull_srv.sh
+The CloudPanel tutorial notes that rsync -a recursively copies directories, and adding --delete keeps the destination in sync by removing files that have been deleted from the source
+- Because we set the remote source path to /srv/webapps/, /etc remains untouched.
+    #!/bin/bash
+    set -e
+    REMOTE_USER="username"
+    REMOTE_HOST="your.server.com"
+    REMOTE_PATH="/srv/webapps/"
+    LOCAL_PATH="$(dirname "$0")/../deploy/srv/webapps/"
+    
+    # Use rsync in “pull” mode to copy from remote to local.  The -a flag preserves
+    # permissions/timestamps, -z compresses the transfer, and --delete removes
+    # local files that no longer exist remotely.
+    rsync -az --delete "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH" "$LOCAL_PATH"
 
-### How Pages Load Components
-
-### Pages
-
-### Widgets
-
-### Relationship Between Frontend + Backend
+### deploy_repo.sh
+You can customise these scripts further—use --exclude to skip certain directories or files, as the tutorial illustrates, and consider --dry-run (-n) while testing.
+    #!/bin/bash
+    set -e
+    REMOTE_USER="username"
+    REMOTE_HOST="your.server.com"
+    LOCAL_PATH="$(dirname "$0")/../repo/srv/webapps/"
+    REMOTE_PATH="/srv/webapps/"
+    
+    rsync -az --delete "$LOCAL_PATH" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH"
 
 ---
 
 ## Mycite Profile Framework
 
-### Overview
 The Mycite Profile Framework provides a unified data schema (user_data.json) and a standardized rendering layer defined at the repository root (index.html, style.css, app.js), which together establish a neutral, interoperable profile format.
 
 This format is deliberately designed so that:
