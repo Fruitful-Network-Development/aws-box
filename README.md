@@ -1,48 +1,36 @@
-# infra-aws-linux
-
-## Overview
-
----
+# aws-ec2-dev
 
 ## Project Layout
 
-- ├── /ect 
-  - └── nginx/
-    - ├── nginx.conf
-    - ├── sites-available/
-      - └── fruitfulnetwork.com.conf
-    - └── sites-enabled/
-      - └── fruitfulnetwork.com.conf
-- ├── /srv
-  - └── webapps/
-    - ├── platform/                         # shared Flask backend
-      - ├── app.py                          # main Flask app
-      - └── modules/                        # reusable backend "tools"
-        - └── __init__.py
-    - └── clients/
-          └── fruitfulnetwork.com/
-          │    ├── frontend/
-          │    │   ├── mycite.html
-          │    │   ├── style.css
-          │    │   ├── app.js
-          │    │   ├── script.js
-          │    │   ├── user_data.js
-          │    │   ├── webpage/
-          │    │   │   ├── home.html
-          │    │   │   ├── csa_browser.html
-          │    │   │   ├── happenings.html
-          │    │   │   ├── about_us.html
-          │    │   │   └── about_csa_program.html
-          │    │   └── assets/
-          │    │       └── imgs/
-          │    │           ├── profile.png
-          │    │           └── logo.jpeg
-          │    ├── data/
-          │    │   └── backend_data.json
-          │    └── config/
-          │        └── settings.json
-          └── trappfamilyfarm.com/
-- └── [README](README.md)                   # <-- this file
+├── /ect 
+  └── nginx/
+    ├── nginx.conf
+    ├── sites-available/
+      └── fruitfulnetwork.com.conf
+    └── sites-enabled/
+      └── fruitfulnetwork.com.conf
+├── /srv/webapps
+  ├── platform/
+    ├── app.py
+    └── modules/
+      └── __init__.py
+  └── clients/
+  └── fruitfulnetwork.com/
+    ├── frontend/
+      ├── mycite.html
+      ├── style.css
+      ├── app.js
+      ├── script.js
+      ├── user_data.js
+      ├── assets/...
+      └── webpage/
+        ├── demo/...
+    ├── data/
+      └── backend_data.json
+    └── config/
+      └── settings.json
+  └── trappfamilyfarm.com/
+└── [README](README.md)                   # <-- this file
 
 ---
 
