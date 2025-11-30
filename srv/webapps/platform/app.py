@@ -141,6 +141,14 @@ def fetch_remote_json(url: str) -> dict:
 # Frontend routes (per-client HTML + static assets)
 # -------------------------------------------------------------------
 
+# Which clients should be read from the local filesystem instead of remote HTTP?
+# Useful for development when the real domain is not live yet.
+LOCAL_PROXY_CLIENTS = {
+    "trappfamilyfarm.com": True,
+    # add others here as needed, or set to False when the real domain goes live
+}
+
+
 @app.route("/proxy/<path:client_slug>/user_data.json")
 def proxy_user_data(client_slug):
     """
