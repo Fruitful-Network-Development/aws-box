@@ -130,32 +130,41 @@ def get_default_page(settings: dict) -> str:
 
     abort(404)
 
-def fetch_remote_json(url):
-    """Fetch JSON from a remote URL using urllib."""
-    try:
-        resp = urlopen(url)
-        # Only proceed if we get HTTP 200 (OK)
-        if resp.getcode() == 200:
-            # Decode bytes and parse JSON:contentReference[oaicite:3]{index=3}.
-            return json.loads(resp.read().decode('utf-8'))
-    except Exception as exc:
-        raise RuntimeError(f'Could not fetch {url}: {exc}')
-
-    raise RuntimeError(f'Non‑200 response for {url}')
+def fetch_remote_json(url: str) -> dict:
+    from urllib.request import urlopen
+    resp = urlopen(url)
+    if resp.getcode() != 200:
+        raise RuntimeError(f"Non-200 response from {url}: {resp.getcode()}")
+    return json.loads(resp.read().decode("utf-8"))
 
 # -------------------------------------------------------------------
 # Frontend routes (per-client HTML + static assets)
 # -------------------------------------------------------------------
 
-@app.route('/proxy/<path:client_slug>/user_data.json')
+@app.route("/proxy/<path:client_slug>/user_data.json")
 def proxy_user_data(client_slug):
     """
-    Fetch a user_data.json file from another site and return it as JSON.
-    A client_slug like 'example.com' will be turned into
-    'https://example.com/frontend/user_data.json'.  Adjust the URL pattern
-    if your client sites expose the JSON elsewhere.
+    For some clients (e.g. trappfamilyfarm.com) we read user_data.json locally
+    from /srv/webapps/clients/<client>/frontend/user_data.json.
+
+    For others, we fall back to an HTTP fetch like:
+      https://<client>/frontend/user_data.json
     """
-    remote_url = f'https://{client_slug}/frontend/user_data.json'
+    # 1) local mode for dev / when domain isn't live yet
+    if LOCAL_PROXY_CLIENTS.get(client_slug):
+        paths = get_client_paths(client_slug)
+        settings = load_client_settings(client_slug, paths=paths)
+        frontend_dir = settings["_frontend_dir"]
+        user_data_path = frontend_dir / "user_data.json"
+
+        if not user_data_path.exists():
+            abort(404, description=f"user_data.json not found for {client_slug}")
+
+        data = load_json(user_data_path)
+        return jsonify(data)
+
+    # 2) default: remote HTTP mode (for when the domain is actually live)
+    remote_url = f"https://{client_slug}/frontend/user_data.json"
     try:
         data = fetch_remote_json(remote_url)
     except Exception as e:
