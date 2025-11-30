@@ -134,7 +134,7 @@ http {
 
 ```
 
-### ~deploy/etc/nginx/nginx.conf
+### ~deploy/etc/nginx/sites-available/fruitfulnetworkdevelopment.com.conf
 ```bash
 # /etc/nginx/sites-available/fruitfulnetworkdevelopment.com.conf
 
@@ -178,6 +178,48 @@ server {
     # }
 
     # Everything else → shared Flask backend
+    location / {
+        include proxy_params;
+        proxy_pass http://127.0.0.1:8000;
+        proxy_redirect off;
+    }
+}
+```
+### ~deploy/etc/nginx/sites-available/cuyahogaterravita.com.conf
+```bash
+# /etc/nginx/sites-available/cuyahogaterravita.com.com.conf
+# HTTP → HTTPS
+server {
+    listen 80;
+    listen [::]:80;
+    server_name cuyahogaterravita.com www.cuyahogaterravita.com;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    return 301 https://$host$request_uri;
+}
+
+# HTTPS: proxy everything to Flask
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name cuyahogaterravita.com www.cuyahogaterravita.com;
+
+    ssl_certificate     /etc/letsencrypt/live/cuyahogaterravita.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/cuyahogaterravita.com/privkey.pem;
+    include             /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam         /etc/letsencrypt/ssl-dhparams.pem;
+
+    access_log /var/log/nginx/cuyahogaterravita.access.log;
+    error_log  /var/log/nginx/cuyahogaterravita.error.log;
+
+    # If you end up serving some static files for this domain, you can set a root:
+    # root /srv/webapps/clients/cuyahogaterravita.com/frontend;
+    # index index.html;
+
+    # For Option B: send ALL traffic to the shared Flask backend
     location / {
         include proxy_params;
         proxy_pass http://127.0.0.1:8000;
