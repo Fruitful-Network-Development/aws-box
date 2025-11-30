@@ -146,7 +146,8 @@ def fetch_remote_json(url: str) -> dict:
 # False to force remote fetching once the live domain is available.
 LOCAL_PROXY_CLIENTS = {
     "trappfamilyfarm.com": True,
-    "fruitfulnetworkdevelopment.com",
+    # The real domain is live, so fetch remotely instead of using local files.
+    "fruitfulnetworkdevelopment.com": False,
     # add others here as needed
 }
 
