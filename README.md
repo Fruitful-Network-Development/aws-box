@@ -84,35 +84,35 @@ LOCAL_PROXY_CLIENTS = { "trappfamilyfarm.com": True }
 ## Matenance Scipts
 
 ### ~/script/update_repo.sh
-    #!/bin/bash
-    set -euo pipefail
-    PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-    cd "$PROJECT_ROOT/repo"
-    git pull
+```bash
+#!/bin/bash
+set -euo pipefail
+PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$PROJECT_ROOT/repo"
+git pull
+```
 
 ### ~/script/update_repo.sh
-    #!/bin/bash
-    set -euo pipefail
-    
-    # Project root = one level up from scripts/
-    PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-    
-    SRC="$PROJECT_ROOT/repo/srv/"
-    DST="$PROJECT_ROOT/deploy/srv/"
-    
-    # Make sure source exists
-    if [ ! -d "$SRC" ]; then
-      echo "Source path does not exist: $SRC"
-      exit 1
-    fi
-    
-    # Ensure destination exists
-    mkdir -p "$DST"
-    
-    # Sync repo/srv -> deploy/srv
-    rsync -az --delete "$SRC" "$DST"
-    
-    echo "Deployed: $SRC  -->  $DST"
+```bash
+#!/bin/bash
+set -euo pipefail
+
+PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+
+SRC="$PROJECT_ROOT/repo/srv/webapps/"
+DST="/srv/webapps/"
+
+# Make sure source exists
+if [ ! -d "$SRC" ]; then
+  echo "Source path does not exist: $SRC"
+  exit 1
+fi
+
+echo "Syncing $SRC -> $DST ..."
+sudo rsync -az --delete "$SRC" "$DST"
+
+echo "Deployed: $SRC  -->  $DST"
+```
 
 ---
 
