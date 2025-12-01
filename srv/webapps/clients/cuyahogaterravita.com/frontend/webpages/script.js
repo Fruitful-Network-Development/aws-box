@@ -47,3 +47,25 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+// WEATHER WIDGET DEMO
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("weather-btn");
+  if (!btn) return; // widget not on page
+
+  btn.addEventListener("click", () => {
+    const lat = document.getElementById("weather-lat").value;
+    const lon = document.getElementById("weather-lon").value;
+
+    fetch(`/api/weather/daily?lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}&days=3&past_days=2`)
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById("weather-output").textContent =
+          JSON.stringify(data, null, 2);
+      })
+      .catch(err => {
+        document.getElementById("weather-output").textContent =
+          "Error:\n" + err;
+      });
+  });
+});
+
