@@ -1,24 +1,302 @@
-<!-- WEATHER WIDGET DEMO -->
-<section class="weather-widget">
-  <div class="weather-container">
-    <h2>Local Weather (Demo)</h2>
-
-    <div class="weather-form">
-      <label>
-        Latitude:
-        <input id="weather-lat" value="41.0814">
-      </label>
-
-      <label>
-        Longitude:
-        <input id="weather-lon" value="-81.5190">
-      </label>
-
-      <button id="weather-btn" class="btn btn-primary">
-        Fetch Weather
-      </button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Front 9 Farms</title>
+  <!-- Link to our compiled stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!--
+    -----------------------------------------------------------------------------
+    HEADER
+    The top bar reflects the simplified navigation shown in the mock‑up.  It
+    contains a menu button on the left, the company logo centered and a pair of
+    utility buttons (search and cart) on the right.  The header remains fixed
+    at the top of the page on scroll and uses a light background to contrast
+    against the dark hero image.
+  -->
+  <header class="site-header">
+    <div class="header-inner container">
+      <button class="menu-toggle" aria-label="Open navigation">☰</button>
+      <a href="#" class="site-logo" aria-label="Front 9 Farms Home">
+        <!-- If no logo image is available this text will still appear -->
+        <img src="assets/logo.png" alt="Front 9 Farms logo">
+      </a>
+      <div class="header-icons">
+        <button class="search-btn" aria-label="Search">🔍</button>
+        <button class="cart-btn" aria-label="View cart">🛒</button>
+      </div>
     </div>
+  </header>
 
-    <pre id="weather-output"></pre>
-  </div>
-</section>
+  <!--
+    -----------------------------------------------------------------------------
+    HERO
+    The hero section uses the splash-page image as its background.  An overlay
+    tint and large heading emphasise the brand message.  A tagline precedes
+    the heading and a pair of call‑to‑action buttons encourage visitors to
+    learn more or sign up for the CSA.  The hero is vertically centred and
+    spans most of the viewport height.
+  -->
+  <section class="hero" style="background-image: url('assets/splash-page-img.png');">
+    <div class="hero-overlay"></div>
+    <div class="hero-content container">
+      <span class="hero-tagline">FRONT 9 FARMS</span>
+      <h1 class="hero-heading">Community Service<br>Agriculture</h1>
+      <p class="hero-subheading">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat.
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" id="learn-more-btn">Learn More</button>
+        <button class="btn btn-secondary" id="csa-signup-btn">CSA Sign Up</button>
+      </div>
+    </div>
+  </section>
+
+  <!--
+    -----------------------------------------------------------------------------
+    FEATURED SECTIONS
+    Two feature cards showcase seasonal produce and the Thanksgiving holiday.
+    Images are tinted with a warm overlay.  A secondary row below provides
+    supporting text and links to browse selection or learn more.
+  -->
+  <section class="features">
+    <div class="feature-grid container">
+      <!-- Produce In Season Card -->
+      <article class="feature-card produce-card">
+        <div class="feature-img" style="background-image: url('assets/produce-in-season.png');"></div>
+        <div class="feature-info">
+          <h2>Produce in Season</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </article>
+      <!-- Thanksgiving Card -->
+      <article class="feature-card thanksgiving-card">
+        <div class="feature-img" style="background-image: url('assets/thanksgiving.png');"></div>
+        <div class="feature-info">
+          <h2>Thanksgiving</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </article>
+    </div>
+    <!-- Feature descriptions with links -->
+    <div class="feature-details container">
+      <div class="detail-block">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+          veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+          commodo consequat.
+        </p>
+        <a href="#" class="detail-link">Browse Our Selection</a>
+      </div>
+      <div class="detail-block">
+        <p>
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+          dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident.
+        </p>
+        <a href="#" class="detail-link">See More</a>
+      </div>
+    </div>
+  </section>
+
+  <!--
+    -----------------------------------------------------------------------------
+    NOW IN SEASON / CSA PROGRAM
+    A small section label introduces the CSA programme.  A large card spans the
+    full width of the layout and contains the programme heading and CTA.  Below
+    it three equal cards link to This Week's Haul, Recipes and Shop Online.  All
+    cards use their respective background images with a colour overlay.
+  -->
+  <section class="csa-section">
+    <div class="section-tag container">Now in Season</div>
+    <div class="csa-grid container">
+      <!-- Main CSA card -->
+      <div class="csa-card csa-main" style="background-image: url('assets/our-csa-program.png');">
+        <div class="csa-overlay"></div>
+        <div class="csa-content">
+          <h2>Our CSA Program</h2>
+          <button class="btn btn-secondary" id="csa-signup-btn-2">CSA Sign Up</button>
+        </div>
+      </div>
+      <!-- Secondary cards -->
+      <a href="#" class="csa-card" style="background-image: url('assets/this-weeks-haul.png');">
+        <div class="csa-overlay"></div>
+        <h3>This Week’s Haul</h3>
+      </a>
+      <a href="#" class="csa-card" style="background-image: url('assets/recipes.png');">
+        <div class="csa-overlay"></div>
+        <h3>Recipes</h3>
+      </a>
+      <a href="#" class="csa-card" style="background-image: url('assets/shop-online.png');">
+        <div class="csa-overlay"></div>
+        <h3>Shop Online</h3>
+      </a>
+    </div>
+  </section>
+
+  <!--
+    -----------------------------------------------------------------------------
+    WEATHER WIDGET
+    This section illustrates a weather component with current conditions on the
+    left and placeholder tiles on the right for future expansion.  Each value
+    could be dynamically replaced by a real weather API, but for now static
+    values are displayed.  The layout is designed to match the reference with
+    a large temperature reading and supporting details.
+  -->
+  <section class="weather-widget">
+    <div class="weather-container container">
+      <!-- Left side: current conditions -->
+      <div class="weather-left" id="weather-display">
+        <div class="weather-header">
+          <div class="weather-location" id="weather-location">Hagen, Germany</div>
+          <div class="weather-icon" aria-hidden="true">☀️</div>
+        </div>
+        <div class="weather-date" id="weather-date">Sunday, 23 April</div>
+        <div class="weather-temp" id="weather-temp">17°</div>
+        <ul class="weather-meta">
+          <li><span>Feels like:</span> <span id="weather-feels">15°</span></li>
+          <li><span>Humidity:</span> <span id="weather-humidity">81%</span></li>
+          <li><span>Visibility:</span> <span id="weather-visibility">11 km</span></li>
+          <li><span>Sunrise:</span> <span id="weather-sunrise">06:18 a.m.</span></li>
+          <li><span>Sunset:</span> <span id="weather-sunset">08:39 p.m.</span></li>
+          <li><span>Wind:</span> <span id="weather-wind">18 km/h SW</span></li>
+          <li><span>Pressure:</span> <span id="weather-pressure">1001 hPa</span></li>
+          <li><span>UV:</span> <span id="weather-uv">0 low</span></li>
+        </ul>
+        <div class="weather-hourly">
+          <div class="hour"><span>Now</span><span class="icon">☁️</span><span>8°</span></div>
+          <div class="hour"><span>11:00</span><span class="icon">🌦️</span><span>9°</span></div>
+          <div class="hour"><span>12:00</span><span class="icon">☀️</span><span>10°</span></div>
+          <div class="hour"><span>01:00</span><span class="icon">🌥️</span><span>10°</span></div>
+          <div class="hour"><span>02:00</span><span class="icon">🌦️</span><span>9°</span></div>
+          <div class="hour"><span>03:00</span><span class="icon">☁️</span><span>8°</span></div>
+          <div class="hour"><span>04:00</span><span class="icon">🌧️</span><span>7°</span></div>
+        </div>
+      </div>
+      <!-- Right side: placeholders for future content -->
+      <div class="weather-right">
+        <div class="weather-placeholder"></div>
+        <div class="weather-placeholder"></div>
+      </div>
+    </div>
+  </section>
+
+  <!--
+    -----------------------------------------------------------------------------
+    INFORMATION BLOCKS
+    Three columns describe the farm’s offerings and expectations.  Each block
+    includes an image at the top with a coloured overlay, followed by a title,
+    description and link.  The dark background of the section ties into the
+    colour palette of the header and hero.
+  -->
+  <section class="info-blocks">
+    <div class="info-grid container">
+      <article class="info-item">
+        <div class="info-img" style="background-image: url('assets/what-we-sell.png');"></div>
+        <h3>What We Sell</h3>
+        <p>
+          Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+          nisi ut aliquip ex ea commodo consequat.
+        </p>
+        <a href="#" class="read-more">Read More</a>
+      </article>
+      <article class="info-item">
+        <div class="info-img" style="background-image: url('assets/what-you-can-expect.png');"></div>
+        <h3>What You Can Expect</h3>
+        <p>
+          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+          ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate.
+        </p>
+        <a href="#" class="read-more">Read More</a>
+      </article>
+      <article class="info-item">
+        <div class="info-img" style="background-image: url('assets/where-well-be.png');"></div>
+        <h3>Where We'll Be</h3>
+        <p>
+          Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+          enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+          ut aliquip ex ea commodo consequat.
+        </p>
+        <a href="#" class="read-more">Read More</a>
+      </article>
+    </div>
+  </section>
+
+  <!--
+    -----------------------------------------------------------------------------
+    FOOTER
+    The footer consolidates navigation links and subscription form.  It is split
+    into a top area with the site brand, three columns of links and a sign‑up
+    form, and a bottom bar with copyright information.  The background image
+    provides a subtle texture and links reuse the palette established above.
+  -->
+  <footer class="site-footer" style="background-image: url('assets/footer-img.png');">
+    <div class="footer-top container">
+      <div class="footer-brand">
+        <p class="footer-logo">Front 9 Farms</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">🧭</a>
+          <a href="#" aria-label="Instagram">📸</a>
+          <a href="#" aria-label="Twitter">🐦</a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>About</h4>
+          <ul>
+            <li><a href="#">Learn More</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Our Story</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Join the Mission</h4>
+          <ul>
+            <li><a href="#">Jobs</a></li>
+            <li><a href="#">Giftcards</a></li>
+            <li><a href="#">Events</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">Farmers Markets</a></li>
+            <li><a href="#">Calendar</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-newsletter">
+        <h4>Join Our Family</h4>
+        <p>Subscribe for store updates, exclusive discounts, and more!</p>
+        <form id="newsletter-form">
+          <input type="email" placeholder="Email address" aria-label="Your email address">
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>© 2025 Front 9 Farm. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!--
+    -----------------------------------------------------------------------------
+    SCRIPTS
+    A single script handles button events and populates the weather values.  In
+    a production environment these values would be replaced by calls to a
+    real weather service.  For accessibility, the script executes after the
+    document is loaded.
+  -->
+  <script src="script.js"></script>
+</body>
+</html>
