@@ -7,6 +7,7 @@ import requests
 from flask import Flask, request, jsonify, send_from_directory, abort, redirect, url_for
 from client_context import CLIENTS_ROOT, get_client_slug, get_client_paths
 from data_access import load_json  # save_json not needed here
+from modules.weather import weather_bp
 
 app = Flask(__name__)
 
@@ -195,6 +196,15 @@ def get_default_page(settings: dict) -> str:
 
     abort(404)
 
+
+# -------------------------------------------------------------------
+# API routes
+# -------------------------------------------------------------------
+
+
+app.register_blueprint(weather_bp)
+
+
 @app.route("/proxy/<path:client_slug>/user_data.json")
 def proxy_user_data(client_slug):
     """Fetch remote user_data.json with consistent error handling."""
@@ -241,6 +251,7 @@ def proxy_user_data(client_slug):
 
     return jsonify(data)
 
+
 @app.route('/profiles/<path:client_slug>')
 def profiles(client_slug):
     """
@@ -249,6 +260,7 @@ def profiles(client_slug):
     proxied user_data.json.
     """
     return redirect(url_for('mysite_view') + f'?external={client_slug}')
+
 
 @app.route("/")
 def client_root():
@@ -280,6 +292,7 @@ def directory_listing():
     user_map = get_user_map(force_refresh=True)
     return jsonify({"users": user_map})
 
+
 @app.route('/<user_id>')
 def user_profile(user_id):
     """
@@ -292,7 +305,6 @@ def user_profile(user_id):
     if not client:
         abort(404)
     return redirect(url_for('mysite_view') + f'?external={client}')
-
 
 
 @app.route("/mysite")
@@ -375,6 +387,7 @@ def client_frontend_static(static_path: str):
 
     return serve_client_file(settings["_frontend_dir"], static_path)
 
+
 @app.route("/<path:filename>")
 def client_catch_all(filename: str):
     """
@@ -402,10 +415,6 @@ def client_catch_all(filename: str):
 
     return serve_client_file(settings["_frontend_dir"], filename)
 
-
-# -------------------------------------------------------------------
-# API routes
-# -------------------------------------------------------------------
 
 @app.route("/api/health")
 def health():
