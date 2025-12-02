@@ -240,8 +240,9 @@ server {
     error_log  /var/log/nginx/cuyahogaterravita.error.log;
 
     # ---- STATIC ROOT ----
-    # This is where index.html lives
-    root /srv/webapps/clients/cuyahogaterravita.com/frontend/webpages;
+    # Serve the built frontend directly from its project root so
+    # /index.html and other assets resolve correctly.
+    root /srv/webapps/clients/cuyahogaterravita.com/frontend;
     index index.html;
 
     # ---- ASSETS ALIAS (Option A) ----
