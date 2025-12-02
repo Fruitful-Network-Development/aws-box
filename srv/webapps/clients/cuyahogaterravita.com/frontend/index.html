@@ -1,3 +1,4 @@
+<!-- /srv/webapps/clients/cuyahogaterravita.com/frontend/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,302 +6,337 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cuyahoga Terravita</title>
   <!-- Link to our compiled stylesheet -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/frontend/styles.css">
 </head>
 <body>
-  <!--
-    -----------------------------------------------------------------------------
-    HEADER
-    The top bar reflects the simplified navigation shown in the mock‑up.  It
-    contains a menu button on the left, the company logo centered and a pair of
-    utility buttons (search and cart) on the right.  The header remains fixed
-    at the top of the page on scroll and uses a light background to contrast
-    against the dark hero image.
-  -->
-  <header class="site-header">
-    <div class="header-inner container">
-      <button class="menu-toggle" aria-label="Open navigation">☰</button>
-      <a href="#" class="site-logo" aria-label="Cuyahoga Terravita Home">
-        <!-- If no logo image is available this text will still appear -->
-        <img src="frontend/assets/icon-menue.png" alt="Cuyahoga Terravita logo">
-      </a>
-      <div class="header-icons">
-        <button class="search-btn" aria-label="Search">
-          <img src="frontend/assets/icon-search.png" alt="search">
-        </button>
-        <button class="cart-btn" aria-label="View cart">
-          <img src="frontend/assets/icon-basket.png" alt="search">
-        </button>
-      </div>
-    </div>
-  </header>
+  <main class="content-area">
+    <div class="content-inner">
+      
+      
+      <!-- HEADER (top-adjacent) -->
+      <header class="page-header section-block">
+        <div class="header-main-row">
+          <button class="header-icon" type="button">
+            <img src="/frontend/assets/icon-menu.png" alt="Menu">
+          </button>
+          
+          <img src="/frontend/assets/mycite-logo.png" class="header-logo" alt="Logo">
 
-  <!--
-    -----------------------------------------------------------------------------
-    HERO
-    The hero section uses the splash-page image as its background.  An overlay
-    tint and large heading emphasise the brand message.  A tagline precedes
-    the heading and a pair of call‑to‑action buttons encourage visitors to
-    learn more or sign up for the CSA.  The hero is vertically centred and
-    spans most of the viewport height.
-  -->
-  <section class="hero" style="background-image: url('frontend/assets/web-splash-page-img.png');">
-    <div class="hero-overlay"></div>
-    <div class="hero-content container">
-      <span class="hero-tagline">CUYAHOGA TERRAVITA</span>
-      <h1 class="hero-heading">Community Service<br>Agriculture</h1>
-      <p class="hero-subheading">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat.
-      </p>
-      <div class="hero-actions">
-        <button class="btn btn-primary" id="learn-more-btn">Learn More</button>
-        <button class="btn btn-secondary" id="csa-signup-btn">CSA Sign Up</button>
-      </div>
-    </div>
-  </section>
+          <div class="header-title-group">
+            <span class="header-title">Cuyahoga Terravita Home</span>
+            <span class="header-subtitle">Fruitful Network Development</span>
+          </div>
+          
+          <button class="header-logo" type="button">
+            <img src="/frontend/assets/web-logo.png" alt="Home">
+          </button>
 
-  <!--
-    -----------------------------------------------------------------------------
-    FEATURED SECTIONS
-    Two feature cards showcase seasonal produce and the Thanksgiving holiday.
-    Images are tinted with a warm overlay.  A secondary row below provides
-    supporting text and links to browse selection or learn more.
-  -->
-  <section class="features">
-    <div class="feature-grid container">
-      <!-- Produce In Season Card -->
-      <article class="feature-card produce-card">
-        <div class="feature-img" style="background-image: url('frontend/assets/web-produce-in-season.png');"></div>
-        <div class="feature-info">
-          <h2>Produce in Season</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <form class="header-search" onsubmit="return false;">
+            <input type="text" class="search-input">
+            <button type="submit" class="search-button">
+              <img src="/frontend/assets/icon-search.png" alt="Search">
+              <span class="search-button-text">Search</span>
+            </button>
+          </form>
+          
+          <button class="basket-icon" type="button">
+            <img src="/frontend/assets/icon-basket.png" alt="Cart">
+          </button>
         </div>
-      </article>
-      <!-- Thanksgiving Card -->
-      <article class="feature-card thanksgiving-card">
-        <div class="feature-img" style="background-image: url('frontend/assets/web-thanksgiving.png');"></div>
-        <div class="feature-info">
-          <h2>Thanksgiving</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </header>
+      
+      
+      <!-- MAIN CONTENT AREA: hero section and main section column -->
+      <section class="section-block main">
+        <section class="hero">
+          <div class="hero-splash" type="background-image">
+            <img src="frontend/assets/web-splash-page-img.png">
+          </div>
+          
+          <div class="hero-overlay"></div>
+          
+            <div class="hero-content container">
+              <span class="hero-tagline">CUYAHOGA TERRAVITA</span>
+              <h1 class="hero-heading">Community Service<br>Agriculture</h1>
+              <div class="header-line-divide"></div>
+              <p class="hero-subheading">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+              veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+              commodo consequat.
+              </p>
+              <p class="hero-subheading">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+              veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+              commodo consequat.
+              </p>
+              <div class="hero-actions">
+                <button class="hero-button" type="secondary">CSA SIGNUP</button>
+                <button class="hero-button" type="secondary">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <section class="hero-footer-section">
+          <div class="float-img" type="captioned_image">
+            <img src="frontend/assets/web-produce-in-season.png'">
+            <h2>Produce in Season</h2>
+            <div class="header-line-divide"></div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button class="hero-footer-button">Browse Our Selection</button>
+          </div>
+          
+          <div class="float-img" type="captioned_image">
+            <img src="frontend/assets/web-thanksgiving.png">
+            <h2>Thanksgiving</h2>
+            <div class="header-line-divide"></div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button class="hero-footer-button">See More</button>
+          </div>
+        </section>
+        
+        <!-- Feature descriptions with links -->
+        <section class="feature-details container">
+          <div class="detail-block">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+              veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+              commodo consequat.
+            </p>
+            <a href="#" class="detail-link">Browse Our Selection</a>
+          </div>
+          <div class="detail-block">
+            <p>
+              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+              dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+              proident.
+            </p>
+            <a href="#" class="detail-link">See More</a>
+          </div>
+        </section>
+      </section>
+      
+      <!-- Featured current Happenings with links -->
+      <section class="section-block set-in">
+        <div class="long-set-in-float">
+          <div class="float-img">
+            <img src="frontend/assets/web-our-csa-program.png'">
+            <h2>OUR CSA PROGRAM</h2>
+            <button class="float-button" type="secondary">CSA SIGNUP</button>
+          </div>
         </div>
-      </article>
-    </div>
-    <!-- Feature descriptions with links -->
-    <div class="feature-details container">
-      <div class="detail-block">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-          veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-          commodo consequat.
-        </p>
-        <a href="#" class="detail-link">Browse Our Selection</a>
-      </div>
-      <div class="detail-block">
-        <p>
-          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-          dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident.
-        </p>
-        <a href="#" class="detail-link">See More</a>
-      </div>
-    </div>
-  </section>
+      
+        <div class="short-set-in-float">
+          <div class="float-img detail-link" href="#">
+            <img src="frontend/assets/web-this-weeks-haul.png">
+            <h2>THIS WEEK'S HAUL</h2>
+          </div>
+          
+          <div class="float-img detail-link" href="#">
+            <img src="frontend/assets/web-recipes.png">
+            <h2>RECIPES</h2>
+          </div>
+          
+          <div class="float-img detail-link" href="#">
+            <img src="frontend/assets/web-shop-online.png">
+            <h2>SHOP ONLINE</h2>
+          </div>
+        </div>
+      </section>
+      
+      <!-- WEATHER WIDGET
+      This section illustrates a weather component with current conditions on 
+      the left and placeholder tiles on the right for future expansion.  Each 
+      value could be dynamically replaced by a real weather API, but for now 
+      static values are displayed.  The layout is designed to match the 
+      reference with a large temperature reading and supporting details.
+      -->
+      <section class="section-block charcoal-set-in">
+        <div class="weather-container container">
+          <!-- Left side: current conditions -->
+          <div class="weather-left">
+            <div class="weather-header">
+              <div class="weather-location" id="weather-location">Peninsula, Ohio</div>
+            </div>
+            <div class="weather-date" id="weather-date"><span id="current-date" class="meta-date"></span></div>
+            <div class="weather-temp" id="weather-temp"><span id="current-temp" class="meta-temp"></span></div>
+            <ul class="weather-meta">
+              <li><span>Feels like:</span><ul class="feels" data-slot=""><li>Loading...</li></ul></span></li>
+              <li><span>Humidity:</span><ul class="humidity" data-slot=""><li>Loading...</li></ul></span></li>
+              <li><span>Visibility:</span><ul class="visibility" data-slot=""><li>Loading...</li></ul></span></li>
+              <li><span>Sunrise:</span><ul class="sunrise" data-slot=""><li>Loading...</li></ul></span></li>
+              <li><span>Sunset:</span><ul class="sunset" data-slot=""><li>Loading...</li></ul></span></li>
+              <li><span>Wind:</span><ul class="wind" data-slot=""><li>Loading...</li></ul></span></li>
+              <li><span>Pressure:</span><ul class="pressure" data-slot=""><li>Loading...</li></ul></span></li>
+              <li><span>UV:</span><ul class="uv" data-slot=""><li>Loading...</li></ul></span></li>
+            </ul>
+          </div>
+          
+          <div class="weather-right">
+            <!-- Right side top: hourly weather -->
+            <div class="weather-left-top">
+              <div class="weather-hourly">
+              <div class="hour"><span> Now </span><span class="icon">
+                <img src="frontend/assets/web-this-weeks-haul.png">
+              </span><span id="now-weather"></span></div>
+              <div class="hour"><span>11:00</span><span class="icon">
+              
+              </span id="11-weather"><span</span></div>
+              <div class="hour"><span>12:00</span><span class="icon">
+              
+              </span id="now-weather"></span></div>
+              <div class="hour"><span>01:00</span><span class="icon">
+              
+              </span id="now-weather"></span></div>
+              <div class="hour"><span>02:00</span><span class="icon">
+              
+              </span id="now-weather"></span></div>
+              <div class="hour"><span>03:00</span><span class="icon">
+              
+              </span id="now-weather"></span></div>
+              <div class="hour"><span>04:00</span><span class="icon">
+              
+              </span id="now-weather"></span></div>
+              </div>
+            </div>
+            
+            <!-- Right side bottom: query API content -->
+            <div class="weather-left-bottom">
+              <form class="weather-query" onsubmit="HERE">
+                <input type="text" class="query-input">
+                <button type="submit" class="search-button">
+                  <img src="/frontend/assets/icon-search.png" alt="Query">
+                  <span class="query-button-text">Query</span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
 
-  <!--
-    -----------------------------------------------------------------------------
-    NOW IN SEASON / CSA PROGRAM
-    A small section label introduces the CSA programme.  A large card spans the
-    full width of the layout and contains the programme heading and CTA.  Below
-    it three equal cards link to This Week's Haul, Recipes and Shop Online.  All
-    cards use their respective background images with a colour overlay.
-  -->
-  <section class="csa-section">
-    <div class="section-tag container">Now in Season</div>
-    <div class="csa-grid container">
-      <!-- Main CSA card -->
-      <div class="csa-card csa-main" style="background-image: url('frontend/assets/web-our-csa-program.png');">
-        <div class="csa-overlay"></div>
-        <div class="csa-content">
-          <h2>Our CSA Program</h2>
-          <button class="btn btn-secondary" id="csa-signup-btn-2">CSA Sign Up</button>
+      <!-- INFORMATION BLOCKS - describe the farm’s offerings and expectations-->
+      <section class="section-block green-set-in">
+        <div class="short-set-in-float grayed">
+          <div class="float-img">
+            <img src="rontend/assets/web-what-we-sell.png">
+            <h4>What We Sell</h4>
+            <p>
+              Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </p>
+            <a href="#" class="detail-link">Read More</a>
+          </div>
+          
+          <div class="float-img">
+            <img src="frontend/assets/web-what-you-can-expect.png">
+            <h4>What You Can Expect</h4>
+            <p>
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+              ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate.
+            </p>
+            <a href="#" class="detail-link">Read More</a>
+          </div>
+          
+          <div class="float-img">
+            <img src="frontend/assets/web-where-well-be.png">
+            <h4>Where We'll Be</h4>
+            <p>
+              Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+              ut aliquip ex ea commodo consequat.
+            </p>
+            <a href="#" class="detail-link">Read More</a>
+          </div>
         </div>
-      </div>
-      <!-- Secondary cards -->
-      <a href="#" class="csa-card" style="background-image: url('frontend/assets/web-this-weeks-haul.png');">
-        <div class="csa-overlay"></div>
-        <h3>This Week’s Haul</h3>
-      </a>
-      <a href="#" class="csa-card" style="background-image: url('frontend/assets/web-recipes.png');">
-        <div class="csa-overlay"></div>
-        <h3>Recipes</h3>
-      </a>
-      <a href="#" class="csa-card" style="background-image: url('frontend/assets/web-shop-online.png');">
-        <div class="csa-overlay"></div>
-        <h3>Shop Online</h3>
-      </a>
-    </div>
-  </section>
+      </section>
 
-  <!--
-    -----------------------------------------------------------------------------
-    WEATHER WIDGET
-    This section illustrates a weather component with current conditions on the
-    left and placeholder tiles on the right for future expansion.  Each value
-    could be dynamically replaced by a real weather API, but for now static
-    values are displayed.  The layout is designed to match the reference with
-    a large temperature reading and supporting details.
+    </dev>
+  </main>
+  
+  <!--SCRIPTS: A single script handles button events and populates the 
+  weather values.  In a production environment these values would be 
+  replaced by calls to a real weather service.  For accessibility, the 
+  script executes after the document is loaded.
   -->
-  <section class="weather-widget">
-    <div class="weather-container container">
-      <!-- Left side: current conditions -->
-      <div class="weather-left" id="weather-display">
-        <div class="weather-header">
-          <div class="weather-location" id="weather-location">Hagen, Germany</div>
-          <div class="weather-icon" aria-hidden="true">☀️</div>
-        </div>
-        <div class="weather-date" id="weather-date">Sunday, 23 April</div>
-        <div class="weather-temp" id="weather-temp">17°</div>
-        <ul class="weather-meta">
-          <li><span>Feels like:</span> <span id="weather-feels">15°</span></li>
-          <li><span>Humidity:</span> <span id="weather-humidity">81%</span></li>
-          <li><span>Visibility:</span> <span id="weather-visibility">11 km</span></li>
-          <li><span>Sunrise:</span> <span id="weather-sunrise">06:18 a.m.</span></li>
-          <li><span>Sunset:</span> <span id="weather-sunset">08:39 p.m.</span></li>
-          <li><span>Wind:</span> <span id="weather-wind">18 km/h SW</span></li>
-          <li><span>Pressure:</span> <span id="weather-pressure">1001 hPa</span></li>
-          <li><span>UV:</span> <span id="weather-uv">0 low</span></li>
+  <script src="script.js"></script>
+  
+</body>
+
+<!--FOOTER: The footer consolidates navigation links and subscription form.
+It is split into a top area with the site brand, three columns of links 
+and a sign‑up form, and a bottom bar with copyright information. The 
+background image provides a subtle texture and links reuse the palette 
+established above-->
+<footer class="site-footer" type="background-image" src="frontend/assets/web-footer-img.png">
+  <div class="footer-top container">
+    <div class="footer-brand">
+      <p class="footer-logo">Cuyahoga Terravita</p>
+      <div class="footer-social">
+        <img src="frontend/assets/icon-facebook.png" alt="facebook">
+        <img src="frontend/assets/icon-instagram.png" alt="instagram">
+        <img src="frontend/assets/icon-twitter.png" alt="twitter">
+      </div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-column">
+        <h4>About</h4>
+        <ul>
+          <li>
+            <a href="#">Learn More</a>
+          </li>
+          <li>
+            <a href="#">FAQ</a>
+          </li>
+          <li>
+            <a href="#">Our Story</a>
+          </li>
         </ul>
-        <div class="weather-hourly">
-          <div class="hour"><span>Now</span><span class="icon">☁️</span><span>8°</span></div>
-          <div class="hour"><span>11:00</span><span class="icon">🌦️</span><span>9°</span></div>
-          <div class="hour"><span>12:00</span><span class="icon">☀️</span><span>10°</span></div>
-          <div class="hour"><span>01:00</span><span class="icon">🌥️</span><span>10°</span></div>
-          <div class="hour"><span>02:00</span><span class="icon">🌦️</span><span>9°</span></div>
-          <div class="hour"><span>03:00</span><span class="icon">☁️</span><span>8°</span></div>
-          <div class="hour"><span>04:00</span><span class="icon">🌧️</span><span>7°</span></div>
-        </div>
       </div>
-      <!-- Right side: placeholders for future content -->
-      <div class="weather-right">
-        <div class="weather-placeholder"></div>
-        <div class="weather-placeholder"></div>
+      <div class="footer-column">
+        <h4>Join the Mission</h4>
+        <ul>
+          <li>
+            <a href="#">Jobs</a>
+          </li>
+          <li>
+            <a href="#">Giftcards</a>
+          </li>
+          <li>
+            <a href="#">Events</a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Resources</h4>
+        <ul>
+          <li>
+            <a href="#">Farmers Markets</a>
+          </li>
+          <li>
+            <a href="#">Calendar</a>
+          </li>
+          <li>
+            <a href="#">Blog</a>
+          </li>
+        </ul>
       </div>
     </div>
-  </section>
-
-  <!--
-    -----------------------------------------------------------------------------
-    INFORMATION BLOCKS
-    Three columns describe the farm’s offerings and expectations.  Each block
-    includes an image at the top with a coloured overlay, followed by a title,
-    description and link.  The dark background of the section ties into the
-    colour palette of the header and hero.
-  -->
-  <section class="info-blocks">
-    <div class="info-grid container">
-      <article class="info-item">
-        <div class="info-img" style="background-image: url('frontend/assets/web-what-we-sell.png');"></div>
-        <h3>What We Sell</h3>
-        <p>
-          Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-          nisi ut aliquip ex ea commodo consequat.
-        </p>
-        <a href="#" class="read-more">Read More</a>
-      </article>
-      <article class="info-item">
-        <div class="info-img" style="background-image: url('frontend/assets/web-what-you-can-expect.png');"></div>
-        <h3>What You Can Expect</h3>
-        <p>
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-          ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate.
-        </p>
-        <a href="#" class="read-more">Read More</a>
-      </article>
-      <article class="info-item">
-        <div class="info-img" style="background-image: url('frontend/assets/web-where-well-be.png');"></div>
-        <h3>Where We'll Be</h3>
-        <p>
-          Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-          enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-          ut aliquip ex ea commodo consequat.
-        </p>
-        <a href="#" class="read-more">Read More</a>
-      </article>
-    </div>
-  </section>
-
-  <!--
-    -----------------------------------------------------------------------------
-    FOOTER
-    The footer consolidates navigation links and subscription form.  It is split
-    into a top area with the site brand, three columns of links and a sign‑up
-    form, and a bottom bar with copyright information.  The background image
-    provides a subtle texture and links reuse the palette established above.
-  -->
-  <footer class="site-footer" style="background-image: url('frontend/assets/web-footer-img.png');">
-    <div class="footer-top container">
-      <div class="footer-brand">
-        <p class="footer-logo">Cuyahoga Terravita</p>
-        <div class="footer-social">
-          <img src="frontend/assets/icon-facebook.png" alt="facebook">
-          <img src="frontend/assets/icon-instagram.png" alt="instagram">
-          <img src="frontend/assets/icon-twitter.png" alt="twitter">
-        </div>
-      </div>
-      <div class="footer-links">
-        <div class="footer-column">
-          <h4>About</h4>
-          <ul>
-            <li><a href="#">Learn More</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Our Story</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h4>Join the Mission</h4>
-          <ul>
-            <li><a href="#">Jobs</a></li>
-            <li><a href="#">Giftcards</a></li>
-            <li><a href="#">Events</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h4>Resources</h4>
-          <ul>
-            <li><a href="#">Farmers Markets</a></li>
-            <li><a href="#">Calendar</a></li>
-            <li><a href="#">Blog</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-newsletter">
-        <h4>Join Our Family</h4>
-        <p>Subscribe for store updates, exclusive discounts, and more!</p>
-        <form id="newsletter-form">
-          <input type="email" placeholder="Email address" aria-label="Your email address">
-          <button type="submit">Sign Up</button>
-        </form>
-      </div>
+    <div class="footer-newsletter">
+      <h4>Join Our Family</h4>
+      <p>Subscribe for store updates, exclusive discounts, and more!</p>
+      <form id="newsletter-form">
+        <input type="email" placeholder="Email address" aria-label="Your email address">
+        <button type="submit">Sign Up</button>
+      </form>
     </div>
     <div class="footer-bottom container">
       <p>© 2025 Cuyahoga Terravita. All rights reserved.</p>
     </div>
-  </footer>
-
-  <!--
-    -----------------------------------------------------------------------------
-    SCRIPTS
-    A single script handles button events and populates the weather values.  In
-    a production environment these values would be replaced by calls to a
-    real weather service.  For accessibility, the script executes after the
-    document is loaded.
-  -->
-  <script src="script.js"></script>
-</body>
+  </div>
+</footer>
 </html>
