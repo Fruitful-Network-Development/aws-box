@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const tempEl = document.getElementById('weather-temp');
   const feelsEl = document.getElementById('weather-feels');
   const humidityEl = document.getElementById('weather-humidity');
-  const visibilityEl = document.getElementById('weather-visibility');
+  const precipitationEl = document.getElementById('weather-precipitation');
   const sunriseEl = document.getElementById('weather-sunrise');
   const sunsetEl = document.getElementById('weather-sunset');
   const windEl = document.getElementById('weather-wind');
@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!payload || !payload.daily) return;
 
     const daily = payload.daily;
+    const precipitationUnit = payload.unit_system?.precipitation_sum || 'mm';
     const firstDay = {
       date: daily.time?.[0],
       tempMax: daily.temperature_max?.[0],
@@ -110,7 +111,12 @@ document.addEventListener('DOMContentLoaded', function() {
     setText(tempEl, firstDay.tempMax != null ? `${Math.round(firstDay.tempMax)}°` : '—');
     setText(feelsEl, firstDay.apparentMax != null ? `${Math.round(firstDay.apparentMax)}°` : '—');
     setText(humidityEl, '—');
-    setText(visibilityEl, firstDay.precipitation != null ? `${firstDay.precipitation} mm rain` : '—');
+    setText(
+      precipitationEl,
+      firstDay.precipitation != null
+        ? `${Math.round(firstDay.precipitation * 10) / 10} ${precipitationUnit}`
+        : '—'
+    );
     setText(sunriseEl, formatTime(firstDay.sunrise));
     setText(sunsetEl, formatTime(firstDay.sunset));
     setText(windEl, formatWind(firstDay.windspeed, firstDay.windDirection));
