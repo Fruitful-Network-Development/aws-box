@@ -1,8 +1,8 @@
 {
   "frontend_root": "frontend",
-  "default_view_mode": "mysite",
-  "mysite_page": "mycite.html",
-  "fallback_index": "mycite.html",
+  "default_view_mode": "auto",
+  "mysite_page": "index.html",
+  "fallback_index": "index.html",
   "webpage_dir": "webpages",
   "backend_data_file": "backend_data.json"
 }

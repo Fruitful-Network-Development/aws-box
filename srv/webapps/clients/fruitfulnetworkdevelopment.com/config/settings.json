@@ -1,7 +1,7 @@
 {
   "frontend_root": "frontend",
   "default_view_mode": "auto",
-  "mysite_page": "mycite.html",
+  "mysite_page": "index.html",
   "fallback_index": "index.html",
   "webpage_home": "webpages/home.html",
   "webpage_dir": "webpages",
