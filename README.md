@@ -70,8 +70,9 @@ The **Fruitful Network Development** site acts as a **central profile directory*
 
 ## Matenance Scipts
 
-### ~/scripts/update_repo.sh
+### update_repo.sh
 ```bash
+# scripts/update_repo.sh
 # !/bin/bash
 set -euo pipefail
 
@@ -84,8 +85,9 @@ git pull
 echo "Repo updated at: $REPO_DIR"
 ```
 
-### ~/scripts/deploy_repo.sh
+### deploy_repo.sh
 ```bash
+# scripts/deploy_repo.sh
 # !/bin/bash
 set -euo pipefail
 
@@ -106,8 +108,9 @@ sudo rsync -az --delete "$SRC" "$DST"
 echo "Deployed: $SRC  -->  $DST"
 ```
 
-### ~/scripts/deploy.sh
+### deploy.sh
 ```bash
+# scripts/deploy.sh
 #!/bin/bash
 set -euo pipefail
 cd "$(dirname "$0")"
