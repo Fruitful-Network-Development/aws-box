@@ -123,8 +123,9 @@ echo "Full deploy complete."
 
 ## Nginx
 
-### ~deploy/etc/nginx/nginx.conf
-```nginx.conf
+### nginx.conf
+```nginx
+# deploy/etc/nginx/nginx.conf
 user www-data;
 worker_processes auto;
 pid /run/nginx.pid;
@@ -147,8 +148,9 @@ http {
 
 ```
 
-### ~deploy/etc/nginx/sites-available/fruitfulnetworkdevelopment.com.conf
-```fruitfulnetworkdevelopment.com.conf
+### fruitfulnetworkdevelopment.com.conf
+```nginx
+# deploy/etc/nginx/sites-available/fruitfulnetworkdevelopment.com.conf
 # Redirect HTTP → HTTPS
 server {
     listen 80;
@@ -196,8 +198,9 @@ server {
     }
 }
 ```
-### ~deploy/etc/nginx/sites-available/cuyahogaterravita.com.conf
-```cuyahogaterravita.com.conf
+### cuyahogaterravita.com.conf
+```nginx
+# deploy/etc/nginx/sites-available/cuyahogaterravita.com.conf
 # HTTP → HTTPS
 server {
     listen 80;
