@@ -77,8 +77,9 @@ def serve_client_file(frontend_root: Path, rel_path: str):
     Serve a file relative to the client's frontend root.
 
     rel_path examples:
-      'mycite.html'
-      'webpage/home.html'
+      'index.html'
+      'script.js'
+      'msn_<user_id>.json'
       'assets/imgs/logo.jpeg'
       'style.css'
     """
@@ -294,93 +295,12 @@ def client_root():
     Root route for the domain.
 
     Uses the client's settings.json to choose the landing page:
-      - webpage_home (e.g. webpage/home.html), if present
-      - else mysite_page (e.g. mycite.html), if present
-      - else fallback_index (e.g. index.html)
     """
     client_slug = get_client_slug(request)
     paths = get_client_paths(client_slug)
     settings = load_client_settings(client_slug, paths=paths)
 
     rel_path = get_default_page(settings)
-    return serve_client_file(settings["_frontend_dir"], rel_path)
-
-
-@app.route("/directory")
-def directory_listing():
-    """
-    Rebuild and return the directory of known user_ids -> client slugs.
-
-    Designed for FruitfulNetworkDevelopment.com to operate as a Mycite hub by
-    re-reading stored msn_<user_id>.json files whenever the directory is accessed.
-    """
-
-    user_map = get_user_map(force_refresh=True)
-    return jsonify({"users": user_map})
-
-
-@app.route('/<user_id>')
-def user_profile(user_id):
-    """
-    Allow profile lookup by user_id derived from the MSN field in msn_<user_id>.json.
-
-    Example: /323577191019 -> redirect to /mysite?external=cuyahogaterravita.com
-    """
-    user_map = get_user_map()
-    client = user_map.get(user_id)
-    if not client:
-        abort(404)
-    return redirect(url_for('mysite_view') + f'?external={client}')
-
-
-@app.route("/mysite")
-def mysite_view():
-    """
-    Explicit route to the Mycite / MySite framework (mysite_page).
-    e.g. /mysite -> frontend/mycite.html
-    """
-    client_slug = get_client_slug(request)
-    paths = get_client_paths(client_slug)
-    settings = load_client_settings(client_slug, paths=paths)
-
-    rel_path = settings.get("mysite_page", "mycite.html")
-    return serve_client_file(settings["_frontend_dir"], rel_path)
-
-
-@app.route("/webpage/<page_slug>")
-def webpage_page(page_slug: str):
-    """
-    Serve pages under frontend/webpage/.
-
-    Uses optional 'routes' mapping from settings.json; otherwise:
-      /webpage/home        -> frontend/webpage/home.html
-      /webpage/csa_browser -> frontend/webpage/csa_browser.html
-    """
-    client_slug = get_client_slug(request)
-    paths = get_client_paths(client_slug)
-    settings = load_client_settings(client_slug, paths=paths)
-
-    route_map = settings.get("routes", {})
-    page_dir = settings.get("webpage_dir", "webpage")
-    if page_slug in route_map:
-        rel_path = route_map[page_slug]
-    else:
-        rel_path = f"{page_dir}/{page_slug}.html"
-
-    return serve_client_file(settings["_frontend_dir"], rel_path)
-
-
-@app.route("/demo-design-1")
-def demo_design_1():
-    """
-    Serve the specific demo subpage:
-      /demo-design-1 -> frontend/webpage/demo-design-1/demo-design-1.html
-    """
-    client_slug = get_client_slug(request)
-    paths = get_client_paths(client_slug)
-    settings = load_client_settings(client_slug, paths=paths)
-
-    rel_path = f"{settings.get('webpage_dir', 'webpage')}/demo-design-1/demo-design-1.html"
     return serve_client_file(settings["_frontend_dir"], rel_path)
 
 
