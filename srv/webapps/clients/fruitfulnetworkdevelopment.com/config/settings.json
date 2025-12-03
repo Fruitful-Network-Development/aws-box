@@ -1,17 +1,5 @@
 {
   "frontend_root": "frontend",
-  "default_view_mode": "auto",
-  "mysite_page": "index.html",
-  "fallback_index": "index.html",
-  "webpage_home": "webpages/home.html",
-  "webpage_dir": "webpages",
-  "routes": {
-    "home": "webpages/home.html",
-    "csa_browser": "webpages/csa_browser.html",
-    "happenings": "webpages/happenings.html",
-    "about_us": "webpages/about_us.html",
-    "about_csa_program": "webpages/about_csa_program.html"
-  },
-
+  "default": "index.html",
   "backend_data_file": "backend_data.json"
 }
