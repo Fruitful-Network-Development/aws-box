@@ -121,20 +121,12 @@ cd "$(dirname "$0")"
 echo "Full deploy complete."
 ```
 
-### deploy.sh
-```bash
-#!/bin/bash
-# maintenance.sh
-# A helper script for common nginx + diagnostics tasks on cuyahogaterravita.com
-#
-# Usage examples:
-#   ./maintenance.sh nginx-test
-#   ./maintenance.sh nginx-reload
-#   ./maintenance.sh curl-site
-#   ./maintenance.sh curl-image
-#
-# Run "./maintenance.sh help" to list all commands.
+### # maintenance.sh
+A helper script for common nginx + diagnostics tasks on cuyahogaterravita.com
 
+```bash
+# scripts/maintenance.sh
+#!/bin/bash
 set -euo pipefail
 
 # --- Colors for nicer output ---
@@ -340,30 +332,63 @@ esac
 ## Nginx
 
 ### nginx.conf
-```nginx
-user www-data;
-worker_processes auto;
-pid /run/nginx.pid;
+Found at deploy/etc/nginx/nginx.conf
 
-events {
-    worker_connections 1024;
+```nginx
+# HTTP – redirects everything to HTTPS and allows Let's Encrypt challenges.
+server {
+    listen 80;
+    listen [::]:80;
+    server_name cuyahogaterravita.com www.cuyahogaterravita.com;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    return 301 https://$host$request_uri;
 }
 
-http {
-    include       /etc/nginx/mime.types;
-    default_type  application/octet-stream;
+# HTTPS – serves the built front‑end and proxies API traffic.
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name cuyahogaterravita.com www.cuyahogaterravita.com;
 
-    sendfile        on;
-    keepalive_timeout  65;
+    ssl_certificate     /etc/letsencrypt/live/cuyahogaterravita.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/cuyahogaterravita.com/privkey.pem;
+    include             /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam         /etc/letsencrypt/ssl-dhparams.pem;
 
-    # Log formats, gzip, etc. could go here
+    access_log /var/log/nginx/cuyahogaterravita.access.log;
+    error_log  /var/log/nginx/cuyahogaterravita.error.log;
 
-    include /etc/nginx/sites-enabled/*;
+    # Serve static files from the client’s build directory.
+    root /srv/webapps/clients/cuyahogaterravita.com/frontend;
+    index index.html;
+
+    # Alias for /frontend/assets/ so asset paths resolve.
+    location /frontend/assets/ {
+        alias /srv/webapps/clients/cuyahogaterravita.com/frontend/assets/;
+    }
+
+    # Proxy API calls to the shared Flask backend.
+    location /api/ {
+        include proxy_params;
+        proxy_pass http://127.0.0.1:8000;
+        proxy_redirect off;
+    }
+
+    # For a purely static site use =404; for a SPA use /index.html.
+    location / {
+        try_files $uri $uri/ =404;
+    }
 }
 
 ```
 
 ### fruitfulnetworkdevelopment.com.conf
+Found at deploy/etc/nginx/sites-available/fruitfulnetworkdevelopment.com.conf
+
 ```nginx
 # Redirect HTTP → HTTPS
 server {
@@ -413,19 +438,16 @@ server {
 }
 ```
 
-### fruitfulnetworkdevelopment.com.conf
+### fruitfulnetworkdevelopmen.com.conf
 ```nginx
-# /etc/nginx/sites-enabled/fruitfulnetworkdevelopment.com.conf
 ../sites-available/fruitfulnetworkdevelopment.com.conf
 ```
 
 ### cuyahogaterravita.com.conf
-```nginx
-# /etc/nginx/sites-available/cuyahogaterravita.com.conf
+Found at deploy/etc/nginx/sites-available/cuyahogaterravita.com.conf
 
-# ------------------------------------------------
+```nginx
 # HTTP → HTTPS
-# ------------------------------------------------
 server {
     listen 80;
     listen [::]:80;
@@ -441,9 +463,7 @@ server {
         return 301 https://$host$request_uri;
     }
 
-# ------------------------------------------------
 # HTTPS: serve static frontend, proxy /api to Flask
-# ------------------------------------------------
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
@@ -490,7 +510,6 @@ server {
 
 ### cuyahogaterravita.com.conf
 ```nginx
-# /etc/nginx/sites-enabled/cuyahogaterravita.com.conf
 ../sites-available/cuyahogaterravita.com.conf
 ```
 
