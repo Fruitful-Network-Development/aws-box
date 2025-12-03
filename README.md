@@ -263,8 +263,10 @@ server {
 
     # ---- DEFAULT STATIC HANDLER ----
     # Everything else is served from the static root (webpages)
+    # Use SPA-style fallback so front-end routes resolve cleanly
+    # (/, /mysite, etc.) instead of returning 404s.
     location / {
-        try_files $uri $uri/ =404;
+        try_files $uri $uri/ /index.html;
     }
 }
 
