@@ -128,7 +128,6 @@ echo "Full deploy complete."
 
 ### nginx.conf
 ```nginx
-  GNU nano 8.4                       nginx.conf                                 
 user www-data;
 worker_processes auto;
 pid /run/nginx.pid;
@@ -153,7 +152,6 @@ http {
 
 ### fruitfulnetworkdevelopment.com.conf
 ```nginx
-  GNU nano 8.4                                                                  fruitfulnetworkdevelopment.com.conf                                                                           
 # Redirect HTTP → HTTPS
 server {
     listen 80;
