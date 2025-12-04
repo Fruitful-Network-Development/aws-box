@@ -1,4 +1,4 @@
-# aws-ec2-dev
+# awsDev
 
 ## Overview
 
@@ -196,14 +196,12 @@ echo "=== Full deploy (srv + nginx) complete."
 
 ## Mycite Profile Framework
 
-The Mycite Profile Framework provides a unified data schema (`msn_<user_id>.json`) and a standardized rendering layer defined at the repository root (index.html, style.css, app.js), which together establish a neutral, interoperable profile format.
-
 This format is deliberately designed so that:
 1. Any website can embed or access a standardized version of a user’s profile.
 2. Creative, free-form websites (stored in /webpage/) can reinterpret the same data without layout constraints.
 3. Third-party aggregators (markets, co-ops, directories, etc.) can load the same JSON file and render a consistent view.
 This project provides both:
-- A standardized profile interface (Mycite View)
+- A standardized profile data interface
 - A free-form creative layer that consumes the same schema
 The result is an extensible personal or organizational site with built-in interoperability and layout independence.
 
@@ -218,25 +216,57 @@ The Mycite approach solves this by:
 This allows:
 1. A single canonical profile source
     - All information is stored structurally in `msn_<user_id>.json`, independent of HTML layout.
-2. Multiple render layers
-    - Mycite Standard View → neutral, predictable, portable
-    - Free-form Webpage View → expressive, themeable, personal
-3. Interoperability
+2. Interoperability
     - Any third-party environment can pull the JSON and display a stable profile.
-4. Future-proof extension
+3. Future-proof extension
     - New sections (videos, certifications, links, project groups) can be added to the JSON without breaking existing pages.
 This achieves a philosophical and technical goal:
 separation of content and representation, enabling multi-context identity display.
 
 ---
 
+## Further Envirorment Notes
+
+### Root
+
+```bash
+admin@ip-172-31-30-106:~$ ls -la
+total 84
+drwx------ 7 admin admin  4096 Dec  3 21:35 .
+drwxr-xr-x 3 root  root   4096 Nov 20 15:30 ..
+-rw------- 1 admin admin 34335 Dec  4 05:27 .bash_history
+-rw-r--r-- 1 admin admin   220 Jul 30 19:28 .bash_logout
+-rw-r--r-- 1 admin admin  3578 Nov 27 20:26 .bashrc
+drwxrwxr-x 5 admin admin  4096 Nov 28 21:20 .cache
+-rw------- 1 admin admin    20 Nov 30 00:03 .lesshst
+drwxrwxr-x 3 admin admin  4096 Nov 27 19:34 .local
+drwx------ 3 admin admin  4096 Nov 28 21:54 .pki
+-rw-r--r-- 1 admin admin   807 Jul 30 19:28 .profile
+drwx------ 2 admin admin  4096 Nov 26 00:39 .ssh
+-rw-r--r-- 1 admin admin     0 Nov 20 15:45 .sudo_as_admin_successful
+drwxrwxr-x 6 admin admin  4096 Dec  4 01:12 awsDev
+```
+
+### Repo
+
+```bash
+admin@ip-172-31-30-106:~/awsDev$ ls -la
+total 32
+drwxrwxr-x 6 admin admin 4096 Dec  4 01:12 .
+drwx------ 7 admin admin 4096 Dec  3 21:35 ..
+drwxrwxr-x 8 admin admin 4096 Dec  4 05:26 .git
+-rw-rw-r-- 1 admin admin 6004 Dec  4 01:12 README.md
+drwxrwxr-x 3 admin admin 4096 Dec  3 21:35 etc
+drwxrwxr-x 2 admin admin 4096 Dec  4 02:33 scripts
+drwxrwxr-x 3 admin admin 4096 Dec  3 21:35 srv
+```
+
 ## Possible Ideas
 
 ### Mycite Profile Directory — Idea of Operation
-The **Fruitful Network Development** site acts as a **central profile directory** that can display Mycite profiles from any client website. Each client site exposes a standardized `msn_<user_id>.json`, which the directory loads and renders inside the Mycite layout.
+The **Fruitful Network Development** site could act as a **central profile directory** that can display Mycite profiles from any client website. Each client site exposes a standardized `msn_<user_id>.json`, which the directory loads and renders inside the Mycite layout.
 - Every Mycite-capable domain must publish `https://<client>/msn_<user_id>.json` using the shared schema.
 - Then the Fruitful Network Development website reloads the same universal index.html with build.js, but using called profile JSON file.
-
 
 ### Objectives and Design Principles
 
