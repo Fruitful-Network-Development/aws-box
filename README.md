@@ -84,7 +84,7 @@ echo "=== Deployment of srv complete."
 EOF
 ```
 
-### update_code.sh.sh
+### update_code.sh
 ```bash
 # pull latest from GitHub
 #!/bin/bash
