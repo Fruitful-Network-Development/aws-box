@@ -36,42 +36,85 @@
 
 ## Matenance Scipts
 
-### update_repo.sh
+### deploy_srv.sh
 ```bash
-# scripts/update_repo.sh
-# !/bin/bash
+# This script will mirror ~/awsDev/srv/ onto /srv/
+#!/bin/bash
 set -euo pipefail
 
-PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-REPO_DIR="$PROJECT_ROOT/repo"
-
-cd "$REPO_DIR"
-git pull
-
-echo "Repo updated at: $REPO_DIR"
-```
-
-### deploy_repo.sh
-```bash
-# scripts/deploy_repo.sh
-# !/bin/bash
-set -euo pipefail
-
+# Resolve project root as directory above this script
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
-SRC="$PROJECT_ROOT/repo/srv/webapps/"
-DST="/srv/webapps/"
+SRC="$PROJECT_ROOT/srv/"
+DST="/srv/"
 
-# Make sure source exists
-if [ ! -d "$SRC" ]; then
-  echo "Source path does not exist: $SRC"
-  exit 1
-fi
+echo "=== Deploying srv → $DST"
+echo "Source: $SRC"
+echo
 
-echo "Syncing $SRC -> $DST ..."
+# WARNING: --delete removes files in /srv that are not in repo/srv
 sudo rsync -az --delete "$SRC" "$DST"
 
-echo "Deployed: $SRC  -->  $DST"
+echo
+echo "=== Deployment of srv complete."
+EOF
+```
+
+### deploy_nginx.sh
+```bash
+# This script will mirror ~/awsDev/etc/nginx/ onto /etc/nginx/, then test and reload nginx.
+#!/bin/bash
+set -euo pipefail
+
+# Resolve project root as directory above this script
+PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+
+SRC="$PROJECT_ROOT/srv/"
+DST="/srv/"
+
+echo "=== Deploying srv → $DST"
+echo "Source: $SRC"
+echo
+
+# WARNING: --delete removes files in /srv that are not in repo/srv
+sudo rsync -az --delete "$SRC" "$DST"
+
+echo
+echo "=== Deployment of srv complete."
+EOF
+```
+
+### update_code.sh.sh
+```bash
+# pull latest from GitHub
+#!/bin/bash
+set -euo pipefail
+
+PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$PROJECT_ROOT"
+
+echo "=== Updating git repository in $PROJECT_ROOT ..."
+git pull --ff-only
+echo "=== Git update complete."
+EOF
+```
+
+### deploy_all.sh
+```bash
+# update + deploy both srv and nginx
+#!/bin/bash
+set -euo pipefail
+
+PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$PROJECT_ROOT"
+
+./scripts/update_code.sh
+./scripts/deploy_srv.sh
+./scripts/deploy_nginx.sh
+
+echo
+echo "=== Full deploy (srv + nginx) complete."
+EOF
 ```
 
 ---
