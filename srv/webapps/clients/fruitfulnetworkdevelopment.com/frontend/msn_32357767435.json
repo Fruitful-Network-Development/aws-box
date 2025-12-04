@@ -2,11 +2,9 @@
   "MSS": {
   "frontend_root": "frontend",
   "default_entry": "index.html",
-  "sub_pages": [],
   "backend_data": [
     "backend_data.json"
   ],
-  "FND": {
     "compendium": {
       "title": "Compendium",
       "profile": {
@@ -16,8 +14,8 @@
 
         "handleLine": "dylcmonty • he/him",
 
-        "avatar": "assets/profile-main.png",
-        "micro_icon": "assets/profile-micro.png",
+        "avatar": "/assets/imgs/profile-main.png",
+        "micro_icon": "/assets/imgs/profile-micro.png",
 
         "displayHandle": "@Fruitful-Network-Development",
         "location": "Cuyahoga Valley",
@@ -48,40 +46,39 @@
             "id": "resume",
             "kind": "pdf",
             "title": "Resume",
-            "target": "assets/resume-preview.png",
-            "thumbnail": "assets/resume-preview.png"
+            "target": "/assets/imgs/resume-preview.png",
+            "thumbnail": "/assets/imgs/resume-preview.png"
           },
           {
             "id": "demo",
             "kind": "url",
             "title": "Demo Design",
             "target": "webpages/demo/index.html",
-            "thumbnail": "assets/wrench.png"
+            "thumbnail": "/assets/imgs/wrench.png"
           },
           {
             "id": "linkedin",
             "kind": "url",
             "title": "LinkedIn",
             "target": "https://www.linkedin.com/in/dylan-montgomery-352813196",
-            "thumbnail": "assets/linkedin-preview.png"
+            "thumbnail": "/assets/imgs/linkedin-preview.png"
           },
           {
             "id": "github",
             "kind": "url",
             "title": "GitHub",
             "target": "https://github.com/dylcmonty",
-            "thumbnail": "assets/github-preview.png"
+            "thumbnail": "/assets/imgs/github-preview.png"
           },
           {
             "id": "other-site",
             "kind": "url",
             "title": "Fruitful Network Dev",
             "target": "https://sites.google.com/view/fruitful-network-design/home",
-            "thumbnail": "assets/google-cite-preview.png"
+            "thumbnail": "/assets/imgs/google-cite-preview.png"
           }
         ]
       }
     }
   }
 }
-  
