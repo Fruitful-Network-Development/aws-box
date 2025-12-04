@@ -18,4 +18,3 @@ types {
     video/x-msvideo                       avi;
     application/octet-stream              bin exe dll;
 }
-EOF
