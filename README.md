@@ -1,8 +1,33 @@
 # aws-ec2-dev
 
-## Project Layout
+## Overview
 
-```
+### Server environment
+- AWS EC2 instance running Debian.
+- Nginx handles:
+  - Virtual hosting for multiple domains.
+  - Static file serving for each client frontend.
+  - Reverse proxying of API calls to a shared Flask backend.
+- Flask (running under Gunicorn or similar) lives in a central “platform” directory and serves JSON + API endpoints for all clients.
+
+### Nginx role
+- Each `*.conf` in `sites-available/`:
+  - Sets `roo`t to `/srv/webapps/clients/<domain>/frontend`.
+  - Serves `index.html`, CSS, and assets directly.
+  - Proxies `/api/` (and possibly `/static/`) to the shared Flask app in `/srv/webapps/platform`.
+
+### Flask role (platform/app.py)
+- Single shared backend, not per-client.
+- On startup, scans `/srv/webapps/clients/` for each `<domain>/frontend/msn_*.json`.
+- Builds an in-memory lookup table mapping:
+  - `domain → user_id → msn_<userId>.json path`.
+- Exposes endpoints like:
+  - `/api/site/<user_id>.json` → returns that client’s canonical JSON file.
+  - Optional: `/api/sites` → returns a directory listing of all known sites.
+
+### Project Layout
+
+```text
 - ├── /ect 
   - └── nginx/
     - ├── nginx.conf
@@ -32,6 +57,52 @@
   - └── cuyahogaterravita.com/...
 - └── [README](README.md)                   # <-- this file
 ```
+
+---
+
+## Two Layers of Standardization
+
+## Server standardization (EC2 + Nginx + Flask world)
+- For every client under /srv/webapps/clients/<domain>/frontend/:
+  - There is exactly one config file named `msn_<userId>.json`.
+  - The universal `index.html` for that client is built from the same template and includes metadata derived from the filename:
+    - The `userId`.
+    - Optionally the JSON file’s exact name or path.
+
+Example head section:
+```html
+<head>
+  <meta charset="UTF-8">
+  <title>Cuyahoga Terra Vita</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- MSN server standard: identifies which msn_<userId>.json this index is bound to -->
+  <meta name="msn-id" content="323577191019">
+  <meta name="msn-config" content="msn_323577191019.json">
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+```
+- Every internal client follows the same pattern.
+- Nginx just serves `index.html` and assets.
+- Flask doesn’t need bespoke per-client logic; it just recognizes the `msn_<userId>.json` naming convention and path.
+
+### MSN standardization (works outside your server too)
+- Separately, the MSN standard aims to have any host (even if it’s not on this local EC2 box) can be understood by tooling if:
+  1. It has an index.html.
+  2. That index.html contains MSN metadata like:
+```html
+<meta name="msn-id" content="323577191019">
+<meta name="msn-config" content="msn_323577191019.json">
+```
+  3. There exists a corresponding msn_<userId>.json on that host, or at a well-defined URL predictable from the metadata.
+
+In other words:
+  - The server standard is a concrete implementation of the MSN spec. Any external site that follows the same metadata + filename rules can be “understood” by platform/tooling without being hosted on a particular local server.
+
+This is why it’s important that:
+  - The userId is encoded in the JSON filename.
+  - That mapping is reflected in the <meta> tags of index.html.
 
 ---
 
