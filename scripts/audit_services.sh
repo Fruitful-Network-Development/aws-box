@@ -39,7 +39,7 @@ NC='\033[0m' # No Color
 # Configuration
 SYSTEMD_SYSTEM_DIR="/etc/systemd/system"
 SYSTEMD_USER_DIR="$HOME/.config/systemd/user"
-WEBAPP_ROOT="/srv/webapps"
+WEBAPP_ROOT="/srv/webapps/platform"
 REPORT_HEADER="=== SYSTEMD SERVICES AUDIT ==="
 
 # Function to print section headers
