@@ -27,12 +27,12 @@ async function injectComponent(placeholderId, componentPath) {
   }
 }
 
-async function loadAllComponents() {script.js
+async function loadAllComponents() {
   // Load components in order: header, body, then sub-components, then overlay
   await injectComponent('header-placeholder', '/header/header.html');
   await injectComponent('body-placeholder', '/body/body.html');
-  
-  // After body is loaded, inject sub-components into their placeholdersdata_injection.js
+
+  // After body is loaded, inject sub-components into their placeholders
   await injectComponent('oeuvre-placeholder', '/oeuvre/oeuvre.html');
   await injectComponent('anthology-placeholder', '/anthology/anthology.html');
   await injectComponent('compendium-placeholder', '/compendium/compendium.html');
