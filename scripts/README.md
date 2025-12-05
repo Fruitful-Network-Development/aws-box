@@ -13,7 +13,7 @@ The scripts are organized into two categories:
 ## Deployment Scripts
 
 ### `deploy_srv.sh`
-Deploys the Flask application to `/srv/webapps` on the EC2 server.
+Deploys the Flask application to `/srv/webapps/platform` on the EC2 server.
 
 ### `deploy_nginx.sh`
 Deploys and configures NGINX for the Flask application.
@@ -53,7 +53,7 @@ Or run individual audits:
 
 ### `audit_permissions.sh`
 
-**Purpose**: Audits file and directory ownership and permissions for the Flask application deployment under `/srv/webapps`.
+**Purpose**: Audits file and directory ownership and permissions for the Flask application deployment under `/srv/webapps/platform`.
 
 **What it checks**:
 - Directory and file ownership (identifies root-owned items)
@@ -69,7 +69,7 @@ Or run individual audits:
 
 **Exit Codes**:
 - `0` - Script completed successfully
-- `1` - Critical errors (e.g., `/srv/webapps` does not exist)
+- `1` - Critical errors (e.g., `/srv/webapps/platform` does not exist)
 
 **Dependencies**: `find`, `stat`, `ls`, `awk`, `grep`
 
@@ -81,7 +81,7 @@ Or run individual audits:
 
 **What it checks**:
 - NGINX configuration syntax validity
-- Path alignment between NGINX config and `/srv/webapps`
+- Path alignment between NGINX config and `/srv/webapps/platform`
 - Gunicorn socket/port configuration alignment
 - Security settings (HTTPS, `server_tokens`, HTTP redirects)
 - SSL certificate file existence
@@ -218,7 +218,7 @@ sudo ./scripts/audit_services.sh
 
 ### Path not found errors
 Ensure the scripts are run from the correct directory or use absolute paths. The scripts assume standard paths:
-- Web application root: `/srv/webapps`
+- Web application root: `/srv/webapps/platform`
 - NGINX config: `/etc/nginx`
 - Systemd services: `/etc/systemd/system`
 
