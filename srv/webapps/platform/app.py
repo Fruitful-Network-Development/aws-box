@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 import requests
@@ -17,12 +18,157 @@ from data_access import (
 )
 from modules.weather import weather_bp
 
+# -------------------------------------------------------------------
+# Configuration and Environment Setup
+# -------------------------------------------------------------------
+
+
+def validate_env(required: list[str] = None, optional: dict[str, str] = None) -> dict[str, str]:
+    """
+    Validate environment variables and return a config dict.
+    
+    This helper is intentionally limited to generic, core environment variables.
+    Future configuration for client-specific settings (paths, images, colors, build.js behavior)
+    will come from msn_<userId>.json files, not from environment variables.
+    Additional validation can be added later once the JSON schema is defined.
+    
+    Args:
+        required: List of required environment variable names
+        optional: Dict mapping env var names to default values
+        
+    Returns:
+        Dict of validated environment variables
+        
+    Raises:
+        ValueError: If a required environment variable is missing
+    """
+    if required is None:
+        required = []
+    if optional is None:
+        optional = {}
+    
+    config = {}
+    missing = []
+    
+    for var in required:
+        value = os.getenv(var)
+        if not value:
+            missing.append(var)
+        else:
+            config[var] = value
+    
+    if missing:
+        raise ValueError(f"Missing required environment variables: {', '.join(missing)}")
+    
+    for var, default in optional.items():
+        config[var] = os.getenv(var, default)
+    
+    return config
+
+
+# Validate core environment variables
+try:
+    env_config = validate_env(
+        required=['FLASK_SECRET_KEY'],
+        optional={
+            'FLASK_DEBUG': '0',
+            'FLASK_ENABLE_CORS': '0'
+        }
+    )
+except ValueError as e:
+    # In development, allow missing FLASK_SECRET_KEY with a clear warning
+    if os.getenv('FLASK_ENV') != 'production':
+        env_config = {
+            'FLASK_SECRET_KEY': 'DEV-ONLY-INSECURE-KEY-DO-NOT-USE-IN-PRODUCTION',
+            'FLASK_DEBUG': os.getenv('FLASK_DEBUG', '0'),
+            'FLASK_ENABLE_CORS': os.getenv('FLASK_ENABLE_CORS', '0')
+        }
+        print("⚠️  WARNING: Using development-only SECRET_KEY. Set FLASK_SECRET_KEY in production!")
+    else:
+        raise
+
+
+# Initialize Flask app
 app = Flask(__name__)
+
+# SECRET_KEY is critical for Flask's session management and cookie signing.
+# Without it, sessions are cryptographically insecure and vulnerable to tampering.
+# The fallback value above is ONLY for development and must never be used in production.
+app.config['SECRET_KEY'] = env_config['FLASK_SECRET_KEY']
+
+# Production configuration settings
+# DEBUG should be False in production to prevent exposing error details and enabling auto-reload
+app.config['DEBUG'] = env_config['FLASK_DEBUG'] in ('1', 'true', 'True', 'yes', 'Yes')
+
+# Additional production settings
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False  # Disable pretty JSON in production
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 31536000  # Cache static files for 1 year
+
+
+# -------------------------------------------------------------------
+# Optional CORS Configuration
+# -------------------------------------------------------------------
+# CORS (Cross-Origin Resource Sharing) is needed when your API is accessed
+# from browsers on different domains/origins than your Flask server.
+# If your frontend is served from the same domain or handled by Nginx,
+# you may not need CORS. This section can be ignored or removed if not needed.
+
+if env_config['FLASK_ENABLE_CORS'] == '1':
+    try:
+        from flask_cors import CORS
+        # Configure CORS to allow requests from specified origins
+        # Update ALLOWED_ORIGINS environment variable with comma-separated origins if needed
+        allowed_origins = os.getenv('ALLOWED_ORIGINS', '').split(',') if os.getenv('ALLOWED_ORIGINS') else ['*']
+        CORS(app, resources={r"/api/*": {"origins": allowed_origins}})
+        print("✓ CORS enabled for /api/* routes")
+    except ImportError:
+        print("⚠️  WARNING: FLASK_ENABLE_CORS is set but flask-cors is not installed.")
+        print("   Install with: pip install flask-cors")
+
+
+# -------------------------------------------------------------------
+# Future: Request Validation and Rate Limiting
+# -------------------------------------------------------------------
+# As the platform grows, you may want to add:
+# - Request size limits (MAX_CONTENT_LENGTH)
+# - Rate limiting to prevent abuse (consider Flask-Limiter)
+# - Input validation middleware
+# - Request logging and monitoring
+#
+# Example rate limiting (requires: pip install flask-limiter):
+#   from flask_limiter import Limiter
+#   from flask_limiter.util import get_remote_address
+#   limiter = Limiter(app=app, key_func=get_remote_address)
+#   Then add @limiter.limit("10 per minute") decorators to routes
+
+
+# -------------------------------------------------------------------
+# Error Handlers
+# -------------------------------------------------------------------
+# These are basic placeholders that can be improved later with custom templates
+# or more detailed error responses based on your API design.
+
+
+@app.errorhandler(404)
+def not_found(error):
+    """Handle 404 Not Found errors."""
+    # For now, return a simple string. This can be enhanced later with
+    # custom templates or JSON error responses based on request content type.
+    return 'Not Found', 404
+
+
+@app.errorhandler(500)
+def internal_error(error):
+    """Handle 500 Internal Server Error."""
+    # In production, you may want to log this error and return a generic message
+    # to avoid exposing internal details. This is a placeholder for future enhancement.
+    return 'Internal Server Error', 500
 
 
 # -------------------------------------------------------------------
 # Helpers for client-specific frontend behavior backed by msn_<user>.json
 # -------------------------------------------------------------------
+
 
 def load_client_settings(client_slug: str, paths=None) -> dict:
     """
@@ -62,12 +208,31 @@ def serve_client_file(frontend_root: Path, rel_path: str):
 
     return send_from_directory(full_path.parent, full_path.name)
 
+
 # -------------------------------------------------------------------
-# API routes
+# Blueprint Registration
 # -------------------------------------------------------------------
+# All Flask blueprints should be registered here. Blueprints allow you to
+# organize routes into separate modules (e.g., weather.py, paypal_gateway.py).
+# To add a new blueprint:
+#   1. Import it: from modules.your_module import your_bp
+#   2. Register it: app.register_blueprint(your_bp)
 
 
 app.register_blueprint(weather_bp)
+
+# Example of how to register additional blueprints (commented out until needed):
+# from modules.paypal_gateway import paypal_bp
+# from modules.donation_box import donation_bp
+# from modules.square_inventory import square_bp
+# app.register_blueprint(paypal_bp)
+# app.register_blueprint(donation_bp)
+# app.register_blueprint(square_bp)
+
+
+# -------------------------------------------------------------------
+# API routes
+# -------------------------------------------------------------------
 
 
 @app.route("/proxy/<path:client_slug>/<path:data_filename>")
@@ -164,6 +329,7 @@ def backend_data(data_filename: str):
     save_json(target_path, payload)
     return jsonify({"status": "ok"})
 
+
 @app.route("/")
 def client_root():
     client_slug = get_client_slug(request)
@@ -237,6 +403,13 @@ def health():
     return jsonify({"status": "ok"})
 
 
+# -------------------------------------------------------------------
+# Development Server (for local testing only)
+# -------------------------------------------------------------------
+# In production, use Gunicorn or uWSGI behind Nginx.
+# The DEBUG flag from environment variables controls whether debug mode is enabled.
+
+
 if __name__ == "__main__":
     # For development only; in production use gunicorn/uwsgi behind NGINX
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=app.config['DEBUG'])
