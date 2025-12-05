@@ -4,7 +4,7 @@
 #
 # Purpose:
 #   Audits file and directory ownership and permissions for the Flask application
-#   deployment under /srv/webapps. This script identifies potential security issues
+#   deployment under /srv/webapps/platform. This script identifies potential security issues
 #   and misconfigurations related to file permissions and ownership.
 #
 # Usage:
@@ -15,7 +15,7 @@
 #
 # Exit Codes:
 #   0 - Script completed successfully
-#   1 - Critical errors encountered (e.g., /srv/webapps does not exist)
+#   1 - Critical errors encountered (e.g., /srv/webapps/platform does not exist)
 #
 # Dependencies:
 #   Standard POSIX tools: find, stat, ls, awk, grep
@@ -34,7 +34,7 @@ GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
 # Configuration
-WEBAPP_ROOT="/srv/webapps"
+WEBAPP_ROOT="/srv/webapps/platform"
 REPORT_HEADER="=== FILE PERMISSIONS AND OWNERSHIP AUDIT ==="
 
 # Function to print section headers
@@ -189,7 +189,7 @@ echo ""
 
 # Check for common Flask application files
 if [ -f "$WEBAPP_ROOT/app.py" ] || [ -f "$WEBAPP_ROOT/application.py" ] || [ -f "$WEBAPP_ROOT/wsgi.py" ]; then
-    print_info "Flask application entry point found"
+    print_info "Flask /srv/webappsapplication entry point found"
 else
     print_warning "No standard Flask entry point found (app.py, application.py, or wsgi.py)"
 fi
