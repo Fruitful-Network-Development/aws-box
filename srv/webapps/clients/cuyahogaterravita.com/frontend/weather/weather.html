@@ -1,0 +1,63 @@
+<!-- WEATHER WIDGET -->
+<section class="section-block charcoal-set-in" style="background: var(--mid-green); color: #f5f5f5; padding: 56px 0;">
+  <div class="weather-container container" style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px;">
+    <!-- Left side: current conditions -->
+    <div class="weather-left" style="background: #0f1d15; border-radius: 16px; padding: 24px; color: #f5f5f5;">
+      <div class="weather-header" style="display: flex; justify-content: space-between; align-items: center; font-size: 1.1rem; font-weight: 700;">
+        <div class="weather-location" id="weather-location">Peninsula, Ohio</div>
+      </div>
+      <div class="weather-date" id="weather-date" style="color: #c2cfc5; margin-top: 6px;"><span id="current-date" class="meta-date"></span></div>
+      <div class="weather-temp" id="weather-temp" style="font-size: 4.5rem; font-weight: 800; margin: 18px 0;"><span id="current-temp" class="meta-temp"></span></div>
+      <ul class="weather-meta" style="list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 18px;">
+        <li style="display: flex; justify-content: space-between; gap: 6px; font-size: 0.95rem;"><span>Feels like:</span><ul id="weather-feels" class="feels" data-slot=""><li>Loading...</li></ul></li>
+        <li style="display: flex; justify-content: space-between; gap: 6px; font-size: 0.95rem;"><span>Humidity:</span><ul id="weather-humidity" class="humidity" data-slot=""><li>Loading...</li></ul></li>
+        <li style="display: flex; justify-content: space-between; gap: 6px; font-size: 0.95rem;"><span>Precipitation:</span><ul id="weather-precipitation" class="precipitation" data-slot=""><li>Loading...</li></ul></li>
+        <li style="display: flex; justify-content: space-between; gap: 6px; font-size: 0.95rem;"><span>Sunrise:</span><ul id="weather-sunrise" class="sunrise" data-slot=""><li>Loading...</li></ul></li>
+        <li style="display: flex; justify-content: space-between; gap: 6px; font-size: 0.95rem;"><span>Sunset:</span><ul id="weather-sunset" class="sunset" data-slot=""><li>Loading...</li></ul></li>
+        <li style="display: flex; justify-content: space-between; gap: 6px; font-size: 0.95rem;"><span>Wind:</span><ul id="weather-wind" class="wind" data-slot=""><li>Loading...</li></ul></li>
+        <li style="display: flex; justify-content: space-between; gap: 6px; font-size: 0.95rem;"><span>Pressure:</span><ul id="weather-pressure" class="pressure" data-slot=""><li>Loading...</li></ul></li>
+        <li style="display: flex; justify-content: space-between; gap: 6px; font-size: 0.95rem;"><span>UV:</span><ul id="weather-uv" class="uv" data-slot=""><li>Loading...</li></ul></li>
+      </ul>
+    </div>
+    
+    <div class="weather-right" style="display: flex; flex-direction: column; gap: 16px;">
+      <!-- Right side top: hourly weather -->
+      <div class="weather-left-top" style="background: var(--page-bg); border-radius: 16px; padding: 18px; color: var(--mid-green);">
+        <div class="weather-hourly" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 10px;">
+        <div class="hour" style="background: #ffffff; border: 1px solid #e2e6e2; border-radius: 10px; padding: 10px; text-align: center; font-weight: 600; color: var(--mid-green);"><span> Now </span><span class="icon" style="display: block; margin: 6px 0;">
+          <img src="/assets/imgs/web-this-weeks-haul.png">
+        </span><span id="now-weather"></span></div>
+        <div class="hour" style="background: #ffffff; border: 1px solid #e2e6e2; border-radius: 10px; padding: 10px; text-align: center; font-weight: 600; color: var(--mid-green);"><span>11:00</span><span class="icon" style="display: block; margin: 6px 0;">
+        
+        </span id="11-weather"><span</span></div>
+        <div class="hour" style="background: #ffffff; border: 1px solid #e2e6e2; border-radius: 10px; padding: 10px; text-align: center; font-weight: 600; color: var(--mid-green);"><span>12:00</span><span class="icon" style="display: block; margin: 6px 0;">
+        
+        </span id="now-weather"></span></div>
+        <div class="hour" style="background: #ffffff; border: 1px solid #e2e6e2; border-radius: 10px; padding: 10px; text-align: center; font-weight: 600; color: var(--mid-green);"><span>01:00</span><span class="icon" style="display: block; margin: 6px 0;">
+        
+        </span id="now-weather"></span></div>
+        <div class="hour" style="background: #ffffff; border: 1px solid #e2e6e2; border-radius: 10px; padding: 10px; text-align: center; font-weight: 600; color: var(--mid-green);"><span>02:00</span><span class="icon" style="display: block; margin: 6px 0;">
+        
+        </span id="now-weather"></span></div>
+        <div class="hour" style="background: #ffffff; border: 1px solid #e2e6e2; border-radius: 10px; padding: 10px; text-align: center; font-weight: 600; color: var(--mid-green);"><span>03:00</span><span class="icon" style="display: block; margin: 6px 0;">
+        
+        </span id="now-weather"></span></div>
+        <div class="hour" style="background: #ffffff; border: 1px solid #e2e6e2; border-radius: 10px; padding: 10px; text-align: center; font-weight: 600; color: var(--mid-green);"><span>04:00</span><span class="icon" style="display: block; margin: 6px 0;">
+        
+        </span id="now-weather"></span></div>
+        </div>
+      </div>
+      
+      <!-- Right side bottom: query API content -->
+      <div class="weather-left-bottom" style="background: var(--page-bg); border-radius: 16px; padding: 16px;">
+        <form class="weather-query" onsubmit="return false;" style="display: flex; gap: 10px;">
+          <input type="text" class="query-input" style="flex: 1; padding: 12px; border: 1px solid #cdd5cd; border-radius: 12px; font-size: 0.95rem;">
+          <button type="submit" class="search-button" style="display: flex; align-items: center; gap: 8px; border: none; background: var(--mid-green); color: #f5f5f5; padding: 8px 14px; border-radius: 999px; cursor: pointer; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">
+            <img src="/assets/icons/icon-search.png" alt="Query" style="height: 16px; width: 16px;">
+            <span class="query-button-text" style="font-size: 0.8rem;">Query</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

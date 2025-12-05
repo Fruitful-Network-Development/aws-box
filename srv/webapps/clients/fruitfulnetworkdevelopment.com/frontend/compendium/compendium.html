@@ -1,0 +1,113 @@
+<div class="block-title" data-slot="compendium.title" style="text-align: center; font-size: 0.85rem; margin-bottom: 0.6rem;">Compendium</div>
+
+<div class="block-rect" style="position: relative; width: 100%; border: 1px solid #898f96; background-color: #202122; padding: 4px; display: flex; flex-direction: column; --comp-small-h: 80px;">
+
+  <!-- SECTION 0: TOP IMAGE GRID (now a comp-section) -->
+  <section class="comp-section comp-section--grid compendium-top" style="padding: 4px; border-bottom: 1px solid #898f96; position: relative; display: flex; margin-bottom: 0;">
+    <!-- Vertical divider, inset so it doesn't touch outer border -->
+    <style>
+      .compendium-top::before {
+        content: "";
+        position: absolute;
+        top: 4px;
+        bottom: 4px;
+        left: 40%;
+        width: 1px;
+        background-color: #898f96;
+      }
+    </style>
+    <!-- LEFT 2/5: 3 stacked small images -->
+    <div class="comp-left" style="width: 40%; display: flex; flex-direction: column;">
+      <div class="comp-img comp-small" style="padding: 4px; display: flex; align-items: center; justify-content: center; height: var(--comp-small-h); border-bottom: 1px solid #898f96;">
+        <img src="/assets/imgs/comp-1.png" alt="Compendium item 1" style="width: 100%; height: 100%; object-fit: contain; object-position: center; display: block;">
+      </div>
+      <div class="comp-img comp-small" style="padding: 4px; display: flex; align-items: center; justify-content: center; height: var(--comp-small-h); border-bottom: 1px solid #898f96;">
+        <img src="/assets/imgs/comp-2.png" alt="Compendium item 2" style="width: 100%; height: 100%; object-fit: contain; object-position: center; display: block;">
+      </div>
+      <div class="comp-img comp-small" style="padding: 4px; display: flex; align-items: center; justify-content: center; height: var(--comp-small-h);">
+        <img src="/assets/imgs/comp-3.png" alt="Compendium item 3" style="width: 100%; height: 100%; object-fit: contain; object-position: center; display: block;">
+      </div>
+    </div>
+
+    <!-- RIGHT 3/5: 2 larger images -->
+    <div class="comp-right" style="width: 60%; display: flex; flex-direction: column;">
+      <div class="comp-img comp-large" style="padding: 4px; display: flex; align-items: center; justify-content: center; height: calc(var(--comp-small-h) * 1.5); border-bottom: 1px solid #898f96;">
+        <img src="/assets/imgs/comp-4.png" alt="Compendium item 4" style="width: 100%; height: 100%; object-fit: contain; object-position: center; display: block;">
+      </div>
+      <div class="comp-img comp-large" style="padding: 4px; display: flex; align-items: center; justify-content: center; height: calc(var(--comp-small-h) * 1.5);">
+        <img src="/assets/imgs/comp-5.png" alt="Compendium item 5" style="width: 100%; height: 100%; object-fit: contain; object-position: center; display: block;">
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 1: PROFILE CARD -->
+  <section class="comp-section comp-profile" style="padding: 6px 8px; border-bottom: 1px solid #898f96; display: grid; grid-template-columns: auto 1fr; column-gap: 10px; align-items: center; min-height: var(--comp-small-h);">
+    <div class="comp-profile-left" style="display: flex; align-items: center; justify-content: center;">
+      <div class="comp-img comp-small" style="padding: 4px; display: flex; align-items: center; justify-content: center;">
+        <!-- avatar is user-specific -->
+        <img data-slot="compendium.profile.avatar"
+             src="/assets/imgs/profile-main.png"
+             alt="Profile main"
+             style="--avatar-size: 48px; width: var(--avatar-size); height: var(--avatar-size); border-radius: 50%; object-fit: cover; object-position: center; display: block;">
+      </div>
+    </div>
+
+    <div class="comp-profile-right" style="display: flex; flex-direction: column; gap: 3px;">
+      <div class="comp-profile-name" data-slot="compendium.profile.name" style="font-weight: bold; font-size: 0.9rem;">
+        Dylan Montgomery
+      </div>
+      <div class="comp-profile-handle" data-slot="compendium.profile.handleLine" style="font-size: 0.8rem; color: #d0d0d0;">
+        dylcmonty • he/him
+      </div>
+
+      <div class="comp-profile-bottom-row" style="display: flex; align-items: center; gap: 6px; margin-top: 4px;">
+        <div class="comp-img comp-micro" style="width: calc(var(--comp-small-h) / 5); height: calc(var(--comp-small-h) / 5); padding: 0; display: flex; align-items: center; justify-content: center;">
+          <!-- micro icon can also be overridden but defaults to framework asset -->
+          <img data-slot="compendium.profile.micro_icon"
+               src="/assets/imgs/profile-micro.png"
+               alt="Profile micro icon"
+               style="width: 100%; height: 100%; object-fit: contain; object-position: center; display: block;">
+        </div>
+        <div class="comp-profile-link"
+             data-slot="compendium.profile.displayHandle"
+             style="font-size: 0.8rem;">
+          @Fruitful-Network-Development
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: LINKS -->
+  <section class="comp-section comp-links" style="padding: 6px 8px; border-bottom: 1px solid #898f96; display: flex; flex-direction: column; justify-content: center; gap: 4px; min-height: calc(var(--comp-small-h) / 2);">
+    <div class="comp-link-row" style="display: flex; align-items: center; gap: 6px;">
+      <div class="comp-img comp-micro" style="width: calc(var(--comp-small-h) / 5); height: calc(var(--comp-small-h) / 5); padding: 0; display: flex; align-items: center; justify-content: center;">
+        <img src="/assets/icons/location-icon.png" alt="Location" style="width: 100%; height: 100%; object-fit: contain; object-position: center; display: block;">
+      </div>
+      <span class="comp-link-text"
+            data-slot="compendium.profile.location"
+            style="font-size: 0.8rem;">
+        Cuyahoga Valley
+      </span>
+    </div>
+
+    <div class="comp-link-row" style="display: flex; align-items: center; gap: 6px;">
+      <div class="comp-img comp-micro" style="width: calc(var(--comp-small-h) / 5); height: calc(var(--comp-small-h) / 5); padding: 0; display: flex; align-items: center; justify-content: center;">
+        <img src="/assets/icons/linkedin-icon.png" alt="LinkedIn" style="width: 100%; height: 100%; object-fit: contain; object-position: center; display: block;">
+      </div>
+      <span class="comp-link-text"
+            data-slot="compendium.profile.linkedin"
+            style="font-size: 0.8rem;">
+        in/dylan-montgomery-352813196
+      </span>
+    </div>
+  </section>
+
+  <!-- SECTION 3: ORGANIZATIONS -->
+  <section class="comp-section comp-orgs" style="padding: 6px 8px; min-height: calc(var(--comp-small-h) * 2);">
+    <div class="comp-orgs-title" style="font-weight: bold; font-size: 0.9rem; margin-bottom: 4px;">Organizations</div>
+    <ul class="comp-orgs-list" data-slot="compendium.organizations" style="margin-left: 1.1rem; font-size: 0.85rem; line-height: 1.4;">
+      <li>Loading...</li>
+    </ul>
+  </section>
+
+</div>
