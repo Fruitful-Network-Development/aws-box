@@ -183,9 +183,124 @@ sudo ln -sf /etc/nginx/sites-available/cuyahogaterravita.com.conf \
 ```bash
 sudo nginx -t
 ```
-If it says syntax is ok and test is successful, run:
+
+## FAILS
+
+### Step 1 – Temporarily disable the CTV site
+This error comes from the cuyahogaterravita.com.conf file. Easiest move: disable that site for now so we can get FND working:
+```bash
+sudo rm -f /etc/nginx/sites-enabled/cuyahogaterravita.com.conf
+
+sudo nginx -t
+```
+## FAILS
+
+So both site configs were written as HTTPS (Certbot-style) configs, but on this fresh box:
+    - Certbot hasn’t run yet
+    - /etc/letsencrypt/options-ssl-nginx.conf doesn’t exist
+    - Nginx refuses to load
+Let’s fix this by making fruitfulnetworkdevelopment.com HTTP-only for now with a clean minimal config.```bash
+sudo systemctl reload nginx
+
+### Replace the FND site config with a simple HTTP config
+```
+sudo nano /etc/nginx/sites-available/fruitfulnetworkdevelopment.com.conf
+```
+In the editor, delete everything in that file and replace it with this:
+```bash
+server {
+    listen 80;
+    server_name fruitfulnetworkdevelopment.com www.fruitfulnetworkdevelopment.com;
+
+    root /srv/webapps/clients/fruitfulnetworkdevelopment.com/frontend;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # Optional: later, when your backend is running, you can enable this
+    # location /api/ {
+    #     proxy_pass http://127.0.0.1:8000;
+    #     include proxy_params;
+    # }
+}
+```
+
+### Keep CTV disabled for now
+We’ll reintroduce CTV later with a similar simple HTTP config (or after Certbot sets up SSL).
+```bash
+sudo rm -f /etc/nginx/sites-enabled/cuyahogaterravita.com.conf
+```
+Test and reload Nginx
+```bash
+sudo nginx -t
+```
+If you get:
+    - nginx: configuration file /etc/nginx/nginx.conf test is successful
+then reload:
 ```bash
 sudo systemctl reload nginx
+```
+
+HERE
+```bash
+HERE
+```
+
+HERE
+```bash
+HERE
+```
+
+HERE
+```bash
+HERE
+```
+
+HERE
+```bash
+HERE
+```
+
+HERE
+```bash
+HERE
+```
+
+HERE
+```bash
+HERE
+```
+
+HERE
+```bash
+HERE
+```
+
+HERE
+```bash
+HERE
+```
+
+HERE
+```bash
+HERE
+```
+
+HERE
+```bash
+HERE
+```
+
+HERE
+```bash
+HERE
+```
+
+HERE
+```bash
+HERE
 ```
 
 HERE
