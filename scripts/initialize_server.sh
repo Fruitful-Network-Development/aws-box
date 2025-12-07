@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Notes from GPT Agent Session
+# The script assumes Ubuntu 20.04 or later and uses apt-get for package management. You can adjust package versions if needed.
+# The user, worker_processes and logging directives in the supplied Nginx configuration mirror typical production settings. The site files from aws-etc/etc/nginx/sites-available proxy /api/ to the Gunicorn server on port 8000 and serve the static front‑end from /srv/webapps/clients/<domain>/frontend.
+# Certbot is configured to automatically modify the Nginx config and will create renewal timers; you can test renewal with certbot renew --dry-run.
+# If you add new modules or blueprints to the Flask application, update requirements.txt or install additional packages within the virtual environment.
+
 #---------------------------------------------------------------------
 #  Fruitful Network Development – clean server deployment script
 #
@@ -32,7 +38,7 @@ set -euo pipefail
 # Directories
 APP_DIR="/srv/webapps/platform"
 CLIENTS_DIR="/srv/webapps/clients"
-GH_ETC_DIR="/home/ubuntu/GH-etc"
+GH_ETC_DIR="/home/admin/GH-etc"
 
 # Repositories
 REPO_USER="Fruitful-Network-Development"
