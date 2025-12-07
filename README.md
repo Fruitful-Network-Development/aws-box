@@ -13,21 +13,18 @@
 ## Repository layout
 ```text
 etc/
-  nginx/                 # Nginx config and vhost definitions
+  systemd/system/
+    plaform.service
+  nginx/
+    nginx.conf
+    mime.types
+    sites-available/...
+    sites-enabled/...
 srv/webapps/
-  platform/
-    app.py               # Flask app and manifest-driven routing
-    data_access.py       # Manifest loading + backend data path validation
-    modules/
-      weather.py         # Weather Blueprint (Open-Meteo daily forecast)
-  clients/
-    cuyahogaterravita.com/
-      frontend/          # Universal index + msn_<userId>.json + assets
-      data/              # Optional backend_data files referenced by manifest
-    fruitfulnetworkdevelopment.com/
-      frontend/
-      data/
-scripts/                 # Deployment helpers (update_code, deploy_srv, deploy_nginx, deploy_all)
+  platform/              # Empty
+  clients/               # Empty
+scripts/...
+docs/...
 ```
 
 ## MSN standardization
@@ -43,20 +40,34 @@ scripts/                 # Deployment helpers (update_code, deploy_srv, deploy_n
 - **Clients** live under `/srv/webapps/clients/<domain>/` with `frontend/` assets and optional `data/` files that may be whitelisted for backend access.
 
 ### Directory layout
+This is how the acutal EC2 instance is set up.
 ```
+GH-etc/...               # Deicated repo for system files that support the server.
+  # Meant to act as a 'sandbox' where agents can use MCP to branch the repo.
+  # Then scipts can be used to pull these branches.
+  # Then other agents can acess the audit text file outputs for checks and chnages.
+  # So and agent is never meant to change anything in this file or the deployed version, only update the repo with MCP tool.
 etc/
-  nginx/                 # Nginx config and vhost definitions
+  systemd/system/
+    plaform.service
+  nginx/
+    nginx.conf
+    mime.types
+    sites-available/...
+    sites-enabled/...
 srv/webapps/
   platform/
+    .git                 # Deicated repo the flask platform
     app.py               # Flask app and manifest-driven routing
-    data_access.py       # Manifest loading + backend data path validation
-    modules/
-      weather.py         # Weather Blueprint (Open-Meteo daily forecast)
+    ...                  # Other core files
+    modules/...
   clients/
     <domain>/
+      .git               # Deicated repo for each client
       frontend/          # Universal index + msn_<userId>.json + assets
       data/              # Optional backend_data files referenced by manifest
-scripts/                 # Deployment helpers (update_code, deploy_srv, deploy_nginx, deploy_all)
+scripts/...              # Deployment helpers (update_code, deploy_srv, deploy_nginx, deploy_all)
+docs/...                 # Audit outputs, confiquration notes, and prompt pointers for context for agents
 ```
 
 ### MSN standardization flow
