@@ -324,52 +324,72 @@ ls -l /etc/letsencrypt/options-ssl-nginx.conf
 grep -n "ssl_certificate" /etc/nginx/sites-available/*.conf
 ```
 
-HERE
+### Configure your Git identity on this server:
+Do this once and you won’t be asked again on this machine:
 ```bash
-HERE
+git config --global user.name "dylcmonty"
+git config --global user.email "gleam.regents_67@icloud.com"
+```
+Confirm it:
+```bash
+git config --global user.name
+git config --global user.email
 ```
 
-HERE
+Re-run what failed last time:
 ```bash
-HERE
+cd ~/GH-etc
+git status   # you should still see the two modified .conf files
+
+# Either:
+git add etc/nginx/sites-available/fruitfulnetworkdevelopment.com.conf \
+        etc/nginx/sites-available/cuyahogaterravita.com.conf
+
+git commit -m "Update nginx vhost configs after HTTPS setup for FND and CTV"
 ```
 
-HERE
+### Fix the branch name + push
+Right now you’re on master.
+But earlier you pulled from origin main, so the remote default branch is main. There is no local branch called main, which is why Git said:
+    `error: src refspec main does not match any`
+Let’s rename your local branch to main and push it:
 ```bash
-HERE
+cd ~/GH-etc
+
+# Rename local branch "master" → "main"
+git branch -M main
+
+# Push and set upstream tracking
+git push -u origin main
 ```
 
-HERE
+## Typical workflow from now on:
+
+When you or an agent (via PR) change nginx configs in aws-etc → GH-etc:
+
+#### Pull latest repo on the server:
 ```bash
-HERE
+cd ~/GH-etc
+git pull
 ```
 
-HERE
+#### Sync from GH-etc → aws (staging):
 ```bash
-HERE
+bash ~/GH-etc/scripts/01_sync_nginx_gh_to_aws.sh
 ```
 
-HERE
+#### (Optional) Inspect staged files:
 ```bash
-HERE
+diff -u ~/aws/etc/nginx/sites-available/fruitfulnetworkdevelopment.com.conf \
+        /etc/nginx/sites-available/fruitfulnetworkdevelopment.com.conf || true
 ```
 
-HERE
+#### Deploy aws → /etc/nginx:
 ```bash
-HERE
+bash ~/GH-etc/scripts/02_deploy_nginx_from_aws.sh
 ```
 
-HERE
+#### (Optional) Log an audit:
 ```bash
-HERE
-```
-
-HERE
-```bash
-HERE
-```
-
-HERE
-```bash
-HERE
+bash ~/GH-etc/scripts/03_audit_nginx.sh
 ```
