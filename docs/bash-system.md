@@ -242,35 +242,86 @@ then reload:
 ```bash
 sudo systemctl reload nginx
 ```
-
-HERE
+## SUCESS!
+### Now lets try to:
+#### Create a simple HTTP-only config for cuyahogaterravita.com
+Since files already exist at `/srv/webapps/clients/cuyahogaterravita.com/frontend`, we’ll mirror the FND config, just pointed at that root.
+Edit the site config:
 ```bash
-HERE
+sudo nano /etc/nginx/sites-available/cuyahogaterravita.com.conf
+```
+Replace the contents of that file with:
+```bash
+server {
+    listen 80;
+    server_name cuyahogaterravita.com www.cuyahogaterravita.com;
+
+    root /srv/webapps/clients/cuyahogaterravita.com/frontend;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # Optional backend proxy (commented out for now)
+    # location /api/ {
+    #     proxy_pass http://127.0.0.1:8000;
+    #     include proxy_params;
+    # }
+}
+```
+Enable the site
+```bash
+sudo ln -sf /etc/nginx/sites-available/cuyahogaterravita.com.conf \
+            /etc/nginx/sites-enabled/cuyahogaterravita.com.conf
+```
+Test and reload Nginx:
+```bash
+sudo systemctl reload nginx
 ```
 
-HERE
+#### Run Certbot to create SSL config + certs
+Since Certbot was already installed earlier; now we’ll have it:
+  - validate both domains,
+  - obtain certificates,
+  - create /etc/letsencrypt/options-ssl-nginx.conf,
+  - and adjust your Nginx configs.
+Run:
 ```bash
-HERE
+sudo certbot --nginx \
+  -d fruitfulnetworkdevelopment.com \
+  -d www.fruitfulnetworkdevelopment.com \
+  -d cuyahogaterravita.com \
+  -d www.cuyahogaterravita.com
+```
+Certbot will ask:
+  - For an email address → use the one you want for renewal/expiry notices
+  - To agree to the ToS → say yes
+  - Whether to redirect HTTP to HTTPS → I recommend yes (redirect all HTTP to HTTPS)
+If everything succeeds, Certbot will:
+  - Create /etc/letsencrypt/options-ssl-nginx.conf
+  - Create cert+key under /etc/letsencrypt/live/...
+  - Add server blocks with listen 443 ssl; and ssl_certificate lines into your FND and CTV configs, or add extra HTTPS blocks alongside your HTTP ones.
+
+Test and reload Nginx:
+```bash
+sudo nginx -t
+```
+If OK:
+```bash
+sudo systemctl reload nginx
 ```
 
-HERE
+Quick “sanity” commands you can run
 ```bash
-HERE
-```
+# Show what HTTPS ports nginx is listening on
+sudo ss -tlnp | grep nginx
 
-HERE
-```bash
-HERE
-```
+# See if the options-ssl file exists
+ls -l /etc/letsencrypt/options-ssl-nginx.conf
 
-HERE
-```bash
-HERE
-```
-
-HERE
-```bash
-HERE
+# Check the cert paths in your site configs
+grep -n "ssl_certificate" /etc/nginx/sites-available/*.conf
 ```
 
 HERE
