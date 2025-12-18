@@ -1,99 +1,215 @@
-# awsDev
+# aws-etc
 
-## Overview
-- Multi-tenant Flask platform on Debian EC2 behind Nginx.
-- Each client is defined by a single `msn_<userId>.json` manifest and a universal `index.html` that references it via MSN meta tags.
-- Nginx serves static frontends from `/srv/webapps/clients/<domain>/frontend` and proxies `/api/` traffic to the shared Flask backend in `/srv/webapps/platform`.
+This repository is the **infrastructure sandbox** for the EC2 instance that
+hosts the shared Flask platform and multiple client frontends. It mirrors key
+parts of `/etc/` and `/srv/webapps/` and provides scripts for auditing and
+deploying changes safely.
 
-## Architecture
-- **Nginx**: virtual host per domain, static asset hosting, reverse proxy for `/api/`.
-- **Flask (app.py)**: discovers client manifests, serves the correct frontend entry, and gates backend file access according to each manifest’s whitelist.
-- **Modules**: reusable APIs under `platform/modules/`, e.g., the Open-Meteo-backed weather endpoint.
+---
 
-## Repository layout
+## Environment Overview
+
+This infrastructure runs on a freshly rebuilt EC2 instance (Debian-based).
+
+Key components:
+
+- **Nginx**: virtual hosting, static file serving, and reverse-proxy for backend APIs.
+- **Gunicorn**: application server for the Flask platform.
+- **Flask**: shared backend platform serving multiple client sites.
+- **Certbot / Let’s Encrypt**: automatic TLS certificate provisioning and renewal.
+
+This instance replaces an older degraded EC2 instance and incorporates
+additional recovery and access mechanisms not previously present.
+
+---
+
+## Directory Structure & Ownership
+
+Primary directories of interest on the server:
+
 ```text
-etc/
-  systemd/system/
-    plaform.service
-  nginx/
-    nginx.conf
-    mime.types
-    sites-available/...
-    sites-enabled/...
-srv/webapps/
-  platform/              # Empty
-  clients/               # Empty
-scripts/...
-docs/...
+/srv/webapps/
+├── platform/
+│   ├── app.py
+│   ├── data_access.py
+│   ├── venv/                  # Python virtual environment (NOT in git)
+│   ├── requirements.txt
+│   └── platform.service       # systemd service (installed under /etc/systemd)
+/srv/webapps/clients/
+├── fruitfulnetworkdevelopment.com/
+│   └── frontend/
+│       ├── index.html
+│       ├── assets/
+│       └── msn_<userId>.json
+├── cuyahogaterravita.com/
+│   └── frontend/
+│       └── msn_<userId>.json
+
+/etc/nginx/
+├── sites-available/
+│   ├── fruitfulnetworkdevelopment.com.conf
+│   └── cuyahogaterravita.com.conf
+├── sites-enabled/
+│   └── (symlinks only — default site removed)
 ```
 
-## MSN standardization
-- One manifest per client: `msn_<userId>.json` contains all site configuration and `backend_data` whitelists.
-- Universal `index.html` embeds `<meta name="msn-id">` and `<meta name="msn-config">` pointing to that manifest.
-- Flask resolves the client by host, reads the manifest for `default_entry` and allowed data files, and serves consistent APIs for every domain.
+Notes:
 
-## Platform architecture and MSN standard
+- Each client domain has its own frontend directory and manifest JSON.
+- The platform backend is shared and domain-agnostic.
+- The default Nginx site is removed to prevent accidental serving of stale content.
 
-### Server topology
-- **Nginx** provides virtual hosts per domain, serves static client frontends, and proxies `/api/` to the shared Flask backend.
-- **Flask (srv/webapps/platform/app.py)** is a single multi-tenant app that discovers client manifests, serves the correct frontend entry, and exposes JSON APIs.
-- **Clients** live under `/srv/webapps/clients/<domain>/` with `frontend/` assets and optional `data/` files that may be whitelisted for backend access.
+This repo mirrors those directories under:
 
-### Directory layout
-This is how the acutal EC2 instance is set up.
-```
-GH-etc/...               # Deicated repo for system files that support the server.
-  # Meant to act as a 'sandbox' where agents can use MCP to branch the repo.
-  # Then scipts can be used to pull these branches.
-  # Then other agents can acess the audit text file outputs for checks and chnages.
-  # So and agent is never meant to change anything in this file or the deployed version, only update the repo with MCP tool.
-etc/
-  systemd/system/
-    plaform.service
-  nginx/
-    nginx.conf
-    mime.types
-    sites-available/...
-    sites-enabled/...
-srv/webapps/
-  platform/
-    .git                 # Deicated repo the flask platform
-    app.py               # Flask app and manifest-driven routing
-    ...                  # Other core files
-    modules/...
-  clients/
-    <domain>/
-      .git               # Deicated repo for each client
-      frontend/          # Universal index + msn_<userId>.json + assets
-      data/              # Optional backend_data files referenced by manifest
-scripts/...              # Deployment helpers (update_code, deploy_srv, deploy_nginx, deploy_all)
-docs/...                 # Audit outputs, confiquration notes, and prompt pointers for context for agents
+```text
+etc/            # Nginx + systemd templates
+srv/webapps/    # Layout reference only (no live venvs or git clones)
+scripts/        # Deployment and audit helpers
+docs/           # Audit outputs and operational notes
 ```
 
-### MSN standardization flow
-- Each client has exactly one manifest named `msn_<userId>.json`; it is the single source of truth for site config and the `backend_data` whitelist.
-- The universal `index.html` embeds MSN metadata:
-  ```html
-  <meta name="msn-id" content="<userId>">
-  <meta name="msn-config" content="msn_<userId>.json">
+Agents should treat this repo as the **source of truth for configuration** and
+use scripts to sync into the live system, rather than editing `/etc` directly.
+
+---
+
+## Python Virtual Environments (venv)
+
+All Python services are run inside explicit virtual environments.
+
+Example setup:
+
+```bash
+cd /srv/webapps/platform
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+Important:
+
+- The `venv` directory is intentionally **not** version controlled.
+- Each backend service should manage its own `venv`.
+- systemd services explicitly reference the `venv` binary paths.
+
+---
+
+## Access Methods
+
+### SSH (Primary)
+
+- Access is performed using a PEM key:
+
+  ```bash
+  ssh -i ~/.ssh/aws-main-key.pem admin@<Elastic-IP>
   ```
-- On startup, Flask scans client frontends for the manifest, extracts the `userId`, and builds an in-memory map of domains to manifest metadata (user id, manifest filename, frontend path).
-- Routes can use the Host header or provided user id to resolve which manifest to serve or which data files are allowed.
 
-### Discovery and APIs
-- Example endpoints aligned with the manifest scan:
-  - `/api/site/<user_id>.json` → returns the manifest for that user id.
-  - `/api/sites` → optional directory of discovered sites with their user ids and manifest names.
-- Manifest-driven routing ensures each request serves the correct frontend entry (`default_entry` from the manifest) and enforces backend file access to the manifest-declared `backend_data` list.
+- The `admin` user’s `~/.ssh/authorized_keys` contains the public key material.
 
-### Universal index template expectations
-- A single template should generate every client `index.html`, injecting the MSN meta tags and loading a shared `build.js`.
-- Frontend code reads the MSN metadata (or `window.MSN_CONFIG`), fetches `/api/msn/<userId>.json` or the same-origin manifest file, and renders dynamically based on the manifest contents.
+### AWS Systems Manager (Secondary / Recovery)
 
-### Error handling expectations
-- Startup should flag missing or multiple manifests per client directory.
-- API routes must validate query parameters and user ids and return clear 4xx errors for invalid input or 5xx/502 when upstream dependencies fail.
+- The instance runs `amazon-ssm-agent`.
+- The IAM role `AmazonSSMManagedInstanceCore` is attached.
+- Session Manager provides browser-based shell access if SSH fails.
 
-## Operations scripts
-- Audit scripts now mirror their output into `docs/` with timestamped log files so agents can review findings without touching the deployed `/etc` tree.
-- `scripts/deploy_etc.sh` provides granular functions for syncing NGINX or systemd content from the GH-etc sandbox into the live `/etc` directory and for pushing updated audit outputs from `docs/` back to the repository.
+This access path did not exist on the original instance and is a deliberate
+resilience improvement.
+
+---
+
+## System Services
+
+### Gunicorn (Flask Platform)
+
+- Managed by systemd via `platform.service`.
+- Restart via:
+
+  ```bash
+  sudo systemctl restart platform.service
+  ```
+
+### Nginx
+
+- Managed by systemd.
+- Validate config with:
+
+  ```bash
+  sudo nginx -t
+  ```
+
+- Reload after config changes:
+
+  ```bash
+  sudo systemctl reload nginx
+  ```
+
+### Logging & Disk Safety
+
+- `journald` limits enforced:
+
+  ```text
+  SystemMaxUse=200M
+  RuntimeMaxUse=200M
+  ```
+
+- Prevents disk exhaustion from runaway logs.
+
+---
+
+## SSL & DNS
+
+- DNS `A` records for all domains point to the Elastic IP of this instance.
+- Certificates are managed by Certbot using the nginx authenticator.
+- Renewal can be tested via:
+
+  ```bash
+  sudo certbot renew --dry-run
+  ```
+
+- Port 80 must remain open for HTTP-01 challenges.
+
+---
+
+## Troubleshooting & Differences from Old Instance
+
+- The original instance suffered SSH banner hangs due to system-level corruption.
+- Recovery was not possible without rebuilding.
+- This instance was rebuilt cleanly with:
+  - Explicit systemd services
+  - Enforced logging limits
+  - SSM access for recovery
+  - Cleaner separation of platform vs client assets
+
+---
+
+## Multi-tenant Platform & Manifests (MSN)
+
+At a high level, the platform follows a **manifest-first** design:
+
+- One manifest per client: `msn_<userId>.json` contains site configuration and
+  `backend_data` whitelists.
+- Nginx serves static frontends from `/srv/webapps/clients/<domain>/frontend`.
+- The shared Flask backend in `/srv/webapps/platform` discovers these manifests
+  and serves APIs and data according to each manifest.
+
+For details on how the manifests are used, see:
+
+- `flask-app-main/platform/README.md` (backend behavior)
+- Each client’s `README.md` under `flask-app-main/clients/<domain>/`
+
+---
+
+## Scripts & Operational Workflow
+
+- Audit scripts mirror their output into `docs/` with timestamped log files so
+  agents can review findings without touching the deployed `/etc` tree.
+- Deployment scripts (e.g., `scripts/*.sh`) provide granular functions for
+  syncing Nginx or systemd content from this sandbox into the live `/etc`
+  directory and for pulling updated app/client code into `/srv/webapps`.
+
+Agents should:
+
+- Propose and test changes in this repo.
+- Use the scripts to sync configuration to the server.
+- Avoid manual, ad-hoc edits in `/etc` and `/srv/webapps` whenever possible.
+
