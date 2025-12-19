@@ -1,10 +1,8 @@
 #!/bin/bash
 # pull_etc.sh
 #
-# Update the local GH-etc repository clone from the canonical
 # `Fruitful-Network-Development/aws-etc` GitHub repository on `main`.
 # This script is intended to be the standard way to keep
-# `/home/admin/GH-etc` in sync with GitHub.
 #
 # It assumes that the local clone at REPO_PATH is already configured
 # with a remote (typically `origin`) pointing at:
