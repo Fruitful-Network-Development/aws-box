@@ -1,4 +1,4 @@
-# aws-etc
+# aws-box
 
 This repository is the **infrastructure sandbox** for the EC2 instance that
 hosts the shared Flask platform and multiple client frontends. It mirrors key
