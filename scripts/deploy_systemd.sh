@@ -18,7 +18,7 @@ if [ ! -d "$SRC" ]; then
 fi
 
 log "Deploying systemd units from $SRC -> $DEST"
-sudo rsync -a \
+sudo rsync -a --delete \
   --exclude='*.bak' \
   --exclude='*.swp' \
   "$SRC/" "$DEST/"
@@ -26,11 +26,13 @@ sudo rsync -a \
 log "Reloading systemd daemon"
 sudo systemctl daemon-reload
 
-# Restart common services if present
-for svc in platform.service nginx; do
-  if systemctl list-unit-files | grep -q "^${svc}"; then
+# Restart platform service if present
+for svc in platform.service; do
+  if systemctl list-unit-files --type=service --no-legend | awk '{print $1}' | grep -Fxq "$svc"; then
     log "Restarting $svc"
-    sudo systemctl restart "$svc" || true
+    sudo systemctl restart "$svc"
+  else
+    log "$svc not found in unit-files, skipping"
   fi
 done
 
