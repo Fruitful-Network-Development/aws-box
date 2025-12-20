@@ -1,8 +1,8 @@
 # Debian EC2 Rebuild Guide (aws-box)
 
-> **Scope:** Manual, step-by-step rebuild instructions for a new Debian EC2 instance using the **single** repository `Fruitful-Network-Development/aws-box`. This guide does **not** use `deploy_platform.sh`.
+> **Scope:** Manual, step-by-step rebuild instructions for a new Debian EC2 instance using the **single** repository `Fruitful-Network-Development/aws-box`.
 
-### 1) Provision the EC2 instance
+### 0) Provision the EC2 instance
 1. Launch a **Debian** EC2 instance.
 2. Open inbound security group ports: **22**, **80**, **443**.
 3. Confirm DNS A records point to the new instance IP:
@@ -11,22 +11,71 @@
    - cuyahogaterravita.com
    - www.cuyahogaterravita.com
 
-### 2) Login and install base packages (Debian)
+### 1) One-time base packages and permissions (Debian)
 ```bash
 ssh admin@<public-ip>
 
 sudo apt-get update
 sudo apt-get install -y git rsync nginx python3 python3-venv python3-pip certbot python3-certbot-nginx
 ```
-> Note: The legacy docs mention UFW installation in the old script; use it only if you already manage firewalls with UFW on Debian.
+Enable nginx:
+```bash
+sudo systemctl enable --now nginx
+```
+Create live app directories:
+```
+sudo mkdir -p /srv/webapps/platform /srv/webapps/clients
+sudo chown -R admin:admin /srv/webapps
+```
 
-### 3) Clone the single repo to GH-etc
+### 2) Set up GitHub access from the server
+
+#### 2.A) Generate an SSH key on the server
+```bash
+ssh-keygen -t ed25519 -C "admin@$(hostname)-aws-box"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+cat ~/.ssh/id_ed25519.pub
+```
+Copy the printed public key into GitHub:
+      GitHub → Settings → SSH and GPG keys → New SSH key
+
+Test auth
+```bash
+ssh -T git@github.com
+```
+
+#### 2.B) Clone your aws-box repo to become the only source-of-truth
 ```bash
 cd /home/admin
-
-git clone git@github.com:Fruitful-Network-Development/aws-box.git GH-etc
-cd /home/admin/GH-etc
+git clone git@github.com:<ORG_OR_USER>/aws-box.git
+cd /home/admin/aws-box
+git status
 ```
+
+### 3) Install the repo’s system configs into live `/etc` safely
+
+#### 3.A) Deploy nginx from repo → live
+```bash
+sudo rsync -a --delete /home/admin/aws-box/etc/nginx/ /etc/nginx/
+```
+Remove the default site (prevents wrong site being served):
+```bash
+sudo rm -f /etc/nginx/sites-enabled/default
+```
+Validate and reload:
+```bash
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+#### 3.B) Deploy systemd units from repo → live
+```bash
+sudo rsync -a /home/admin/aws-box/etc/systemd/system/ /etc/systemd/system/
+sudo systemctl daemon-reload
+```
+Do not start services yet unless platform code exists.
+
 
 ### 4) Set required environment variables
 ```bash
