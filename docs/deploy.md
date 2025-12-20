@@ -78,128 +78,81 @@ sudo systemctl daemon-reload
 ```
 Do not start services yet unless platform code exists.
 
-
-### 4) Set required environment variables
+### 4) Deploy client frontends (repo → live)
+If your repo contains client skeletons under `srv/webapps/clients/...`:
 ```bash
-python3 -c "import secrets; print(secrets.token_hex(32))"
-
-export FND_SECRET_KEY="paste-generated-key-here"
-export FND_CONTACT_EMAIL="your-email@fruitfulnetworkdevelopment.com"
+sudo rsync -a /home/admin/aws-box/srv/webapps/clients/ /srv/webapps/clients/
+sudo chown -R admin:admin /srv/webapps/clients
 ```
 
-### 5) Ensure the skeleton and live paths exist
+### 5) Deploy platform backend code (separately)
+Platform skeleton comes from aws-box
+If `/home/admin/aws-box/srv/webapps/platform/... exists`:
 ```bash
-sudo mkdir -p /srv/webapps
-```
-The repository already contains the **skeleton** in:
-- `/home/admin/aws-box/srv/webapps/`
-
-Do **not** add runtime artifacts (e.g., `.git`, `venv`, `__pycache__`) inside aws-box.
-
-### 6) Deploy configuration to /etc
-> Use the deployment scripts which target `/etc` and use `sudo`.
-```bash
-cd /home/admin/aws-box
-
-# Deploy nginx configuration
-./scripts/deploy_nginx.sh
-
-# Deploy systemd unit files
-./scripts/deploy_systemd.sh
+sudo rsync -a --delete /home/admin/aws-box/srv/webapps/platform/ /srv/webapps/platform/
 ```
 
-### 7) Sync the app skeleton to /srv/webapps
+### 6) Create the platform venv and install requirements
+Platform skeleton comes from aws-box
+If `/home/admin/aws-box/srv/webapps/platform/... exists`:
 ```bash
-cd /home/admin/aws-box
-
-# Sync everything (platform + clients)
-./scripts/synch_srv.sh
-
-# Or target only clients/frontends
-# ./scripts/synch_srv.sh clients
+cd /srv/webapps/platform
+python3 -m venv venv
+source venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt || true
+deactivate
 ```
-This sync preserves runtime state in `/srv/webapps` (e.g., venv, .git).
-
-### 8) Configure systemd and nginx
+If you don’t have `requirements.txt`, you must add one. As a stopgap you can install minimums:
 ```bash
-sudo systemctl daemon-reload
-sudo systemctl enable platform.service
-sudo systemctl restart platform.service
-
-sudo nginx -t
-sudo systemctl reload nginx
+source /srv/webapps/platform/venv/bin/activate
+pip install flask gunicorn requests
+deactivate
 ```
 
-### 9) Obtain SSL certificates (Certbot)
+### 7) Start systemd services (platform + nginx)
+If you have `platform.service` deployed already and `ExecStart` points to `/srv/webapps/platform/venv/bin/gunicorn`:
+```bash
+sudo systemctl enable --now platform.service
+sudo systemctl status platform.service --no-pager
+```
+Verify local backend:
+```bash
+curl -sS -I http://127.0.0.1:8000/ | head
+```
+
+### 8) TLS (certbot) after DNS and port 80 are correct
+Confirm DNS points at this instance:
+```bash
+sudo apt install -y dnsutils
+dig +short fruitfulnetworkdevelopment.com
+curl -s https://checkip.amazonaws.com
+```
+Confirm port 80 reachable (from your laptop too). Then:
 ```bash
 sudo certbot --nginx -d fruitfulnetworkdevelopment.com -d www.fruitfulnetworkdevelopment.com \
   -d cuyahogaterravita.com -d www.cuyahogaterravita.com
 ```
-
-## Ongoing updates
-### 1.) Set Required Environment Variables
-
-### Generate a strong secret:
-
+Test renewal:
 ```bash
-python3 -c "import secrets; print(secrets.token_hex(32))"
+sudo certbot renew --dry-run
 ```
 
-### Export environment variables:
+### 9) Add the deploy scripts (prevention)
+Create a scripts folder in your repo and add:
+ - scripts/deploy_nginx.sh (rsync → nginx -t → reload)
+   - scripts/deploy_systemd.sh (rsync → daemon-reload → restart platform)
+If you want, I will give you the exact scripts again but with your final chosen paths.
 
-```bash
-export FND_SECRET_KEY="paste-generated-key-here"
-export FND_CONTACT_EMAIL="your-email@fruitfulnetworkdevelopment.com"
-```
 
-Run the deployment script using:
+## Historical Note (Deprecated)
+Earlier versions of this document described a monolithic deployment
+workflow using GH-etc, per-file sync scripts, and a single deploy_platform.sh.
+That approach has been retired.
 
-```bash
-sudo -E bash deploy_platform.sh
-```
+The current and supported model is:
+- Single source-of-truth repo: /home/admin/aws-box
+- Explicit deploy scripts for nginx and systemd
+- No direct editing of /etc or partial syncs
 
-(`-E` preserves your exported environment variables.)
-
----
-
-### 2.) Deployment Script Behavior
-
-The script:
-
-1. Installs Python, Git, Nginx, Certbot, UFW  
-2. Creates:
-   - `/srv/webapps/platform`
-   - `/srv/webapps/clients/<domain>/frontend`
-   - `/home/admin/aws-box`
-3. Clones or updates the aws-box repository
-4. Deploys system configuration from `aws-box`
-5. Sets up Python virtualenv + installs dependencies
-6. Creates systemd service `platform.service`
-7. Tests + reloads Nginx
-8. Obtains HTTPS certificates via Certbot
-9. Prints deployment summary
-
-Afterward, visit:
-
-```
-https://fruitfulnetworkdevelopment.com
-https://cuyahogaterravita.com
-```
-
----
-
-### 3.) Updating an Existing Server
-
-To apply changes made in GitHub:
-
-```bash
-cd /home/admin/aws-box
-git pull
-./scripts/deploy_nginx.sh
-./scripts/deploy_systemd.sh
-./scripts/synch_srv.sh
-```
-
-This keeps the server synchronized with the configuration repo.
-
----
+Refer only to the steps above for new instance setup and updates.
