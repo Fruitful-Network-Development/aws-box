@@ -5,6 +5,9 @@
 # /srv/webapps/ directory. This script safely updates source code while
 # preserving runtime state (venv, .git, __pycache__).
 #
+# WARNING: Partial sync (platform/clients) should only be used for emergency
+# hotfixes. Normal deployment should use 'all' to maintain consistency.
+#
 # Source tree (default):
 #   REPO_ROOT=/home/admin/aws-box/srv/webapps
 # Dest tree (default):
@@ -13,8 +16,8 @@
 # Typical usage:
 #   ./synch_srv.sh                    # Sync everything
 #   ./synch_srv.sh --no-restart       # Sync without restarting services
-#   ./synch_srv.sh platform           # Sync platform only
-#   ./synch_srv.sh clients            # Sync clients only
+#   ./synch_srv.sh platform           # Sync platform only (EMERGENCY ONLY)
+#   ./synch_srv.sh clients            # Sync clients only (EMERGENCY ONLY)
 #
 set -euo pipefail
 
@@ -23,7 +26,7 @@ SRV_ROOT="${SRV_ROOT:-/srv/webapps}"
 SRV_SRC="${REPO_ROOT}/srv/webapps"
 
 RESTART_SERVICES="${RESTART_SERVICES:-yes}"
-SYNC_TARGET="${1:-all}"
+SYNC_TARGET="all"  # Default to 'all', will be overridden by argument if provided
 
 log() {
   echo "[synch_srv] $*"
@@ -71,7 +74,7 @@ sync_platform() {
   fi
 
   log "Syncing platform from $SRV_SRC/platform to $SRV_ROOT/platform"
-  sudo rsync -av "${RSYNC_EXCLUDES[@]}" \
+  sudo rsync -av --delete "${RSYNC_EXCLUDES[@]}" \
     "$SRV_SRC/platform/" "$SRV_ROOT/platform/"
   
   log "Platform sync complete"
@@ -149,19 +152,27 @@ Examples:
 EOF
 }
 
-# Handle --help
-if [ "${1:-}" = "--help" ] || [ "${1:-}" = "-h" ] || [ "${1:-}" = "help" ]; then
-  print_help
-  exit 0
-fi
-
-# Handle --no-restart flag
-if [ "${1:-}" = "--no-restart" ]; then
-  RESTART_SERVICES="no"
-  SYNC_TARGET="${2:-all}"
-elif [ "${2:-}" = "--no-restart" ]; then
-  RESTART_SERVICES="no"
-fi
+# Process arguments: handle flags and target in a single pass
+# This simplifies parsing and makes behavior more predictable
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --help|-h|help)
+      print_help
+      exit 0
+      ;;
+    --no-restart)
+      RESTART_SERVICES="no"
+      shift
+      ;;
+    all|platform|clients)
+      SYNC_TARGET="$1"
+      shift
+      ;;
+    *)
+      error "Unknown argument: $1. Use 'all', 'platform', 'clients', or '--no-restart'"
+      ;;
+  esac
+done
 
 # Main sync logic
 log "Starting sync from $SRV_SRC to $SRV_ROOT"
