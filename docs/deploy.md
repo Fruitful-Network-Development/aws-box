@@ -50,7 +50,7 @@ ssh -T git@github.com
 #### 2.B) Clone your aws-box repo to become the only source-of-truth
 ```bash
 cd /home/admin
-git clone git@github.com:<ORG_OR_USER>/aws-box.git
+git clone git@github.com:Fruitful-Network-Development/aws-box.git
 cd /home/admin/aws-box
 git status
 ```
