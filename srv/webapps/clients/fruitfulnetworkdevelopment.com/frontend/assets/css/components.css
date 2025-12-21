@@ -142,7 +142,7 @@
 }
 
 /* Responsive: stack to 1 column - component handles its own breakpoint */
-@media (max-width: 900px){
+@media (max-width: 1024px){
   .s1__grid{ grid-template-columns: 1fr; }
   .s1__text{ max-width: 52ch; }
 }
@@ -191,7 +191,7 @@
 }
 
 /* Mobile: stack */
-@media (max-width: 760px){
+@media (max-width: 820px){
   .divider__inner{
     grid-template-columns: 1fr;
     gap: var(--gap-sm); /* uses shared gap token */
@@ -300,7 +300,7 @@
 }
 
 /* Mobile: stack content vertically per pill */
-@media (max-width: 860px){
+@media (max-width: 820px){
   .s2__inner{
     grid-template-rows: repeat(3, auto);
   }
@@ -505,7 +505,7 @@
 .s3__overlay.br{ width: calc(var(--header-h) * 1.9); }
 
 /* ---------- Responsive ---------- */
-@media (max-width: 980px){
+@media (max-width: 1024px){
   .s3__inner{
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
@@ -520,7 +520,7 @@
   }
 }
 
-@media (max-width: 760px){
+@media (max-width: 820px){
   .s3__panel{
     grid-template-columns: 1fr;
   }
@@ -636,7 +636,7 @@
 }
 
 /* Responsive: stack columns */
-@media (max-width: 980px){
+@media (max-width: 1024px){
   .inj-footer .footer-overlay-inner{
     grid-template-columns: 1fr;
     gap: var(--gap-md); /* uses shared gap token */
