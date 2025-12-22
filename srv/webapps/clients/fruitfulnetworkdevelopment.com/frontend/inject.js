@@ -33,6 +33,12 @@
     "Server_section": "section_1.html",
     "Operate_section": "section_2.html",
     "Offer_section": "section_3.html",
+    "roadmap_section": "section_4.html",
+    "timeline_section": "section_5.html",
+
+    // DATA TABLES
+    "payment_processing_table": "payment_processing_table.html",
+    "pos_table": "pos_table.html",
 
     // DIVIDERS
     "Invest_divider": "divider_1.html",
