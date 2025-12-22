@@ -81,19 +81,23 @@
     .section_block{ width: 100%; display: grid; place-items: stretch; }
     .hero{ min-height: var(--hero-h); height: auto; background: url("assets/imgs/hero.jpeg") center center / cover no-repeat; background-attachment: fixed; position: relative; display: grid; place-items: center; }
     .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.4); z-index: 1; }
-    .hero .slot{ position: relative; z-index: 2; place-items: center; }
+    .hero .slot{ position: relative; z-index: 2; place-items: center; height: 100%; }
     .content_section{
       background: var(--c1);
       min-height: var(--section-h);
-      height: auto;
+      height: var(--section-h);
       display: grid;
       place-items: stretch;
+    }
+
+    .content_section .slot{
+      height: 100%;
     }
     .site-footer{ width: 100%; min-height: calc(var(--header-h) * 5.2); display: grid; grid-template-columns: 1fr; place-items: stretch; }
     .site-footer .slot{ max-width: none; padding: 0; }
     .slot{ 
       min-height: 100%; 
-      height: auto; 
+      height: 100%; 
       width: 100%; 
       max-width: var(--maxw); 
       margin: 0 auto; 
