@@ -25,17 +25,17 @@ additional recovery and access mechanisms not previously present.
 
 ## Directory Structure & Ownership
 
-Primary directories of interest on the server:
+Primary sources of truth and where this repo exists are on the server as:
 
 ```text
-/srv/webapps/
+home/admin/srv/webapps/
 ├── platform/
 │   ├── app.py
 │   ├── data_access.py
 │   ├── venv/                  # Python virtual environment (NOT in git)
 │   ├── requirements.txt
 │   └── platform.service       # systemd service (installed under /etc/systemd)
-/srv/webapps/clients/
+├── clients/
 ├── fruitfulnetworkdevelopment.com/
 │   └── frontend/
 │       ├── index.html
@@ -45,12 +45,17 @@ Primary directories of interest on the server:
 │   └── frontend/
 │       └── msn_<userId>.json
 
-/etc/nginx/
-├── sites-available/
-│   ├── fruitfulnetworkdevelopment.com.conf
-│   └── cuyahogaterravita.com.conf
-├── sites-enabled/
-│   └── (symlinks only — default site removed)
+home/admin/etc/
+├── nginx/
+│   ├── nginx.conf
+│   ├── mime.types
+│   ├──sites-available/
+│   │   ├── fruitfulnetworkdevelopment.com.conf
+│   │   └── cuyahogaterravita.com.conf
+│   └── sites-enabled/
+│       └── (symlinks only — default site removed)
+└── systemd/system/
+    └── platform.service
 ```
 
 Notes:
@@ -59,18 +64,11 @@ Notes:
 - The platform backend is shared and domain-agnostic.
 - The default Nginx site is removed to prevent accidental serving of stale content.
 
-This repo mirrors those directories under:
-
+This repo is then mirrored by the 'live' directories under:
 ```text
-etc/            # Nginx + systemd templates
-srv/webapps/    # Layout reference only (no live venvs or git clones)
-scripts/        # Deployment and audit helpers
-docs/           # Audit outputs and operational notes
+/etc/
+/srv/webapps/
 ```
-
-Agents should treat this repo as the **source of truth for configuration** and
-use scripts to sync into the live system, rather than editing `/etc` directly.
-
 ---
 
 ## Python Virtual Environments (venv)
@@ -105,17 +103,6 @@ Important:
   ```
 
 - The `admin` user’s `~/.ssh/authorized_keys` contains the public key material.
-
-### AWS Systems Manager (Secondary / Recovery)
-
-- The instance runs `amazon-ssm-agent`.
-- The IAM role `AmazonSSMManagedInstanceCore` is attached.
-- Session Manager provides browser-based shell access if SSH fails.
-
-This access path did not exist on the original instance and is a deliberate
-resilience improvement.
-
----
 
 ## System Services
 
@@ -199,26 +186,46 @@ For details on how the manifests are used, see:
 
 ---
 
-## Scripts & Operational Workflow
+## WorkFlow
 
-- Audit scripts mirror their output into `docs/` with timestamped log files so
-  agents can review findings without touching the deployed `/etc` tree.
-- Deployment scripts (e.g., `scripts/*.sh`) provide granular functions for
-  syncing Nginx or systemd content from this sandbox into the live `/etc`
-  directory and for pulling updated app/client code into `/srv/webapps`.
+### Update the repo on the server
+Run on the instance:
+```bash
+cd /home/admin/aws-box
+git fetch origin
+git pull --ff-only
+```
+If `git pull --ff-only` fails, stop (it means local drift). Don’t “fix” it in prod. Reset to origin (see the drift section below).
 
-Current key scripts:
+### Deploy `/srv` payload (static sites + platform code)
+Only if your commit includes changes under srv/:
+```bash
+sudo rsync -a --delete /home/admin/aws-box/srv/ /srv/
+sudo chown -R admin:admin /srv/webapps
+```
 
-- `scripts/pull_etc.sh` — updates the local `aws-box` clone from the
-  `Fruitful-Network-Development/aws-box` GitHub repository (branch `main`).
-- `scripts/deploy_nginx.sh` — deploys nginx configuration from this repo to `/etc/nginx`.
-- `scripts/deploy_systemd.sh` — deploys systemd unit files from this repo to `/etc/systemd/system`.
-- `scripts/synch_srv.sh` — syncs application code from this repo to `/srv/webapps`.
-- `scripts/audit.sh` — consolidated audit entrypoint providing subcommands for
-  nginx syntax, nginx configuration, file permissions, and systemd services.
+### Deploy `/etc` payload (nginx, systemd, etc.)
+Only if your commit includes changes under `etc/`:
+```bash
+sudo rsync -a --delete /home/admin/aws-box/etc/ /etc/
+```
 
-Agents should:
+### Apply service changes safely
+Nginx
+```bash
+sudo nginx -t
+sudo systemctl reload nginx
+```
 
-- Propose and test changes in this repo.
-- Use the scripts to sync configuration to the server.
-- Avoid manual, ad-hoc edits in `/etc` and `/srv/webapps` whenever possible.
+systemd units (only if you changed etc/systemd/system/*.service)
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart platform.service
+sudo systemctl status platform.service --no-pager
+```
+### Sanity checks
+```bash
+curl -I https://fruitfulnetworkdevelopment.com | head -10
+curl -I https://cuyahogaterravita.com | head -10
+sudo certbot renew --dry-run
+```
