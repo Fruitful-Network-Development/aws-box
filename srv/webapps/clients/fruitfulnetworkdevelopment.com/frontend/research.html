@@ -239,13 +239,12 @@
       place-items: center;
     }
 
-    .page-content{
-      width: 100%;
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding: calc(var(--header-h) * 2) var(--slot-padding);
+    .content_section{
       background: var(--c1);
-      min-height: calc(100vh - var(--header-h) - var(--hero-h));
+      min-height: var(--section-h);
+      height: auto;
+      display: grid;
+      place-items: stretch;
     }
 
     /* Footer container - full width */
@@ -332,11 +331,15 @@
       <section class="section_block hero">
         <div id="slot-hero" class="slot" data-component="section_1" data-hero-title="Our Research"></div>
       </section>
-    </div>
+      <!-- SECTION 4 -->
+      <section class="section_block content_section">
+        <div id="slot-section-4" class="slot" data-component="roadmap_section"></div>
+      </section>
 
-    <div class="page-content">
-      <div id="slot-section-4" class="slot" data-component="roadmap_section"></div>
-      <div id="slot-section-5" class="slot" data-component="timeline_section"></div>
+      <!-- SECTION 5 -->
+      <section class="section_block content_section">
+        <div id="slot-section-5" class="slot" data-component="timeline_section"></div>
+      </section>
     </div>
 
     <!-- FOOTER -->
@@ -424,7 +427,6 @@
     window.addEventListener("resize", applySizingVars);
     window.addEventListener("scroll", syncHeaderScrollState, { passive: true });
   </script>
-
-  <script src="inject.js"></script>
+  <script src="/inject.js"></script>
 </body>
 </html>
