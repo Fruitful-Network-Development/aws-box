@@ -156,3 +156,88 @@ The current and supported model is:
 - No direct editing of /etc or partial syncs
 
 Refer only to the steps above for new instance setup and updates.
+
+## Repo Deploy
+
+### Update the repo working copy (/home/admin/aws-box)
+```bash
+cd /home/admin/aws-box
+git status
+git fetch origin
+git pull --ff-only
+```
+If git pull --ff-only fails with “not possible to fast-forward,” stop and paste the output (it means local changes exist and we need to reconcile safely).
+
+### Sanity check what changed (recommended)
+```bash
+git log -5 --oneline
+git diff --name-only HEAD@{1}..HEAD
+```
+
+### Deploy nginx config from repo → live /etc/nginx
+Assuming your repo contains etc/nginx/...:
+```bash
+sudo rsync -a --delete /home/admin/aws-box/etc/nginx/ /etc/nginx/
+```
+
+Prevent the default site from hijacking requests (common source of “old site showing”):
+```bash
+sudo rm -f /etc/nginx/sites-enabled/default
+```
+
+Validate and reload:
+```bash
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+Confirm the correct server blocks are live:
+```bash
+sudo nginx -T | grep -RIn "server_name .*fruitfulnetworkdevelopment.com" /etc/nginx
+```
+
+### Deploy systemd units from repo → live /etc/systemd/system
+
+If your repo contains etc/systemd/system/...:
+```bash
+sudo rsync -a /home/admin/aws-box/etc/systemd/system/ /etc/systemd/system/
+sudo systemctl daemon-reload
+
+```
+
+If you have platform.service and want it restarted to pick up changes:
+```bash
+sudo systemctl restart platform.service
+sudo systemctl status platform.service --no-pager
+```
+
+### Deploy /srv content from repo → live /srv
+Be careful here: you generally want /srv/webapps content, not everything under /srv.
+
+#### Deploy client frontends
+If repo has srv/webapps/clients/...:
+```bash
+sudo rsync -a --delete /home/admin/aws-box/srv/webapps/clients/ /srv/webapps/clients/
+sudo chown -R admin:admin /srv/webapps/clients
+```
+#### Deploy platform skeleton (only if you keep platform code in aws-box)
+If repo has srv/webapps/platform/... and you intend to deploy it:
+```bash
+sudo rsync -a --delete /home/admin/aws-box/srv/webapps/platform/ /srv/webapps/platform/
+sudo chown -R admin:admin /srv/webapps/platform
+sudo systemctl restart platform.service
+
+```
+If your platform code lives in a separate repo, do not overwrite /srv/webapps/platform from aws-box.
+
+### Quick end-to-end checks
+Local (on the server):
+```bash
+curl -sS -I http://127.0.0.1:8000/ | head -20
+curl -sS -I http://localhost/ | head -20
+```
+From your laptop:
+```bash
+curl -I https://fruitfulnetworkdevelopment.com
+curl -I https://cuyahogaterravita.com
+```
