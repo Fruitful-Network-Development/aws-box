@@ -19,6 +19,13 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
 
+  /* Width constraints to prevent overflow */
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 0 var(--pad);
+
   /* Larger sizing to match desired display */
   font-size: clamp(
     calc(var(--header-h) * 2.5),
@@ -34,6 +41,9 @@
 }
 
 @media (max-width: 820px) {
+  .hero {
+    overflow-x: hidden;
+  }
   .hero__title {
     font-size: clamp(
       calc(var(--header-h) * 2.1),
@@ -41,5 +51,6 @@
       calc(var(--header-h) * 3.4)
     );
     letter-spacing: 0.06em;
+    padding: 0 calc(var(--pad) * 1.5);
   }
 }
