@@ -5,6 +5,8 @@
 .hero {
   height: 100%;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   display: grid;
   place-items: center;
 }
