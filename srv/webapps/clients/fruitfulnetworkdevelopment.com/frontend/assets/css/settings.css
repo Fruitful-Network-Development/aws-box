@@ -1,0 +1,51 @@
+/* =========================
+   SETTINGS
+   Design tokens / CSS custom properties
+   ========================= */
+
+:root {
+  /* ===== COLOR TOKENS =====
+     Used by containers (sections/dividers/footer) and components
+     Components should reference these, not define their own colors */
+  --c1: #ffffff;  /* Primary white background */
+  --c2: #e0e3de;  /* Light gray (hero footer, divider text) */
+  --c3: #2E5B9E;  /* Teal (dividers, accents) */
+  --c4: #0a2026;  /* Dark teal (text, accents) */
+  --c5: #101418;  /* Near-black (hero text, dark backgrounds) */
+  --c6: #866392;  /* Dark gray (section 2 pills, search) */
+  --c7: #95845F;  /* Green (section 1 cards) */
+  --c8: #95845F;  /* Beige/cream (section 2/3 titles, section 3 cards) */
+  --c9: #6A8A7F;  /* Beige/cream (section 3 panels - same as c8) */
+  --c10: #C1C1C2;  /* Beige/cream (section 3 panels - same as c8) */
+
+  /* ===== SIZING TOKENS =====
+     Set by JS (responsive) - default values */
+  --header-h: 56px;
+
+  /* Container heights - defined at container level */
+  --hero-h: calc(var(--header-h) * 15);
+  --hero-footer-h: calc(var(--header-h) * 2.5);
+  --section-h: calc(var(--header-h) * 15);
+  --divider-h: calc(var(--header-h) * 1.8);
+
+  /* ===== SPACING TOKENS =====
+     For containers: section padding, slot padding
+     For components: internal gaps, card spacing */
+  --pad: calc(var(--header-h) / 6);                    /* Base padding unit */
+  --section-horizontal-pad: calc(var(--header-h) * 1.0); /* Horizontal padding for sections */
+  --section-vertical-pad: calc(var(--header-h) * 1.15);  /* Vertical padding for sections */
+  --slot-padding: calc(var(--header-h) * 1.0);         /* Padding for wrapper elements */
+
+  /* Grid gaps - for component internal layouts */
+  --gap-xs: calc(var(--header-h) * 0.35);   /* Small gaps (icons, tight spacing) */
+  --gap-sm: calc(var(--header-h) * 0.55);    /* Small-medium gaps */
+  --gap-md: calc(var(--header-h) * 0.75);    /* Medium gaps (card spacing) */
+  --gap-lg: calc(var(--header-h) * 1.0);     /* Large gaps (section grid columns) */
+  --gap-xl: calc(var(--header-h) * 1.4);     /* Extra large gaps (dividers) */
+
+  /* ===== LAYOUT TOKENS =====
+     For containers: max-width, grid definitions */
+  --maxw: 1400px;                                    /* Maximum content width */
+  --section-grid-gap: var(--gap-lg);                 /* Default gap for section grids */
+}
+

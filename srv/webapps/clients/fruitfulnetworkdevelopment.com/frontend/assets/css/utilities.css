@@ -1,0 +1,47 @@
+/* =========================
+   UTILITIES
+   Utility classes and state classes for JS hooks
+   ========================= */
+
+/* State classes (managed by JS) - these should have styles in component files */
+.is-scrolled {
+  /* Applied to header when scrolled - styles defined in header.css */
+}
+
+.is-active {
+  /* Applied to active navigation items - styles defined in header.css */
+}
+
+.is-sorted-asc {
+  /* Applied to sorted table columns in ascending order */
+}
+
+.is-sorted-desc {
+  /* Applied to sorted table columns in descending order */
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+.is-sorted {
+  /* Applied to sorted table columns */
+}
+
+/* Text utilities */
+.u-text-center {
+  text-align: center;
+}
+
+.u-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+

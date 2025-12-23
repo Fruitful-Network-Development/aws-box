@@ -1,0 +1,95 @@
+/* =========================
+   TABLE COMPONENT
+   ========================= */
+
+.table {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  align-content: center;
+  padding: var(--section-vertical-pad) 0;
+}
+
+.table__inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--slot-padding);
+  overflow-x: auto;
+}
+
+.table--pos .table__inner {
+  max-width: 1000px;
+}
+
+.table__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Head cells */
+.table thead .table__header {
+  background-color: #f8f9fa;
+  color: #000;
+  font-weight: 600;
+  text-align: center;
+  padding: 10px 6px;
+  border: 1px solid #dee2e6;
+  position: relative;
+  font-size: clamp(11px, calc(var(--header-h) * 0.33), 13px);
+  vertical-align: middle;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* Sortable headers only */
+.table--sortable thead .table__header--sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.table--sortable thead .table__header--sortable:hover {
+  background-color: #e9ecef;
+}
+
+/* Sort indicators (progressive enhancement - only shown if JS available) */
+.table--sortable thead .table__header--sortable::after {
+  content: " ⇅";
+  font-size: 0.75em;
+  color: #6c757d;
+  margin-left: 4px;
+}
+
+.table--sortable thead .table__header--sortable.is-sorted-asc::after {
+  content: " ▲";
+  color: #000;
+}
+
+.table--sortable thead .table__header--sortable.is-sorted-desc::after {
+  content: " ▼";
+  color: #000;
+}
+
+.table--sortable thead .table__header--sortable.is-active {
+  background-color: #dee2e6;
+}
+
+/* Body cells */
+.table tbody td {
+  background-color: #ffffff;
+  color: #000;
+  text-align: center;
+  padding: 6px;
+  border: 1px solid #dee2e6;
+  font-size: clamp(11px, calc(var(--header-h) * 0.31), 13px);
+  vertical-align: middle;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Small-screen behavior: rely on horizontal scroll in the inner wrapper */
+

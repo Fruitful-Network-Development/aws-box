@@ -1,0 +1,130 @@
+/* =========================
+   OBJECTS
+   OOCSS layout patterns (reusable, non-semantic)
+   ========================= */
+
+/* Container - outer wrapper for page content */
+.o-container {
+  width: 100%;
+}
+
+.o-container__inner {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+/* Wrapper - max-width container with padding (replaces .slot) */
+.o-wrapper {
+  min-height: 100%;
+  height: auto;
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--slot-padding);
+  display: grid;
+  place-items: stretch;
+}
+
+/* Section - generic section container (replaces .section_block, .content_section, etc.) */
+.o-section {
+  width: 100%;
+  display: grid;
+  place-items: stretch;
+}
+
+/* Section variants */
+.o-section--hero {
+  min-height: var(--hero-h);
+  height: auto;
+  background: url("assets/imgs/hero.jpeg") center center / cover no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.o-section--hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.o-section--hero .o-wrapper {
+  position: relative;
+  z-index: 2;
+  place-items: center;
+  height: 100%;
+}
+
+.o-section--hero-footer {
+  min-height: var(--hero-footer-h);
+  height: auto;
+  background: var(--c2);
+  display: grid;
+  place-items: center;
+}
+
+.o-section--hero-footer .o-wrapper {
+  place-items: center;
+}
+
+.o-section--content {
+  background: var(--c1);
+  min-height: var(--section-h);
+  height: auto;
+  display: grid;
+  place-items: stretch;
+}
+
+.o-section--divider {
+  min-height: var(--divider-h);
+  height: auto;
+  background: var(--c3);
+  display: grid;
+  place-items: center;
+}
+
+.o-section--divider .o-wrapper {
+  place-items: center;
+}
+
+.o-section--footer {
+  width: 100%;
+  min-height: calc(var(--header-h) * 5.2);
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: stretch;
+}
+
+.o-section--footer .o-wrapper {
+  max-width: none;
+  padding: 0;
+}
+
+/* Grid - generic grid layout pattern */
+.o-grid {
+  display: grid;
+}
+
+.o-grid--3-col {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap-lg);
+}
+
+.o-grid--responsive {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap-lg);
+}
+
+@media (max-width: 1024px) {
+  .o-grid--responsive {
+    grid-template-columns: 1fr;
+  }
+}
+

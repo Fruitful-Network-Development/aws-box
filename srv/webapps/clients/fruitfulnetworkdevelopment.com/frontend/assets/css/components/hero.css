@@ -1,0 +1,33 @@
+/* =========================
+   HERO COMPONENT
+   ========================= */
+
+.hero {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.hero__title {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300; /* Open Sans Light */
+  text-align: center;
+  line-height: 1.05;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  /* Larger sizing to match desired display */
+  font-size: clamp(
+    calc(var(--header-h) * 2.5),
+    8vw,
+    calc(var(--header-h) * 4.5)
+  );
+
+  color: var(--c2); /* uses shared color token */
+}
+
+.hero__title span {
+  display: block;
+}
+

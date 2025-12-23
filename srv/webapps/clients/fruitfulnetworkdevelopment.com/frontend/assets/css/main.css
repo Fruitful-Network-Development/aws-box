@@ -1,0 +1,36 @@
+/* =========================
+   MAIN STYLESHEET
+   ITCSS Layer Order
+   ========================= */
+
+/* 1. Settings - Design tokens */
+@import url('settings.css');
+
+/* 2. Tools - Mixins, functions */
+@import url('tools.css');
+
+/* 3. Generic - Reset, normalize */
+@import url('generic.css');
+
+/* 4. Elements - Base element styles */
+@import url('elements.css');
+
+/* 5. Objects - Layout patterns (OOCSS) */
+@import url('objects.css');
+
+/* 6. Components - UI components (BEM) */
+@import url('components/header.css');
+@import url('components/hero.css');
+@import url('components/hero-footer.css');
+@import url('components/section-cards.css');
+@import url('components/section-pills.css');
+@import url('components/section-offer.css');
+@import url('components/timeline.css');
+@import url('components/timeline-multi-year.css');
+@import url('components/divider.css');
+@import url('components/footer.css');
+@import url('components/table.css');
+
+/* 7. Utilities - Utility classes */
+@import url('utilities.css');
+
