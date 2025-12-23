@@ -6,6 +6,8 @@
 /* Container - outer wrapper for page content */
 .o-container {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .o-container__inner {
@@ -20,6 +22,7 @@
   height: auto;
   width: 100%;
   max-width: var(--maxw);
+  min-width: 0;
   margin: 0 auto;
   padding: 0 var(--slot-padding);
   display: grid;
@@ -29,6 +32,8 @@
 /* Section - generic section container (replaces .section_block, .content_section, etc.) */
 .o-section {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   display: grid;
   place-items: stretch;
 }
