@@ -18,6 +18,57 @@
   --c9: #6A8A7F;  /* Beige/cream (section 3 panels - same as c8) */
   --c10: #C1C1C2;  /* Beige/cream (section 3 panels - same as c8) */
 
+   /* I want to change my methods of applying collor
+   Gray Hue Group
+  --hue-gray: #717171;
+  --hue-gray-shade: #252525;
+  --hue-gray-tint: #c9c9c9; 
+  --hue-gray-muted: #e0e3de; Hero Footer, Header Page Unfocused Text
+  --hue-gray-saturated: #ffffff; Default Text Color
+
+  Brown Hue Group
+  --hue-brown: #8f6448; 
+  --hue-brown-shade: #644332;
+  --hue-brown-tint: #a67c52;
+  --hue-brown-muted: #836c5d;
+  --hue-brown-saturated: #6a3b0c;
+
+  Yellow Hue Group
+  --hue-yellow: #d89c1f;
+  --hue-yellow-shade: #b08427;
+  --hue-yellow-tint: #fdd98e;
+  --hue-yellow-muted: #fcc995;
+  --hue-yellow-saturated: #fcac00;
+
+  Green Hue Group
+  --hue-green: #115f45; Targets card outline
+  --hue-green-shade: #17722b; 
+  --hue-green-tint: #21a333;
+  --hue-green-muted: #71a34b; Targets cards
+  --hue-green-saturated: #461300;
+
+  Blue Hue Group
+  --hue-blue: #1d3a65;
+  --hue-blue-shade: #113056;
+  --hue-blue-tint: #3d579a;
+  --hue-blue-muted: #1e6c93; Divider, Opaque Header Page Selected Text
+  --hue-blue-saturated: #0043ae;
+
+  Indigo Hue Group
+  --hue-indigo: #4b0082; Process pill outline
+  --hue-indigo-shade: #0a2026;
+  --hue-indigo-tint: #6a4c93;
+  --hue-indigo-muted: #8f86d8; Process pills
+  --hue-indigo-saturated: #2e1a5e;  
+
+  Purple Hue Group
+  --hue-purple: #3f1f4a;
+  --hue-purple-shade: #490072;
+  --hue-purple-tint: #a678bf; 
+  --hue-purple-muted: #592c72;  
+  --hue-purple-saturated: #6900a3;
+   */
+   
   /* ===== SIZING TOKENS =====
      Set by JS (responsive) - default values */
   --header-h: 56px;
