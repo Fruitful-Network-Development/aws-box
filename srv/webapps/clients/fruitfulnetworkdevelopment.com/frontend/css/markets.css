@@ -1,0 +1,19 @@
+/* ======================================
+   MARKETS PAGE
+  ====================================== */
+.markets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.market-card {
+  border-left: 4px solid var(--riverpanned);
+}
+
+.note-block {
+  background-color: #fff;
+  border: 1px dashed var(--silverback);
+  padding: 0.75rem;
+  color: var(--gray);
+}

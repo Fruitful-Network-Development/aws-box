@@ -1,0 +1,35 @@
+/* ======================================
+   WEB SERVICES PAGE
+  ====================================== */
+.services-intro {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.service-highlight {
+  border-left: 4px solid var(--blue-sour);
+}
+
+.services-bullets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+}
+
+.services-bullets li {
+  list-style: none;
+  padding: 0.35rem 0.25rem;
+  border-bottom: 1px dashed var(--silverback);
+}
+
+.comparison-table {
+  margin-top: 0.5rem;
+}
+
+.section-caption {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray);
+  font-size: 0.85rem;
+}

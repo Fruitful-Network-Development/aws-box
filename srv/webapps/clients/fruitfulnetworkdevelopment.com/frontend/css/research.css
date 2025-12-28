@@ -1,0 +1,29 @@
+/* ======================================
+   RESEARCH PAGE
+  ====================================== */
+.research-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.research-topic {
+  border-left: 4px solid var(--green);
+}
+
+.timeline-block {
+  font-family: "Courier New", monospace;
+  white-space: pre-wrap;
+  background-color: #fff;
+  border: 1px solid var(--silverback);
+  padding: 0.75rem;
+}
+
+.callout {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  background-color: var(--offwhite);
+  border: 1px solid var(--silverback);
+  border-radius: 6px;
+  font-weight: 600;
+}

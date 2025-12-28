@@ -1,0 +1,44 @@
+/* ======================================
+   TABLE STYLES
+  ====================================== */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--silverback);
+  background-color: #fff;
+  box-shadow: var(--shadow-soft);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+}
+
+thead {
+  background-color: var(--offwhite);
+}
+
+th,
+td {
+  border: 1px solid var(--silverback);
+  padding: 0.5rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  font-weight: 700;
+  color: var(--nero);
+  letter-spacing: 0.02em;
+}
+
+tr:nth-child(even) td {
+  background-color: #faf9f0;
+}
+
+.table-note {
+  margin-top: 0.5rem;
+  color: var(--gray);
+  font-size: 0.9rem;
+}
