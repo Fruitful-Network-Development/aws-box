@@ -1,0 +1,60 @@
+.section-target{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    gap: var(--target-gap);
+    padding: var(--target-padding);
+    max-width: var(--target-max-width);
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.target__card{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex: 1;
+    max-width: var(--target-card-max-width);
+    min-width: 0;
+}
+
+/* Mobile responsive - cards stack vertically */
+@media (max-width: 768px) {
+    .section-target{
+        flex-direction: column;
+        gap: 1.5rem;
+        max-width: 95%;
+    }
+    
+    .target__card{
+        max-width: 100%;
+        flex: none;
+    }
+}
+
+.target__graphic{
+    width: 100%;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+
+.target__card h2{
+    color: var(--blue-sour);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.target__message{
+    border-style: solid;
+    border-color: var(--silverback);
+    border-width: 1px;
+    padding: 1rem;
+    flex: 1;
+    text-align: center;
+}

@@ -1,0 +1,37 @@
+.section-hero{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .hero__logo{
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  
+  .hero__text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero__text h1{
+    border-style: solid;
+    border-color: var(--silverback);
+    border-width: 1px;
+    padding: 1rem;
+  }
+
+  .hero__text p{
+    border-style: solid;
+    border-color: var(--silverback);
+    border-width: 1px;
+    padding: 1rem;
+    font-style: italic;
+  }

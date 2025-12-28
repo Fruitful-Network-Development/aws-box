@@ -1,0 +1,91 @@
+@import "css/header.css";
+@import "css/hero.css";
+@import "css/target.css";
+@import "css/process.css";
+@import "css/personnel.css";
+@import "css/technology.css";
+@import "css/footer.css";
+
+/* ======================================
+   GLOBAL STYLES
+  ====================================== */
+
+/* COLOR TOKENS */
+:root {
+   --nero: #252525;
+   --silverback: #afafaa;
+   --mosswash: #f3f2e5;
+   --offwhite: #f0eedc;
+   --blue-sour: #1e6c93;
+   --gray: #717171;
+   --camel: #8f6448;
+   --walnut: #644332;
+   --appleseed: #a67c52;
+   --red: #a32023;
+   --terracottaroof: #a34547;
+   --Kuwazome: #532728;
+   --yellow: #d89c1f;
+   --leather: #c8a255;
+   --riverpanned: #ac7e1e;
+   --green: #115f45;
+   --verdant: #364640;
+   --camo: #7c8f4b;
+   --unakite: #71a34b;
+   --blue: #1d3a65;
+   --incremental: #113056;
+   --kakitsubata: #3d67a5;
+   --purple: #3f1f4a;
+   --royale: #490072;
+   --lilac: #7b4b8c;
+   
+   /* SIZING VARIABLES */
+   --target-gap: 2rem;
+   --target-padding: 1rem;
+   --target-max-width: 90%;
+   --target-card-max-width: 33.333%;
+}
+
+main {
+   background-color: var(--mosswash);
+}
+
+header {
+   background-color: var(--nero);
+}
+
+h1{
+ color: #252525;
+}
+p{
+ color: #252525;
+}
+
+.divider {
+   border: none;
+   border-top: 1px solid var(--nero);
+   margin: 0.5rem;
+}
+
+.section-aside {
+   padding: 0.5rem;
+   border-style: solid;
+   border-width: 1px;
+   border-color: var(--silverback);
+   margin: 0;
+   background-color: var(--offwhite);
+}
+
+.aside__text {
+   font-style: italic;
+   text-align: center;
+}
+
+/* Global image constraints - images are constrained to their containers */
+img {
+   max-width: 100%;
+   max-height: 100%;
+   width: auto;
+   height: auto;
+   object-fit: contain;
+   display: block;
+}

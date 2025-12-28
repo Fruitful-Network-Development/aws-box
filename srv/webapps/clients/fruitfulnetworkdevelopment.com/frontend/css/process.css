@@ -1,0 +1,132 @@
+section.section-process {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    gap: 1rem;
+}
+
+.process__box {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    border-color: var(--silverback);
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.process_first {
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 100%;
+    align-self: stretch;
+}
+
+.process_middle {
+    justify-content: flex-end;
+    width: 80%;
+    max-width: 100%;
+    align-self: flex-end;
+}
+
+.process_last {
+    justify-content: flex-end;
+    width: 60%;
+    max-width: 100%;
+    align-self: flex-end;
+}
+
+.process__graphic {
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--silverback);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    align-self: stretch;
+    height: 100%;
+    aspect-ratio: 1;
+    max-width: min(100%, 300px);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+
+.process__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex: 1;
+    align-self: stretch;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+    gap: 0;
+}
+
+.process__text h3 {
+    color: var(--nero);
+    border-style: solid;
+    border-color: var(--silverback);
+    border-width: 1px;
+    padding: 0.5rem;
+    flex: 1;
+    text-align: left;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.process__text p {
+    color: var(--nero);
+    border-style: solid;
+    border-color: var(--silverback);
+    border-width: 1px;
+    padding: 0.5rem;
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Mobile responsive - process boxes stack and adjust layout */
+@media (max-width: 768px) {
+    section.section-process {
+        padding: 0.5rem;
+        gap: 1rem;
+    }
+    
+    .process__box {
+        flex-direction: column;
+        width: 100%;
+        max-width: 100%;
+        align-items: stretch;
+    }
+    
+    .process_first,
+    .process_middle,
+    .process_last {
+        width: 100%;
+        max-width: 100%;
+        align-self: stretch;
+        justify-content: flex-start;
+    }
+    
+    .process__graphic {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+        align-self: center;
+    }
+    
+    .process__text {
+        width: 100%;
+        max-width: 100%;
+    }
+}
