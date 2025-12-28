@@ -1,0 +1,35 @@
+/* ======================================
+   WEBSERVICES PAGE
+  ====================================== */
+
+.services-summary {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.service-list {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin: 0.25rem 0 0;
+}
+
+.service-table-section h3 {
+  margin-top: 0;
+}
+
+.table-default td img {
+  max-width: 80px;
+}
+
+.table-footnote {
+  font-size: 0.9rem;
+  text-align: right;
+  margin-top: 0.25rem;
+  color: var(--gray);
+}

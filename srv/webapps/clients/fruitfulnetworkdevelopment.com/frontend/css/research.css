@@ -1,0 +1,33 @@
+/* ======================================
+   RESEARCH PAGE
+  ====================================== */
+
+.research-topics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.research-list {
+  margin: 0.25rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.timeline-block pre {
+  background-color: #ffffff;
+  border: 1px solid var(--silverback);
+  padding: 0.75rem;
+  overflow-x: auto;
+  margin: 0.5rem 0 0;
+}
+
+.research-highlight {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}

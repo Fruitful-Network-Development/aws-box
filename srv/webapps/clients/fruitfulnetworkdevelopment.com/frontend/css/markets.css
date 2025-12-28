@@ -1,0 +1,17 @@
+/* ======================================
+   MARKETS PAGE
+  ====================================== */
+
+.markets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.market-pillars .page-card strong {
+  color: var(--incremental);
+}
+
+.markets-section h3 {
+  margin-top: 0;
+}

@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap");
 @import "css/header.css";
 @import "css/hero.css";
 @import "css/target.css";
@@ -5,6 +6,10 @@
 @import "css/personnel.css";
 @import "css/technology.css";
 @import "css/footer.css";
+@import "css/pages.css";
+@import "css/services.css";
+@import "css/research.css";
+@import "css/markets.css";
 
 /* ======================================
    GLOBAL STYLES
@@ -47,17 +52,25 @@
 
 main {
    background-color: var(--mosswash);
+   padding: 1rem 1.5rem 2rem;
 }
 
 header {
    background-color: var(--nero);
 }
 
-h1{
- color: #252525;
+h1 {
+   color: #252525;
 }
-p{
- color: #252525;
+p {
+   color: #252525;
+}
+
+body {
+   margin: 0;
+   font-family: "Open Sans", Arial, sans-serif;
+   color: var(--nero);
+   background-color: var(--mosswash);
 }
 
 .divider {

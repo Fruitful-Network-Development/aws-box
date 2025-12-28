@@ -1,0 +1,132 @@
+/* ======================================
+   GLOBAL PAGE LAYOUTS
+  ====================================== */
+
+body {
+  background-color: var(--mosswash);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.page-hero {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.page-hero .hero__logo {
+  width: 6rem;
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-hero .hero__logo img {
+  width: 100%;
+}
+
+.page-hero .hero__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.section-page {
+  background-color: var(--offwhite);
+  border: 1px solid var(--silverback);
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.section-page h2 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.section-page p {
+  line-height: 1.6;
+}
+
+.page-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.page-card {
+  background-color: #ffffff;
+  border: 1px solid var(--silverback);
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.page-card h3 {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.page-card p {
+  margin: 0;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--silverback);
+  background-color: var(--offwhite);
+}
+
+.table-default {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.table-default th,
+.table-default td {
+  border: 1px solid var(--silverback);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.table-default thead th {
+  background-color: var(--silverback);
+  color: var(--nero);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.table-default tbody tr:nth-child(even) {
+  background-color: #f7f6ed;
+}
+
+.section-note {
+  font-style: italic;
+  text-align: center;
+  padding: 0.5rem 0.75rem;
+}
+
+@media (max-width: 768px) {
+  main {
+    padding: 1rem 0.75rem 2rem;
+  }
+}
