@@ -4,6 +4,7 @@ header{
     justify-content: space-between;
     align-items: center;
     height: 3rem;
+    padding: 0.5rem 1.25rem;
   }
   
   .header__left{
@@ -15,7 +16,7 @@ header{
   .header__right{
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.25rem;
   }
   .header__right p{
     color: var(--offwhite);
@@ -27,4 +28,24 @@ header{
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-  } 
+  }
+  
+  .header__nav-link {
+    margin: 0;
+    text-transform: capitalize;
+    letter-spacing: 0.02em;
+    font-weight: 600;
+  }
+  
+  header a {
+    color: var(--offwhite);
+  }
+  
+  header a:hover .header__nav-link {
+    text-decoration: underline;
+  }
+  
+  .header__nav-link--active {
+    border-bottom: 2px solid var(--offwhite);
+    padding-bottom: 0.1rem;
+  }
