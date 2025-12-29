@@ -18,7 +18,8 @@ footer {
 .footer__left {
    display: flex;
    align-items: center;
-   justify-self: space-between;
+   justify-content: flex-start;
+   gap: 1rem;
 }
 
 .footer__button {
@@ -45,7 +46,7 @@ footer {
    flex-direction: column;
    justify-content: flex-start;
    align-items: flex-start;
-   border: 1px solid var(--blue-sour);
+   border: 1px solid var(--incremental);
    padding: 1rem;
    flex: 1 1 0;
    min-width: 200px;
@@ -54,8 +55,34 @@ footer {
    max-width: 100%;
 }
 
+.footer__block.contact {
+   justify-content: center;
+   align-items: center;
+   background-color: var(--nero);
+   border-radius: 1rem;
+   color: var(--offwhite);
+
+} 
+
+.footer__block.contact p {
+   color: var(--offwhite);
+}
+
+.footer__block.contact h4 {
+   color: var(--offwhite);
+   justify-self: center;
+   font-weight: bold;
+}
+
 .footer__block h4 {
    color: var(--blue-sour);
+}
+
+.footer__connect-button {
+   border: 1px solid var(--offwhite);
+   border-radius: 0.25rem;
+   padding: 0.25rem 0.25rem;
+   
 }
 
 /* Mobile responsive - footer sections stack vertically */
