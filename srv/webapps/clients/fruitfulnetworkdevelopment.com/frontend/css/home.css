@@ -157,12 +157,17 @@
 }
 
 .process-card__media {
-    flex: 0 0 280px;
-    max-width: 320px;
-    padding: 1rem;
+    flex: 0 0 250px;
+    max-width: 250;
+    padding: 2rem;
     display: flex;
     align-items: center;
-    justify-content: center;}
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid var(--purple);
+    background-color: var(--terracottaroof);
+    margin: 1rem;
+}
 
 .process-card__content {
     flex: 1;
@@ -199,293 +204,291 @@
 /* ======================================
     PERSONNEL - SECTION
 ====================================== */
+.section-personnel {
+    padding: clamp(0.75rem, 2vw, 1.5rem);
+  }
+  
+  .section-personnel__inner {
+    width: min(100%, 1100px);
+    margin-inline: auto;
+  
+    --gap: clamp(0.75rem, 2vw, 1.5rem);
+    --edge: clamp(0.75rem, 2vw, 1.25rem);
+  
+    display: grid;
+    gap: var(--gap);
+  
+    /* Top row + body row */
+    grid-template-rows: auto 1fr;
+  
+    /* Left biography wider than right profile */
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  
+    grid-template-areas:
+      "top top"
+      "bio profile";
+  }
 
-section.section-personnel {
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex: 1;
-    align-self: stretch;
-}
+  .personnel__top.box {
+    background: transparent;
+  }
 
-section.section-personnel h2 {
+  .personnel__top h2 {
+    color: var(--blue-sour);
+    text-align: center;
+  }
+
+  .personnel__top { grid-area: top; }
+  .personnel_biography { grid-area: bio; }
+  .profile { grid-area: profile; }
+
+  .personnel__top {
+    display: flex;
+    align-items: center;      /* vertical centering */
+    justify-content: center;  /* horizontal centering */
+  }
+  
+  /* Your existing box borders */
+  .box {
+    border: 1px solid var(--silverback);
+    padding: var(--edge);
+  }
+  .personnel_biography {
+    display: grid;
+    gap: var(--gap);
+  
+    /* Title, quote, message (message grows) */
+    grid-template-rows: auto auto 1fr;
+  }
+  
+  /* Title row: icon block + name */
+  .biography__title {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .biography__title-icon {
+    width: 24px;            /* controls the red square */
+    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+
+  }
+  
+  .biography__title-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     color: var(--nero);
-    border-style: solid;
-    border-color: var(--silverback);
-    border-width: 1px;
-    padding: 0.5rem;
-    width: 100%;
-    text-align: left;
+  }
+  
+  .biography__title-name {
     margin: 0;
-    box-sizing: border-box;
-}
+    color: var(--nero);
+  }
 
-.personnel__content {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 1rem;
-    min-width: 0;
-    max-width: 100%;
-    box-sizing: border-box;
-}
-
-.biography {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 60%;
-    flex: 0 0 60%;
-    min-width: 0;
-    box-sizing: border-box;
-    margin: 1rem;
-}
-
-.biography__title-box {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.biography__icon-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    align-self: stretch;
-    min-width: 0;
-    max-width: 100%;
-    box-sizing: border-box;
-}
-
-.biography__icon-box img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    display: block;
-}
-
-.biography #tagline{
-    border-style: solid;
-    border-color: var(--silverback);
-    border-width: 1px;
-    padding: 1rem;
-    width: 100%;
-}
-
-.biography__messages {
-    border-style: solid;
-    border-color: var(--silverback);
-    border-width: 1px;
-    padding: 1rem;
-    width: 100%;
-}
-
-.profile {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 40%;
-    flex: 0 0 40%;
-    min-width: 0;
-    box-sizing: border-box;
-}
-
-.profile__image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    align-self: stretch;
-    min-width: 0;
-    max-width: var(--profile-image-size);
-    width: var(--profile-image-size);
-    box-sizing: border-box;
-}
-
-.profile__image img {
-    max-width: var(--profile-image-size);
-    max-height: var(--profile-image-size);
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    display: block;
-}
-
-.profile__tag-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex: 1;
-    align-self: stretch;
-    min-width: 0;
-    max-width: var(--profile-image-size);
-    width: var(--profile-image-size);
-    box-sizing: border-box;
-}
-
-.profile__tag {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex: 1;
-    align-self: stretch;
-    min-width: 0;
-    box-sizing: border-box;
-    border: 1px solid var(--silverback);
-}
-
-.profile__tag p {
-    flex: 0 0 60%;
-    text-align: left;
+  .biography__quote p {
+    font-style: italic;
+    text-align: center;
+  }
+  
+  .biography__quote p,
+  .biography__message p {
     margin: 0;
-    box-sizing: border-box;
-    border: 1px solid var(--silverback);
-    padding: 0.5rem;
-}
-
-.profile__tag-icon-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 0 0 40%;
-    align-self: stretch;
-    min-width: 0;
-    max-width: 100%;
-    box-sizing: border-box;
-    border: 1px solid var(--silverback);
-    padding: 0.5rem;
-}
-
-.profile__tag-icon-box img {
-    max-width: var(--profile-tag-icon-size);
-    max-height: var(--profile-tag-icon-size);
-    width: auto;
-    height: auto;
-    object-fit: contain;
+    color: var(--nero);
+  }
+  
+  .biography__message p {
+    text-indent: 30px;
+  }
+  
+  .biography__message {
+    /* helps the big left box feel “dominant” like your sketch */
+    min-height: clamp(260px, 40vh, 520px);
+  }
+  .profile {
+    display: grid;
+    grid-template-rows: 1fr auto; /* image takes remaining height, footer fits content */
+    gap: 0;
+    padding: 0;
+  
+    /* If you want the whole right column to feel as tall as the left side */
+    min-height: clamp(420px, 60vh, 720px);
+  }
+  
+  /* Top image area (your red block) */
+  .profile__image {
+    overflow: hidden; /* crop image cleanly */
+  }
+  
+  .profile__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* fills the red box */
     display: block;
-}
+  }
+  
+  /* Footer list area */
+  .profile__footer {
+    display: grid;
+    gap: 0.75rem;
+    padding: 0.75rem; /* override box padding if you want it tighter */
+  }
+  
+  /* One row = icon + text, repeated */
+  .profile__tag {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    align-items: center;
+    gap: 0.75rem;
+  
+    border: 1px solid var(--silverback); /* gives the “mini-box rows” feel */
+    padding: 0.5rem 0.75rem;
+  }
+  
+  /* Icon block inside each row (your red small squares) */
+  .profile__tag-icon {
+    width: 44px;
+    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+    padding: 0.25rem;
+  }
+  
+  .profile__tag-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  
+  .profile__tag p {
+    margin: 0;
+  }
+
+  @media (max-width: 780px) {
+    .section-personnel__inner {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+      grid-template-areas:
+      "top"
+      "bio"
+      "profile";
+    }
+  
+    .profile {
+      min-height: auto;
+    }
+  
+    .profile__image {
+      min-height: 240px; /* prevents the image area from collapsing */
+    }
+  }
+
+  @media (max-width: 820px) {
+    .section-personnel__inner {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "top"
+        "bio"
+        "profile";
+    }
+  
+    .profile {
+      min-height: 520px; /* keeps image meaningful on mobile */
+    }
+  }  
+
 
 /* ======================================
     TECHNOLOGY - SECTION
 ====================================== */
 
-section.section-technology {
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-    margin: 1rem;
-    padding: 0;
-    gap: 0;
-    overflow: hidden;
-}
-
-.technology-top-tag {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-}
-
-.technology-top-tag-box {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    border-style: solid;
-    border-width: 1px;
-    border-color: var(--silverback);
-    color: var(--nero);
-    box-sizing: border-box;
-    gap: 1rem;
-    margin: 0;
-    padding: 0.5rem 1rem;
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
-}
-
-.technology-top-tag-box .button {
-    background-color: var(--yellow);
-    color: var(--nero);
-    padding: 0.5rem 1rem;
-    margin: 0;
-    border: none;
-    cursor: pointer;
-    white-space: nowrap;
-    flex-shrink: 0;
-    min-width: fit-content;
-}
-
-.technology-message-text {
-    display: flex;
-    flex-direction: column;
-    border-style: solid;
-    border-width: 1px;
-    border-color: var(--silverback);
-    align-self: stretch;
-    box-sizing: border-box;
-    margin: 0;
+.section-technology {
     padding: 1rem;
-    width: 100%;
-    max-width: 100%;
-}
-
-.technology-bottom-tag {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
+  }
+  
+  .section-technology__inner {
+    width: min(100%, 900px);
+    margin-inline: auto;
+  
+    display: grid;
+    grid-template-rows: auto auto auto;
+    gap: 0; /* boxes touch */
+  }
+  
+  .technology__box {
+    border: 1px solid var(--silverback);
+    padding: 0.75rem 1rem;
+  }
+  
+  .technology__box p {
     margin: 0;
-    padding: 0;
-    width: 100%;
-}
-
-.technology-bottom-tag-box {
+  }
+  
+  .technology__top {
+    width: fit-content;
+    justify-self: start;
+    align-self: end;
+  
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    border-style: solid;
-    border-width: 1px;
-    border-color: var(--silverback);
-    color: var(--nero);
-    box-sizing: border-box;
-    gap: 1rem;
-    margin: 0;
-    padding: 0.5rem 1rem;
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
-}
-
-.technology-bottom-tag-box .button {
-    background-color: var(--blue);
-    color: var(--offwhite);
-    padding: 0.5rem 1rem;
-    margin: 0;
-    border: none;
-    cursor: pointer;
+    gap: 0.75rem;
     white-space: nowrap;
-    flex-shrink: 0;
-    min-width: fit-content;
-}
+  
+    border-bottom: 0; /* collapse seam with middle */
+  }
+  
+  .technology__middle {
+    width: 100%;
+    justify-self: stretch;
+  }
+  
+  .technology__bottom {
+    width: fit-content;
+    justify-self: end;
+    align-self: start;
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    white-space: nowrap;
+  
+    border-top: 0; /* collapse seam with middle */
+  }
+  
+  /* Ensure row contents behave correctly */
+  .technology__top > p,
+  .technology__bottom > p {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis; /* safe on narrow screens */
+  }
+  
+  /* Button must not behave like a block */
+  .button {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }  
 
-/* Ensure both buttons have the same width */
-.technology-top-tag-box .button,
-.technology-bottom-tag-box .button {
-    width: auto;
-    min-width: 120px;
-    text-align: center;
-}
+  .button__top {
+    background-color: var(--yellow);
+    border: 1px solid var(--riverpanned);
+    color: var(--nero);
+    padding: 0.25rem 0.25rem;
+  }
+
+  .button__bottom {
+    background-color: var(--blue);
+    border: 1px solid var(--incremental);
+    color: var(--offwhite);
+    padding: 0.25rem 0.25rem;
+  }
 
 /* ======================================
     FOOTER - SECTION
