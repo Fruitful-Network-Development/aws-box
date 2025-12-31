@@ -14,6 +14,7 @@
 :root {
    /* Color Tokens */
    --nero: #252525;
+   --nero-light: #464646;
    --silverback: #afafaa;
    --mosswash: #f3f2e5;
    --offwhite: #f0eedc;
@@ -46,8 +47,6 @@
    --target-padding: 1rem;
    --target-max-width: 90%;
    --target-card-max-width: 33.333%;
-   --profile-image-size: min(300px, 100%);
-   --profile-tag-icon-size: 48px;
 }
 
 /* ======================================
@@ -77,10 +76,6 @@ main {
    flex-direction: column;
    gap: 1.5rem;
    background-color: var(--mosswash);
-}
-
-header {
-   background-color: var(--nero);
 }
 
 section {
@@ -113,13 +108,28 @@ a:hover {
 /* ======================================
    IMAGES
   ====================================== */
+/* Base image: fills container, container controls sizing */
 img {
-   max-width: 100%;
-   max-height: 100%;
-   width: auto;
-   height: auto;
+   width: 100%;
+   height: 100%;
    object-fit: contain;
    display: block;
+}
+
+/* Image container utilities */
+.img-container {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   overflow: hidden;
+}
+
+.img-container--cover img {
+   object-fit: cover;
+}
+
+.img-container--contain img {
+   object-fit: contain;
 }
 
 /* ======================================
@@ -131,23 +141,47 @@ img {
    margin: 0.1rem;
 }
 
-.section-divider {
-   border: none;
-   border-top: 1px solid var(--silverback);
-   margin: 1rem 0;
-}
-
 .muted {
    color: var(--gray);
    font-style: italic;
 }
 
-.pill {
-   display: inline-block;
+/* Border utilities */
+.border {
    border: 1px solid var(--silverback);
-   padding: 0.35rem 0.6rem;
-   background-color: var(--mosswash);
-   font-weight: 600;
+}
+
+.border-top {
+   border-top: 1px solid var(--silverback);
+}
+
+.border-bottom {
+   border-bottom: 1px solid var(--silverback);
+}
+
+/* Text alignment utilities */
+.text-center {
+   text-align: center;
+}
+
+.text-left {
+   text-align: left;
+}
+
+.text-right {
+   text-align: right;
+}
+
+/* Flex utilities */
+.flex-center {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.flex-column {
+   display: flex;
+   flex-direction: column;
 }
 
 .stacked-text {
@@ -190,13 +224,7 @@ img {
    margin: 0;
 }
 
-.media-square {
-   aspect-ratio: 1;
-   object-fit: contain;
-   width: 100%;
-   height: auto;
-   display: block;
-}
+/* .media-square removed - container controls aspect ratio, img fills container */
 
 @media (max-width: 768px) {
    .stack-sm {
@@ -212,6 +240,7 @@ img {
    flex-direction: column;
    align-items: center;
    gap: 0.5rem;
+   text-align: center;
 }
 
 .page-hero h1 {
@@ -258,6 +287,13 @@ img {
    CARD COMPONENTS
   ====================================== */
 .card-grid {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+   gap: 1rem;
+}
+
+/* Grid utility - base grid pattern */
+.grid-auto-fit {
    display: grid;
    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
    gap: 1rem;
@@ -313,5 +349,9 @@ img {
 
 .data-table img {
    max-width: 80px;
+   max-height: 80px;
+   width: auto;
+   height: auto;
    margin: 0 auto;
+   /* Override for table cells - maintain aspect ratio */
 }
