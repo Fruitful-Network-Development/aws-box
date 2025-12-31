@@ -211,11 +211,11 @@ sudo rsync -av --delete --dry-run /home/admin/aws-box/srv/ /srv/
 ### Deploy `/etc` payload (nginx, systemd, etc.)
 Only if your commit includes changes under `etc/`:
 ```bash
-sudo rsync -a --delete /home/admin/aws-box/etc/ /etc/
+sudo rsync -a --delete /home/admin/aws-box/etc/nginx/ /etc/nginx/
 ```
 To Check what files would be updated before deploying run:
 ```bash
-sudo rsync -av --delete --dry-run /home/admin/aws-box/etc/ /etc/
+sudo rsync -av --delete --dry-run /home/admin/aws-box/etc/nginx/ /etc/nginx/
 ```
 
 ### Apply service changes safely
