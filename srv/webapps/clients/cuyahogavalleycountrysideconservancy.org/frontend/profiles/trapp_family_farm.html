@@ -3,264 +3,204 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trapp Family Farm Profile</title>
+  <title>Farm Profiles | Cuyahoga Valley Countryside Conservancy</title>
   <link rel="stylesheet" href="../styles.css">
   <style>
-    :root {
-      --accent: #2f6236;
-      --muted: #f5f7f2;
-      --text: #1f1f1f;
-      --border: #d9e2d3;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      margin: 0;
-      font-family: "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
       color: var(--text);
-      background: #ffffff;
-      line-height: 1.6;
     }
-
-    a { color: inherit; }
 
     .page {
       max-width: 1200px;
       margin: 0 auto;
       padding: 48px 24px 64px;
-      display: flex;
-      flex-direction: column;
+      display: grid;
       gap: 32px;
     }
 
-    header {
-      background: linear-gradient(120deg, rgba(47, 98, 54, 0.12), rgba(47, 98, 54, 0.04));
+    .profiles-hero {
+      background: var(--bg-light);
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 16px;
       padding: 32px;
       display: grid;
-      grid-template-columns: 180px 1fr;
-      gap: 24px;
-      align-items: center;
+      gap: 18px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
     }
 
-    .profile-photo {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 6px solid #fff;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-      background: #fff;
-    }
-
-    .intro h1 {
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--primary);
       margin: 0;
-      font-size: 32px;
-      letter-spacing: 0.02em;
+    }
+
+    .profiles-hero h1 {
+      margin: 0;
+      font-size: 34px;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .profiles-hero p {
+      margin: 0;
+      color: var(--text-light);
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .jump-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .jump-link {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--muted);
+      color: var(--primary-dark);
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 13px;
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+
+    .jump-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .farm-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .farm-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .farm-media {
+      position: relative;
+      background: #f2f4f0;
+    }
+
+    .farm-scene {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .farm-logo {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      width: 76px;
+      height: 76px;
+      border-radius: 16px;
+      background: #fff;
+      padding: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
+      object-fit: contain;
+    }
+
+    .farm-content {
+      padding: 20px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .farm-title {
+      margin: 0;
+      font-size: 22px;
+      color: var(--text);
     }
 
     .tagline {
-      margin: 8px 0 16px;
-      color: #3c533c;
+      margin: 0;
+      color: var(--text-light);
       font-weight: 600;
-      letter-spacing: 0.01em;
+      font-size: 15px;
     }
 
-    .badges {
-      display: flex;
-      flex-wrap: wrap;
+    .meta-row {
+      display: grid;
       gap: 8px;
     }
 
-    .badge {
-      padding: 8px 12px;
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #35543c;
-    }
-
-    .layout-grid {
+    .meta-item {
       display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 24px;
-    }
-
-    section {
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.04);
-    }
-
-    section h2 {
-      margin: 0 0 12px;
-      font-size: 22px;
-      letter-spacing: 0.01em;
-    }
-
-    .pill-label {
-      display: inline-block;
-      padding: 4px 10px;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 10px;
+      border-radius: 10px;
       background: var(--muted);
-      border-radius: 999px;
+      border: 1px solid var(--border);
+    }
+
+    .meta-item img {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+    }
+
+    .meta-item .label {
       font-size: 12px;
       letter-spacing: 0.04em;
-      margin-bottom: 8px;
-      color: #46624d;
-      font-weight: 700;
-    }
-
-    .copy {
-      margin: 0 0 12px;
-      color: #334033;
-    }
-
-    .two-col {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-    }
-
-    .card {
-      background: var(--muted);
-      padding: 16px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-    }
-
-    .card h3 {
-      margin: 0 0 8px;
-      font-size: 18px;
-    }
-
-    .info-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-    }
-
-    .info-item {
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px dashed var(--border);
-      background: #fff;
-      display: grid;
-      gap: 6px;
-    }
-
-    .info-item strong {
-      font-size: 13px;
-      letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: #3c523d;
+      color: var(--primary-dark);
+      font-weight: 800;
     }
 
-    .event-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
+    .meta-item .value, .meta-item a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
     }
 
-    .event-card {
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      display: grid;
-      grid-template-rows: 160px auto;
-      background: #fff;
-      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.03);
-    }
-
-    .event-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      background: #eff2eb;
-    }
-
-    .event-card .content {
-      padding: 16px;
+    .highlights {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--text-light);
       display: grid;
       gap: 6px;
     }
 
-    .meta {
-      font-size: 13px;
-      color: #4e5b4d;
-    }
-
-    .cta-row {
+    .links {
       display: flex;
+      gap: 10px;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 8px;
     }
 
-    .btn {
-      padding: 10px 14px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
+    .pill {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
       background: var(--muted);
+      color: var(--primary-dark);
       font-weight: 700;
-      cursor: pointer;
-      transition: transform 120ms ease, box-shadow 120ms ease;
-      text-decoration: none;
-      color: #2c412f;
-    }
-
-    .btn.primary {
-      background: #2f6236;
-      color: #fff;
-      border-color: #2f6236;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.06);
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 14px;
-    }
-
-    .gallery img {
-      width: 100%;
-      height: 140px;
-      object-fit: cover;
-      border-radius: 10px;
+      font-size: 12px;
       border: 1px solid var(--border);
-      background: #f1f1f1;
-    }
-
-    footer {
-      text-align: center;
-      color: #4f5c4f;
-      font-size: 14px;
     }
 
     @media (max-width: 720px) {
-      header {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .profile-photo {
-        margin: 0 auto;
-      }
-
-      .layout-grid {
-        grid-template-columns: 1fr;
-      }
+      .profiles-hero h1 { font-size: 28px; }
+      .farm-scene { height: 180px; }
     }
   </style>
 </head>
@@ -277,163 +217,348 @@
         <li><a href="../donate.html">Donate</a></li>
       </ul>
     </div>
-    </nav>
-  <div class="page">
-    <header>
-      <img class="profile-photo" src="../assets/imgs/img.logo.placeholder.png" alt="Trapp Family Farm profile placeholder" />
-      <div class="intro">
-        <span class="pill-label">Featured Farm Profile</span>
-        <h1>Trapp Family Farm</h1>
-        <p class="tagline">Seasonal harvests, family stewardship, and open fields rooted in the Cuyahoga Valley.</p>
-        <div class="badges">
-          <span class="badge">Regenerative Practices</span>
-          <span class="badge">Community Supported Agriculture</span>
-          <span class="badge">Farm Stays &amp; Tours</span>
-        </div>
-        <div class="cta-row">
-          <a class="btn primary" href="#events">Upcoming Events</a>
-          <a class="btn" href="#about">About the Farm</a>
-          <a class="btn" href="#visit">Plan a Visit</a>
-        </div>
-      </div>
-    </header>
+  </nav>
 
-    <div class="layout-grid">
-      <section id="biography">
-        <span class="pill-label">Biography</span>
-        <h2>Meet the Trapp Family</h2>
-        <p class="copy">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et dignissim lectus, nec aliquet nulla. Fusce sagittis, eros ac volutpat maximus, ligula nisl porta est, vitae dignissim velit urna id nibh. Vestibulum feugiat ipsum ex, eu bibendum urna condimentum ac.</p>
-        <p class="copy">Curabitur euismod, neque vitae vehicula laoreet, velit urna vehicula lectus, vitae vestibulum sem lacus nec ipsum. Nullam feugiat enim id arcu condimentum, id fermentum elit tempor. Integer sed purus nec sapien congue auctor.</p>
-
-        <div class="two-col">
-          <div class="card">
-            <h3>Rooted in Family</h3>
-            <p class="copy">Aliquam hendrerit nisl at dui molestie, non interdum magna dictum. Sed in lectus in ligula aliquet volutpat quis et turpis.</p>
-          </div>
-          <div class="card">
-            <h3>Growing with Intention</h3>
-            <p class="copy">Suspendisse porttitor consequat sapien, ac aliquet nibh aliquet vitae. Vivamus eu dui tristique, placerat nisl sed, posuere quam.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="about">
-        <span class="pill-label">About the Farm</span>
-        <h2>Fields, Soil, and Seasonal Rhythm</h2>
-        <p class="copy">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi dapibus sapien vel congue rhoncus. Integer sed erat tincidunt, mattis purus sed, varius eros. Nullam eleifend, nisi sit amet venenatis aliquam, felis ipsum fermentum lacus, vitae suscipit velit sem vitae urna.</p>
-
-        <div class="info-list">
-          <div class="info-item">
-            <strong>Acres Under Care</strong>
-            <span>120 acres of rotating pasture and orchard rows.</span>
-          </div>
-          <div class="info-item">
-            <strong>Signature Crops</strong>
-            <span>Heirloom tomatoes, cool-season greens, orchard berries.</span>
-          </div>
-          <div class="info-item">
-            <strong>Practices</strong>
-            <span>No-till beds, cover cropping, pollinator corridors.</span>
-          </div>
-          <div class="info-item">
-            <strong>Community</strong>
-            <span>CSA shares, field workshops, farm dinners.</span>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <section id="events">
-      <span class="pill-label">Events &amp; News</span>
-      <h2>Seasonal Happenings</h2>
-      <p class="copy">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ultricies, massa eget luctus ultricies, velit lectus suscipit lacus, vitae rhoncus libero nunc vel ligula.</p>
-      <div class="event-grid">
-        <article class="event-card">
-          <img src="../assets/icons/icon.image.16171E.png" alt="Event placeholder" />
-          <div class="content">
-            <div class="meta">July 12 &middot; Sunset</div>
-            <h3>Fieldside Supper Series</h3>
-            <p class="copy">Mauris vitae dui volutpat, aliquet nisl vitae, volutpat felis. Curabitur a interdum felis.</p>
-            <div class="cta-row">
-              <a class="btn primary" href="#">RSVP</a>
-              <a class="btn" href="#">Share</a>
-            </div>
-          </div>
-        </article>
-        <article class="event-card">
-          <img src="../assets/icons/icon.image.16171E.png" alt="Event placeholder" />
-          <div class="content">
-            <div class="meta">August 5 &middot; Weekend</div>
-            <h3>Berry Bramble Festival</h3>
-            <p class="copy">Praesent vitae porttitor ligula, ac feugiat dolor. Donec hendrerit aliquet pellentesque.</p>
-            <div class="cta-row">
-              <a class="btn primary" href="#">Attend</a>
-              <a class="btn" href="#">Invite Friends</a>
-            </div>
-          </div>
-        </article>
-        <article class="event-card">
-          <img src="../assets/icons/icon.image.16171E.png" alt="Event placeholder" />
-          <div class="content">
-            <div class="meta">September 9 &middot; Workshop</div>
-            <h3>Hands-on Soil School</h3>
-            <p class="copy">Fusce accumsan, nibh vitae consequat bibendum, urna lorem aliquet purus, at pharetra eros ligula at magna.</p>
-            <div class="cta-row">
-              <a class="btn primary" href="#">Register</a>
-              <a class="btn" href="#">Details</a>
-            </div>
-          </div>
-        </article>
+  <main class="page">
+    <section class="profiles-hero">
+      <p class="eyebrow">Farm Profiles</p>
+      <h1>Meet the farmers cultivating the Cuyahoga Valley</h1>
+      <p>Explore each participating farm with quick visuals, locations, and links. We paired every profile with its logo and a scene from the farm to help you recognize them at the market or on a visit.</p>
+      <div class="jump-links">
+        <a class="jump-link" href="#trapp-family-farm">Trapp Family Farm</a>
+        <a class="jump-link" href="#purple-brown-farmstead">Purple Brown Farmstead</a>
+        <a class="jump-link" href="#spicy-lamb-farm">Spicy Lamb Farm</a>
+        <a class="jump-link" href="#oxbow-orchard">Oxbow Orchard</a>
+        <a class="jump-link" href="#greenfield-berry-farm">Greenfield Berry Farm</a>
+        <a class="jump-link" href="#keleman-point-farm">Keleman Point Farm</a>
+        <a class="jump-link" href="#sarahs-vineyard">Sarah's Vineyard</a>
+        <a class="jump-link" href="#spice-acres">Spice Acres</a>
+        <a class="jump-link" href="#neitenbach-farm">Neitenbach Farm</a>
       </div>
     </section>
 
-    <section id="offerings">
-      <span class="pill-label">Offerings</span>
-      <h2>What You'll Find</h2>
-      <div class="two-col">
-        <div class="card">
-          <h3>Farm Stand</h3>
-          <p class="copy">Cras sit amet nibh sed magna elementum auctor vitae non turpis. In commodo lectus ut ipsum fermentum facilisis.</p>
+    <section class="farm-grid">
+      <article class="farm-card" id="trapp-family-farm">
+        <div class="farm-media">
+          <img class="farm-scene" src="../assets/imgs/img.scene.trapp-family-farm.png" alt="Fields at Trapp Family Farm">
+          <img class="farm-logo" src="../assets/imgs/img.logo.placeholder.png" alt="Trapp Family Farm logo placeholder">
         </div>
-        <div class="card">
-          <h3>Workshops</h3>
-          <p class="copy">Phasellus ullamcorper, odio nec pretium commodo, est lorem iaculis purus, sed tincidunt dolor ligula eget arcu.</p>
+        <div class="farm-content">
+          <div>
+            <h2 class="farm-title">Trapp Family Farm</h2>
+            <p class="tagline">Sustainable mixed crop-and-livestock family farm powered by draft horses since 2012.</p>
+          </div>
+          <div class="meta-row">
+            <div class="meta-item">
+              <img src="../assets/icons/icon.location.16171E.png" alt="Location icon">
+              <div>
+                <div class="label">Farm Location</div>
+                <div class="value">1019 West Streetsboro Road, Peninsula</div>
+              </div>
+            </div>
+            <div class="meta-item">
+              <img src="../assets/icons/icon.www.16171E.png" alt="Website icon">
+              <div>
+                <div class="label">Website</div>
+                <a class="value" href="https://trappfamilyfarm.com" target="_blank" rel="noreferrer">trappfamilyfarm.com</a>
+              </div>
+            </div>
+          </div>
+          <ul class="highlights">
+            <li>Seasonal eggs, produce, and meat are sold on-site.</li>
+            <li>Draft horses provide power across the farm's rotations.</li>
+            <li>Focused on resilient, healthy people, plants, animals, and soil.</li>
+          </ul>
         </div>
-      </div>
-      <div class="gallery">
-        <img src="../assets/icons/icon.image.16171E.png" alt="Farm gallery placeholder" />
-        <img src="../assets/icons/icon.image.16171E.png" alt="Farm gallery placeholder" />
-        <img src="../assets/icons/icon.image.16171E.png" alt="Farm gallery placeholder" />
-      </div>
-    </section>
+      </article>
 
-    <section id="visit">
-      <span class="pill-label">Visit &amp; Contact</span>
-      <h2>Plan Your Time at the Farm</h2>
-      <div class="info-list">
-        <div class="info-item">
-          <strong>Location</strong>
-          <span>123 Country Lane, Valley Fields, Ohio</span>
+      <article class="farm-card" id="purple-brown-farmstead">
+        <div class="farm-media">
+          <img class="farm-scene" src="../assets/imgs/img.scene.purple-brown-farmstead.png" alt="Purple Brown Farmstead landscape">
+          <img class="farm-logo" src="../assets/imgs/img.logo.purple-brown-farmstead.png" alt="Purple Brown Farmstead logo">
         </div>
-        <div class="info-item">
-          <strong>Hours</strong>
-          <span>Friday &amp; Saturday: 9am &ndash; 6pm<br />Sunday: 10am &ndash; 4pm</span>
+        <div class="farm-content">
+          <div>
+            <h2 class="farm-title">Purple Brown Farmstead</h2>
+            <p class="tagline">A permaculture-oriented "food forest" blending diverse crops with complementary animals.</p>
+          </div>
+          <div class="meta-row">
+            <div class="meta-item">
+              <img src="../assets/icons/icon.location.16171E.png" alt="Location icon">
+              <div>
+                <div class="label">Shop Location</div>
+                <div class="value">1619 Mill St. W, Peninsula</div>
+              </div>
+            </div>
+            <div class="meta-item">
+              <img src="../assets/icons/icon.location.16171E.png" alt="Location icon">
+              <div>
+                <div class="label">Farm Location</div>
+                <div class="value">458 Hines Hill Road, Hudson</div>
+              </div>
+            </div>
+            <div class="meta-item">
+              <img src="../assets/icons/icon.www.16171E.png" alt="Website icon">
+              <div>
+                <div class="label">Website</div>
+                <a class="value" href="https://purplebrownfarmstead.com" target="_blank" rel="noreferrer">purplebrownfarmstead.com</a>
+              </div>
+            </div>
+          </div>
+          <ul class="highlights">
+            <li>Heritage cider apples, fruits, nuts, vegetables, herbs, flowers, and mushrooms.</li>
+            <li>Integrated animal systems that complement the food forest.</li>
+            <li>Products also available at the downtown Peninsula farm store.</li>
+          </ul>
         </div>
-        <div class="info-item">
-          <strong>Contact</strong>
-          <span>hello@trappfamilyfarm.example &middot; (330) 555-2024</span>
-        </div>
-        <div class="info-item">
-          <strong>Follow Along</strong>
-          <span>@trappfamilyfarm on social</span>
-        </div>
-      </div>
-    </section>
+      </article>
 
-    <footer>
-      Trapp Family Farm &mdash; Cultivating community, nourishment, and open space in the valley.
-    </footer>
-  </div>
+      <article class="farm-card" id="spicy-lamb-farm">
+        <div class="farm-media">
+          <img class="farm-scene" src="../assets/imgs/img.scene.spicy-lamb-farm.png" alt="Sheep at Spicy Lamb Farm">
+          <img class="farm-logo" src="../assets/imgs/img.logo.placeholder.png" alt="Spicy Lamb Farm logo placeholder">
+        </div>
+        <div class="farm-content">
+          <div>
+            <h2 class="farm-title">The Spicy Lamb Farm</h2>
+            <p class="tagline">A 12-acre working sheep farm and orchard in the Cuyahoga Valley National Park.</p>
+          </div>
+          <div class="meta-row">
+            <div class="meta-item">
+              <img src="../assets/icons/icon.location.16171E.png" alt="Location icon">
+              <div>
+                <div class="label">Farm Location</div>
+                <div class="value">6560 Akron Peninsula Road</div>
+              </div>
+            </div>
+            <div class="meta-item">
+              <img src="../assets/icons/icon.www.16171E.png" alt="Website icon">
+              <div>
+                <div class="label">Website</div>
+                <a class="value" href="https://thespicylamb.com" target="_blank" rel="noreferrer">thespicylamb.com</a>
+              </div>
+            </div>
+          </div>
+          <ul class="highlights">
+            <li>Purebred Dorset sheep for gourmet lamb and wool, plus free-range ducks and bees.</li>
+            <li>Orchard-grown organic heirloom fruits and vegetables.</li>
+            <li>Agritourism hub with sheepdog trials, fiber arts workshops, and Adopt-a-Sheep programs by appointment.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="farm-card" id="oxbow-orchard">
+        <div class="farm-media">
+          <img class="farm-scene" src="../assets/imgs/img.scene.oxbow-orchard.png" alt="Oxbow Orchard scene">
+          <img class="farm-logo" src="../assets/imgs/img.logo.oxbow-orchard.png" alt="Oxbow Orchard logo">
+        </div>
+        <div class="farm-content">
+          <div>
+            <h2 class="farm-title">Oxbow Orchard</h2>
+            <p class="tagline">Diversified, regenerative agriculture with orchard fruit, pasture poultry, and flowers.</p>
+          </div>
+          <div class="meta-row">
+            <div class="meta-item">
+              <img src="../assets/icons/icon.location.16171E.png" alt="Location icon">
+              <div>
+                <div class="label">Farm Location</div>
+                <div class="value">6765 Canal Road, Valley View</div>
+              </div>
+            </div>
+            <div class="meta-item">
+              <img src="../assets/icons/icon.www.16171E.png" alt="Website icon">
+              <div>
+                <div class="label">Website</div>
+                <a class="value" href="https://oxboworchard.com" target="_blank" rel="noreferrer">oxboworchard.com</a>
+              </div>
+            </div>
+          </div>
+          <ul class="highlights">
+            <li>Icelandic sheep, pasture-raised chickens and turkeys.</li>
+            <li>Seasonal fruits, vegetables, seedlings, and cut flowers.</li>
+            <li>Rustic farmstand and small local foods shop on-site.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="farm-card" id="greenfield-berry-farm">
+        <div class="farm-media">
+          <img class="farm-scene" src="../assets/imgs/img.scene.greenfield-berry-farm.png" alt="Greenfield Berry Farm rows">
+          <img class="farm-logo" src="../assets/imgs/img.logo.greenfield-berry-farm.png" alt="Greenfield Berry Farm logo">
+        </div>
+        <div class="farm-content">
+          <div>
+            <h2 class="farm-title">Greenfield Berry Farm</h2>
+            <p class="tagline">Pick-your-own berries, sunflowers, and a vegetable CSA led by educator Daniel Greenfield.</p>
+          </div>
+          <div class="meta-row">
+            <div class="meta-item">
+              <img src="../assets/icons/icon.location.16171E.png" alt="Location icon">
+              <div>
+                <div class="label">Farm Location</div>
+                <div class="value">2485 Major Road, Peninsula</div>
+              </div>
+            </div>
+            <div class="meta-item">
+              <img src="../assets/icons/icon.www.16171E.png" alt="Website icon">
+              <div>
+                <div class="label">Website</div>
+                <a class="value" href="https://greenfieldberryfarm.com" target="_blank" rel="noreferrer">greenfieldberryfarm.com</a>
+              </div>
+            </div>
+          </div>
+          <ul class="highlights">
+            <li>Pick-your-own blueberries, aronia berries, and sunflowers.</li>
+            <li>Vegetable CSA plus pussy willows, tulips, and honey.</li>
+            <li>Farm-based educational tours and field trips.<br><a class="value" href="https://www.onlyinyourstate.com/nature/ohio/buckets-of-berries-cle" target="_blank" rel="noreferrer">Read a recent feature</a></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="farm-card" id="keleman-point-farm">
+        <div class="farm-media">
+          <img class="farm-scene" src="../assets/imgs/img.scene.keleman-point-farm.png" alt="Pasture at Keleman Point Farm">
+          <img class="farm-logo" src="../assets/imgs/img.logo.placeholder.png" alt="Keleman Point Farm logo placeholder">
+        </div>
+        <div class="farm-content">
+          <div>
+            <h2 class="farm-title">Keleman Point Farm</h2>
+            <p class="tagline">Diversified sustainable farmstead continuing the legacy of the former Goatfeathers Point Farm.</p>
+          </div>
+          <div class="meta-row">
+            <div class="meta-item">
+              <img src="../assets/icons/icon.location.16171E.png" alt="Location icon">
+              <div>
+                <div class="label">Farm Location</div>
+                <div class="value">570 Akron Peninsula Road</div>
+              </div>
+            </div>
+            <div class="meta-item">
+              <img src="../assets/icons/icon.www.16171E.png" alt="Website icon">
+              <div>
+                <div class="label">Website</div>
+                <a class="value" href="https://kelemanpointfarm.com" target="_blank" rel="noreferrer">kelemanpointfarm.com</a>
+              </div>
+            </div>
+          </div>
+          <ul class="highlights">
+            <li>Grass-fed beef, pork, heritage-breed turkeys, and Tennessee fainting goats for cashmere fiber.</li>
+            <li>Free-range eggs and seasonal meats offered year-round.</li>
+            <li>Farm Market stand serves the community across all seasons.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="farm-card" id="sarahs-vineyard">
+        <div class="farm-media">
+          <img class="farm-scene" src="../assets/imgs/img.scene.sarahs-vineyard.png" alt="Vines at Sarah's Vineyard">
+          <img class="farm-logo" src="../assets/imgs/img.logo.sarahs-vineyard.png" alt="Sarah's Vineyard logo">
+        </div>
+        <div class="farm-content">
+          <div>
+            <h2 class="farm-title">Sarah's Vineyard</h2>
+            <p class="tagline">A vineyard, winery, tasting room, and art gallery operated by the Lytz family.</p>
+          </div>
+          <div class="meta-row">
+            <div class="meta-item">
+              <img src="../assets/icons/icon.market.16171E.png" alt="Market icon">
+              <div>
+                <div class="label">Vineyard &amp; Market</div>
+                <div class="value">1204 West Steels Corners Road, Cuyahoga Falls</div>
+              </div>
+            </div>
+            <div class="meta-item">
+              <img src="../assets/icons/icon.location.16171E.png" alt="Location icon">
+              <div>
+                <div class="label">Farm Location</div>
+                <div class="value">1274 West Steels Corners Road, Cuyahoga Falls</div>
+              </div>
+            </div>
+            <div class="meta-item">
+              <img src="../assets/icons/icon.www.16171E.png" alt="Website icon">
+              <div>
+                <div class="label">Website</div>
+                <a class="value" href="https://sarahsvineyardwinery.com" target="_blank" rel="noreferrer">sarahsvineyardwinery.com</a>
+              </div>
+            </div>
+          </div>
+          <ul class="highlights">
+            <li>Multiple grape varieties and nearly a dozen wines, including an estate wine.</li>
+            <li>Indoor/outdoor dining, a tasting room, live music, and gallery experiences.</li>
+            <li>Hosts the annual Summer Solstice Wine, Art, &amp; Music Festival each June.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="farm-card" id="spice-acres">
+        <div class="farm-media">
+          <img class="farm-scene" src="../assets/imgs/img.scene.spice-acres.png" alt="Spice Acres fields">
+          <img class="farm-logo" src="../assets/imgs/img.logo.spice-acres.png" alt="Spice Acres logo">
+        </div>
+        <div class="farm-content">
+          <div>
+            <h2 class="farm-title">Spice Acres</h2>
+            <p class="tagline">Chef-driven farming linking harvests to Spice Catering Co. and Spice Field Kitchen.</p>
+          </div>
+          <div class="meta-row">
+            <div class="meta-item">
+              <img src="../assets/icons/icon.location.16171E.png" alt="Location icon">
+              <div>
+                <div class="label">Farm Location</div>
+                <div class="value">9570 Riverview Road, Brecksville</div>
+              </div>
+            </div>
+            <div class="meta-item">
+              <img src="../assets/icons/icon.www.16171E.png" alt="Website icon">
+              <div>
+                <div class="label">Website</div>
+                <a class="value" href="https://spiceacres.com" target="_blank" rel="noreferrer">spiceacres.com</a>
+              </div>
+            </div>
+          </div>
+          <ul class="highlights">
+            <li>Seasonal produce and heritage pork grown for Spice's culinary teams.</li>
+            <li>Direct connection between chefs and field planning.</li>
+            <li>Farm-to-table dinners and workshops hosted on-site.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="farm-card" id="neitenbach-farm">
+        <div class="farm-media">
+          <img class="farm-scene" src="../assets/icons/icon.image.16171E.png" alt="Neitenbach Farm scene placeholder">
+          <img class="farm-logo" src="../assets/imgs/img.logo.placeholder.png" alt="Neitenbach Farm logo placeholder">
+        </div>
+        <div class="farm-content">
+          <div>
+            <h2 class="farm-title">Neitenbach Farm</h2>
+            <p class="tagline">Biodynamic vegetables, herbs, and flowers grown alongside holistic healing services.</p>
+          </div>
+          <div class="meta-row">
+            <div class="meta-item">
+              <img src="../assets/icons/icon.location.16171E.png" alt="Location icon">
+              <div>
+                <div class="label">Farm Location</div>
+                <div class="value">3077 Akron Peninsula Road, Akron</div>
+              </div>
+            </div>
+            <div class="meta-item">
+              <img src="../assets/icons/icon.www.16171E.png" alt="Social icon">
+              <div>
+                <div class="label">Social</div>
+                <a class="value" href="https://www.facebook.com/theneitenbachfarm" target="_blank" rel="noreferrer">@theneitenbachfarm</a>
+              </div>
+            </div>
+          </div>
+          <ul class="highlights">
+            <li>Mixed vegetables, culinary and medicinal herbs, and flowers.</li>
+            <li>On-farm stand and a distinctive CSA.</li>
+            <li>Herbal tinctures, teas, salves, and holistic bodywork led by Pamela Neitenbach.</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+  </main>
 
   <footer class="footer">
     <div class="container">
