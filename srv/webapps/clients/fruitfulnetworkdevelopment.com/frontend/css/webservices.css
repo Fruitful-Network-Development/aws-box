@@ -1,0 +1,61 @@
+/* ======================================
+   WEBSERVICES PAGE
+  ====================================== */
+
+.services-grid .info-card h3 {
+   color: var(--blue-sour);
+}
+
+.services-grid ul {
+   margin: 0.25rem 0 0;
+}
+
+.services-grid ul li {
+   margin-bottom: 0.35rem;
+}
+
+.services-section .section-heading h2 {
+   letter-spacing: 0.02em;
+}
+
+.table-footnote {
+   margin: 0;
+   font-size: 0.9rem;
+   /* text-align: right via .text-right utility */
+}
+
+/* Sortable table styles */
+.data-table th[role="button"] {
+   position: relative;
+   user-select: none;
+   transition: background-color 0.2s ease;
+}
+
+.data-table th[role="button"]:hover {
+   background-color: var(--silverback);
+}
+
+.data-table th[role="button"]:focus {
+   outline: 2px solid var(--blue-sour);
+   outline-offset: -2px;
+}
+
+.data-table th.sort-asc::after {
+   content: ' ▲';
+   font-size: 0.8em;
+   color: var(--blue-sour);
+   margin-left: 0.25rem;
+}
+
+.data-table th.sort-desc::after {
+   content: ' ▼';
+   font-size: 0.8em;
+   color: var(--blue-sour);
+   margin-left: 0.25rem;
+}
+
+@media (max-width: 768px) {
+   .data-table {
+      min-width: 100%;
+   }
+}
