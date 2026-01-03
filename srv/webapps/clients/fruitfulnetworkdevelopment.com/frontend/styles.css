@@ -5,8 +5,6 @@
 @import "css/webservices.css";
 @import "css/research.css";
 @import "css/markets.css";
-@import "css/header.css";
-@import "css/footer.css";
 
 /* ======================================
    RESET & BASE STYLES
@@ -231,6 +229,240 @@ img {
       flex-direction: column;
    }
 }
+
+/* ======================================
+   HEADER - SECTION
+  ====================================== */
+
+header {
+   background-color: var(--nero);
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   height: 3rem;
+   padding: 0.25rem 1rem;
+}
+
+.header__left {
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+}
+
+.header__right {
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+}
+
+.header__nav-link {
+   color: var(--offwhite);
+}
+
+.header__nav-link--active {
+   font-weight: 600;
+}
+
+.header__button {
+   height: 1.5rem;
+   width: 1.5rem;
+   flex-shrink: 0;
+   /* img-container utility handles centering */
+} 
+
+/* Responsive header - reduce nav text size when viewport is small */
+@media (max-width: 768px) {
+   .header__nav-link {
+      font-size: 0.85rem;
+   }
+   
+   .header__left,
+   .header__right {
+      gap: 0.5rem;
+   }
+}
+
+@media (max-width: 600px) {
+   .header__nav-link {
+      font-size: 0.75rem;
+   }
+   
+   .header__left,
+   .header__right {
+      gap: 0.35rem;
+   }
+}
+
+/* ======================================
+   SUBHEADER (responsive like header)
+  ====================================== */
+
+subheader {
+  background-color: var(--nero-light);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  height: 2rem;
+  padding: 0.25rem 1rem; /* match header side padding */
+}
+
+.subheader__right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Optional: keep subheader links on one line */
+.subheader__nav-link {
+  color: var(--offwhite);
+  white-space: nowrap;
+}
+
+.subheader__nav-link--active {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--offwhite);
+}
+
+/* Responsive subheader - reduce nav text size when viewport is small */
+@media (max-width: 768px) {
+  .subheader__nav-link {
+    font-size: 0.85rem;
+  }
+
+  .subheader__right {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .subheader__nav-link {
+    font-size: 0.75rem;
+  }
+
+  .subheader__right {
+    gap: 0.35rem;
+  }
+}
+
+/* ======================================
+   FOOTER - SECTION
+  ====================================== */
+footer {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: flex-start;
+   padding: 1rem;
+   flex-wrap: wrap;
+   gap: 1rem;
+   box-sizing: border-box;
+   width: 100%;
+   max-width: 100%;
+}
+
+.footer__left {
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   gap: 1rem;
+}
+
+.footer__button {
+   height: 1.5rem;
+   width: 1.5rem;
+   flex-shrink: 0;
+   /* img-container utility handles centering */
+}
+
+.footer__right {
+   display: flex;
+   flex-direction: row;
+   align-items: stretch;
+   flex-wrap: wrap;
+   flex: 1 0 30%;
+   gap: 1rem;
+}
+
+.footer__block {
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: flex-start;
+   border: 1px solid var(--incremental);
+   padding: 1rem;
+   flex: 1 1 0;
+   min-width: 200px;
+   min-height: 0;
+   box-sizing: border-box;
+   max-width: 100%;
+}
+
+.footer__block.contact {
+   justify-content: center;
+   align-items: center;
+   background-color: var(--nero);
+   border-radius: 1rem;
+   color: var(--offwhite);
+
+} 
+
+.footer__block.contact p {
+   color: var(--offwhite);
+}
+
+.footer__block.contact h4 {
+   color: var(--offwhite);
+   justify-self: center;
+   font-weight: bold;
+}
+
+.footer__block h4 {
+   color: var(--blue-sour);
+}
+
+.footer__connect-button {
+   border: 1px solid var(--offwhite);
+   border-radius: 0.25rem;
+   padding: 0.25rem 0.25rem;
+   
+}
+
+/* Mobile responsive - footer sections stack vertically */
+@media (max-width: 768px) {
+   footer {
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+   }
+   
+   .footer__left {
+      justify-content: center;
+      width: 100%;
+      box-sizing: border-box;
+   }
+   
+   .footer__right {
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+   }
+   
+   .footer__block {
+      width: 100%;
+      max-width: 100%;
+      flex: 1 1 auto;
+      min-width: 0;
+      box-sizing: border-box;
+   }
+}
+
 
 /* ======================================
    PAGE COMPONENTS
