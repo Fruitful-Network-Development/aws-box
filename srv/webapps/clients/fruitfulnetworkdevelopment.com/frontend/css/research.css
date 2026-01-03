@@ -328,7 +328,3 @@ article:nth-of-type(5) .roadmap_colorBlock:first-child { background: var(--red);
     align-self: flex-end !important; /* Force all cards to the right */
   }
 }
-
-/* ======================================
-   PROPOSAL_DISCUSSION - SECTION
-  ====================================== */
