@@ -1,45 +1,68 @@
 /* ======================================
-   RESEARCH PAGE
+   OVERVIEW - SECTION
   ====================================== */
 
-/* Hero Section Styling */
-.research-hero {
-   border: 1px solid var(--silverback);
-   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-   padding: 2rem 2.5rem;
-   margin: 0 auto;
-   max-width: 800px;
-   width: 100%;
+/* Container and General Font Settings */
+.section-overview {
+  font-family: 'Georgia', serif; /* Body font is a serif style */
+  color: #555; /* Muted dark grey text */
+  line-height: 1.4;
+  max-width: 900px;
+  padding: 20px;
 }
 
-.research-hero > p:first-of-type {
-   color: var(--blue-sour);
-   font-size: 0.9rem;
-   font-weight: 400;
-   letter-spacing: 0.05em;
-   margin: 0 0 0.75rem 0;
-   text-transform: uppercase;
-   padding: 0;
-   border: none;
+/* Section Header Styling */
+.section-overview h2 {
+  font-family: 'Arial', sans-serif;
+  color: #2a7298; /* The blueish tint from the image */
+  font-size: 1.2rem;
+  border-bottom: 1px solid #2a7298; /* The long line after the title */
+  display: flex;
+  align-items: center;
 }
 
-.research-hero h1 {
-   color: var(--nero);
-   font-size: 2.5rem;
-   font-weight: 400;
-   margin: 0 0 0.75rem 0;
-   padding: 0;
-   border: none;
-   text-transform: none;
+.section-overview h3 {
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  color: #333;
 }
 
-.research-hero .page-hero__tagline {
-   color: var(--nero);
-   font-size: 0.75rem;
-   font-style: italic;
-   margin: 0;
-   padding: 0;
-   border: none;
+/* Introductory Italic Paragraph */
+.intro-text {
+  font-style: italic;
+  text-align: center;
+  font-size: 0.95rem;
+  margin-bottom: 25px;
+}
+
+/* Custom Dashed List */
+.dash-list {
+  list-style-type: none;
+  padding-left: 40px;
+}
+
+.dash-list li::before {
+  content: "-";
+  position: absolute;
+  margin-left: -20px;
+}
+
+/* Numbered List Styling */
+.numbered-list {
+  padding-left: 20px;
+}
+
+.numbered-list li {
+  margin-bottom: 10px;
+}
+
+/* Handling the sub-dash under number 1 */
+.no-indent {
+    padding-left: 20px;
+    margin-top: 5px;
 }
 
 /* ======================================
@@ -270,13 +293,9 @@
    }
  }
 
-
-
-
-
-.topics-grid .info-card h3 {
-   color: var(--green);
-}
+/* ======================================
+   FINISH LATER - SECTION(s)
+  ====================================== */
 
 .roadmap-steps {
    display: grid;
