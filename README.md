@@ -189,6 +189,9 @@ For details on how the manifests are used, see:
 ## WorkFlow
 
 ### Update the repo on the server
+```bash
+ssh -i ~/.ssh/aws-main-key.pem admin@52.70.228.90
+```
 Run on the instance:
 ```bash
 cd /home/admin/aws-box
