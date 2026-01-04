@@ -40,7 +40,7 @@
  * header rightward on desktop and downward on mobile.
  */
 .section-calendar .month.weekdays {
-  --offset: 5;
+  --offset: 3.375;
 }
  
 /* Style weekday header cells.  Weight and case are common to both layouts. */
@@ -48,7 +48,7 @@
   font-weight: bold;
   text-transform: uppercase;
   font-size: 0.7rem;
-  /* padding and white-space will be overridden in responsive rules */
+\  /* padding and white-space will be overridden in responsive rules */
 }
  
  /* Desktop (wide viewport) styles */
@@ -64,7 +64,7 @@
      display: block;
      width: 100%;
      /* apply horizontal indentation based on header offset */
-     margin-left: calc(var(--offset) * var(--offset-unit));
+     margin-left: calc(3.375rem * 1.525);
      margin-bottom: 0.75rem;
    }
    .section-calendar .calendar-blocks table.month.weekdays:last-child {
@@ -130,6 +130,36 @@
      line-height: var(--circle-size);
      margin-right: 0.3rem;
      font-size: 0.55rem;
+   }
+   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-1 {
+    background-color: var(--purple);
+    color: var(--nero);
+    border: 1px solid var(--silverback);
+    font-weight: 600;
+   }
+   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-2 {
+    background-color: var(--blue);
+    color: var(--nero);
+    border: 1px solid var(--silverback);
+    font-weight: 600;
+   }
+   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-3 {
+    background-color: var(--green);
+    color: var(--nero);
+    border: 1px solid var(--silverback);
+    font-weight: 600;
+   }
+   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-4 {
+    background-color: var(--yellow);
+    color: var(--nero);
+    border: 1px solid var(--silverback);
+    font-weight: 600;
+   }
+   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-5 {
+    background-color: var(--red);
+    color: var(--nero);
+    border: 1px solid var(--silverback);
+    font-weight: 600;
    }
  }
  
@@ -224,6 +254,36 @@
      margin-bottom: 0.3rem;
      font-size: 0.55rem;
    }
+   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-1 {
+    background-color: var(--purple);
+    color: var(--nero);
+    border: 1px solid var(--silverback);
+    font-weight: 600;
+   }
+   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-2 {
+    background-color: var(--blue);
+    color: var(--nero);
+    border: 1px solid var(--silverback);
+    font-weight: 600;
+   }
+   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-3 {
+    background-color: var(--green);
+    color: var(--nero);
+    border: 1px solid var(--silverback);
+    font-weight: 600;
+   }
+   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-4 {
+    background-color: var(--yellow);
+    color: var(--nero);
+    border: 1px solid var(--silverback);
+    font-weight: 600;
+   }
+   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-5 {
+    background-color: var(--red);
+    color: var(--nero);
+    border: 1px solid var(--silverback);
+    font-weight: 600;
+   }
  }
 
 /* ======================================
@@ -236,7 +296,9 @@
 .section-overview h3,
 .section-overview p,
 .section-overview li {
+  font-family: "Lato", sans-serif;
 }
+
 /* ----------------------------------------------------------------- */
 
 .section-roadmap {
@@ -246,74 +308,59 @@
   padding: var(--space-lg) var(--space-md);
 }
 
-/* Grid to arrange milestone cards and timeline markers */
+/* Grid layout for milestones and timeline column.  On wider screens
+   three columns are used (left, timeline, right).  Items are
+   automatically placed into successive rows. */
 .roadmap-grid {
   display: grid;
   grid-template-columns: 1fr 2rem 1fr;
   grid-auto-rows: auto;
-  gap: var(--space-lg);
+  row-gap: var(--space-lg);
+  column-gap: var(--space-md);
   position: relative;
 }
 
-/* Topmost node to begin the timeline.  Aligns to the centre
-   column. */
-.timeline-node.top-node {
-  grid-column: 2;
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 50%;
-  background-color: var(--nero);
-  justify-self: center;
-}
-
-/* Vertical group of nodes between milestone cards */
-.timeline-nodes {
-  grid-column: 2;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--space-xs) 0;
-  /* Give the timeline groups a minimum height so nodes are always
-     visible even when there is a single marker (e.g. the final
-     milestone). */
-  min-height: 3rem;
-}
-
-/* Draw the connecting vertical line through the centre of the
-   timeline column.  It extends the full height of each group. */
-.timeline-nodes::before {
+/* Draw a continuous vertical line down the centre timeline column. */
+.roadmap-grid::before {
   content: "";
   position: absolute;
-  left: 50%;
   top: 0;
   bottom: 0;
+  left: 50%;
   width: 2px;
   background-color: var(--silverback);
   transform: translateX(-50%);
+  z-index: 0;
 }
 
-/* Individual nodes */
-.node {
+/* Timeline cell houses a single coloured node. */
+.timeline-cell {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* ensure the cell stretches to the height of its row */
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* Individual nodes used in the timeline.  Each node colour is
+   defined via additional classes. */
+.timeline-cell .node {
   display: block;
   width: 0.75rem;
   height: 0.75rem;
   border-radius: 50%;
 }
-.blue-node { background-color: var(--blue); }
+
 .purple-node { background-color: var(--purple); }
-.green-node { background-color: var(--green); }
+.blue-node   { background-color: var(--blue); }
+.green-node  { background-color: var(--green); }
 .yellow-node { background-color: var(--yellow); color: var(--nero); }
-.red-node { background-color: var(--red); }
+.red-node    { background-color: var(--red); }
 
-/* Slightly enlarge the final red node for emphasis */
-.timeline-nodes.row3 .red-node {
-  width: 0.9rem;
-  height: 0.9rem;
-}
-
-/* Milestone cards styling */
+/* Base styling for all roadmap cards */
 .roadmap__card {
   background-color: var(--offwhite);
   border: 1px solid var(--silverback);
@@ -324,8 +371,13 @@
   overflow: hidden;
 }
 
-/* Colour blocks within each card.  First child is the header; rest
-   contain the descriptive content. */
+/* Place cards in the left or right column on wide screens */
+.roadmap__card.left  { grid-column: 1; }
+.roadmap__card.right { grid-column: 3; }
+.roadmap__card.full  { grid-column: 1 / 4; }
+
+/* Colour blocks within each card.  The first child is the coloured
+   header; subsequent blocks contain the descriptive content. */
 .roadmap__card .roadmap_colorBlock:first-child {
   color: var(--offwhite);
   padding: var(--space-sm) var(--space-md);
@@ -338,7 +390,7 @@
   font-size: 0.85rem;
 }
 
-/* Fine‑tune list spacing inside cards */
+/* Adjust list spacing inside cards */
 .roadmap__card ul {
   margin: var(--space-xs) 0 0 0;
   padding-left: 1.25rem;
@@ -354,47 +406,29 @@
 #milestone-4 .roadmap_colorBlock:first-child { background-color: var(--yellow); color: var(--nero); }
 #milestone-5 .roadmap_colorBlock:first-child { background-color: var(--red); }
 
-/* Make the final milestone span across all columns; place its
-   timeline node in the centre column on the following row. */
-#milestone-5 {
-  grid-column: 1 / 4;
-}
-.timeline-nodes.row3 {
-  grid-column: 2;
-  /* Centre the single node in the final group */
-  align-items: center;
-  justify-content: center;
-  min-height: 3rem;
-}
-
-/* Responsive layout for narrow screens.  Timeline becomes a
-   left‑hand column and cards occupy the remaining width. */
+/* Responsive layout: collapse to two columns on narrow screens. */
 @media (max-width: 900px) {
   .roadmap-grid {
     grid-template-columns: 2rem 1fr;
-    gap: var(--space-md);
+    row-gap: var(--space-md);
   }
-  /* Place all cards in the right column */
-  .roadmap-grid > article {
-    grid-column: 2;
-  }
-  /* Align all timeline nodes and top node into the first column */
-  .roadmap-grid > .timeline-nodes,
-  .roadmap-grid > .timeline-node.top-node {
-    grid-column: 1;
-  }
-  /* Final milestone and its node revert to standard placement */
-  #milestone-5 {
-    grid-column: 2;
-  }
-  .timeline-nodes.row3 {
-    grid-column: 1;
+  /* Position timeline cells in the first column and cards in the
+     second column */
+  .timeline-cell { grid-column: 1; }
+  .roadmap__card.left,
+  .roadmap__card.right,
+  .roadmap__card.full { grid-column: 2; }
+  /* Reposition the vertical line to the centre of the narrow
+     timeline column (2rem wide). */
+  .roadmap-grid::before {
+    left: 1rem;
+    transform: translateX(-50%);
   }
 }
-
 /* ======================================
    TIMELINE - SECTION
   ====================================== */
+/* Container for the timeline section */
 .section-timeline {
   width: 100%;
   max-width: 1200px;
@@ -408,7 +442,7 @@
   justify-content: center;
   align-items: center;
   gap: var(--space-lg);
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-lg);
 }
 
 .key-item {
@@ -425,37 +459,46 @@
   border-radius: 0.25rem;
 }
 .open-period { background-color: var(--green); }
-.phase-i { background-color: var(--yellow); }
-.phase-ii { background-color: var(--red); }
+.phase-i     { background-color: var(--yellow); }
+.phase-ii    { background-color: var(--red); }
 
-/* Container for year rings */
+/* Container for all year rings.  Wraps them with spacing and
+   allows them to flow onto multiple lines. */
 .timeline-years {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--space-lg);
+  justify-content: space-between;
+  gap: var(--space-md);
 }
 
-/* Individual year ring wrapper */
+/* Each year unit defines its own ring and month labels. */
 .year-unit {
   position: relative;
   width: 9rem;
   height: 9rem;
+  margin-bottom: var(--space-lg);
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-md);
 }
 
-/* Outer ring container.  The overflow hidden combined with
-   border‑radius ensures the rotated segments form a circular
-   polygon. */
-.polygon-ring {
-  position: relative;
+/* The coloured ring itself.  A radial mask hollows out the centre
+   to create a donut shape.  The background is defined by a
+   conic-gradient on each year via additional classes. */
+.year-unit .ring {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  overflow: hidden;
+  /* Create the hole in the middle */
+  -webkit-mask: radial-gradient(closest-side, transparent 65%, #000 66%);
+  mask: radial-gradient(closest-side, transparent 65%, #000 66%);
+  background: var(--ring-gradient);
 }
 
-/* The central year label */
-.center-label {
+/* Centre label showing the year */
+.year-unit .year-label {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -464,131 +507,56 @@
   font-size: 0.9rem;
 }
 
-/* Individual month segments.  Each segment is a right‑angled
-   triangular wedge rotated around the centre of the ring. */
-.polygon-ring .segment {
+/* Month labels positioned around the ring.  Each label uses a
+   custom CSS variable --angle to determine its rotation.  The
+   translate moves the label outward beyond the ring’s radius, and
+   the counter-rotation keeps the text upright. */
+.month-label {
   position: absolute;
-  width: 50%;
-  height: 50%;
-  top: 0;
-  left: 50%;
-  transform-origin: 0% 100%;
-  clip-path: polygon(0 0, 100% 0, 100% 100%);
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
-/* Month labels inside segments.  The label is positioned just
-   outside the ring and rotated back so that it is upright.  A
-   small translation is applied to nudge the label outward. */
-.polygon-ring .segment .month {
-  position: absolute;
-  left: 0;
-  top: 0;
+  top: 46%;
+  left: 44%;
   transform-origin: 0 0;
   font-size: 0.6rem;
   white-space: nowrap;
-  /* Additional margin pushes the label outward from the ring so that
-     it remains readable on top of the outer circumference. */
-  margin-left: 0.25rem;
-  margin-top: -0.45rem;
+  /* Use trigonometric positioning via rotate and translate.  The
+     outer translation distance (5.0rem) equals half the ring size
+     (4.5rem) plus a small offset to clear the ring. */
+  transform: rotate(var(--angle)) translateX(5.25rem) rotate(calc(-1 * var(--angle)));
 }
 
-/* Base rotations for the 12 segments */
-.year-unit .segment:nth-child(1)  { transform: rotate(0deg); }
-.year-unit .segment:nth-child(2)  { transform: rotate(30deg); }
-.year-unit .segment:nth-child(3)  { transform: rotate(60deg); }
-.year-unit .segment:nth-child(4)  { transform: rotate(90deg); }
-.year-unit .segment:nth-child(5)  { transform: rotate(120deg); }
-.year-unit .segment:nth-child(6)  { transform: rotate(150deg); }
-.year-unit .segment:nth-child(7)  { transform: rotate(180deg); }
-.year-unit .segment:nth-child(8)  { transform: rotate(210deg); }
-.year-unit .segment:nth-child(9)  { transform: rotate(240deg); }
-.year-unit .segment:nth-child(10) { transform: rotate(270deg); }
-.year-unit .segment:nth-child(11) { transform: rotate(300deg); }
-.year-unit .segment:nth-child(12) { transform: rotate(330deg); }
-
-/* Counter rotations for month labels to keep them upright */
-.year-unit .segment:nth-child(1)  .month { transform: rotate(0deg); }
-.year-unit .segment:nth-child(2)  .month { transform: rotate(-30deg); }
-.year-unit .segment:nth-child(3)  .month { transform: rotate(-60deg); }
-.year-unit .segment:nth-child(4)  .month { transform: rotate(-90deg); }
-.year-unit .segment:nth-child(5)  .month { transform: rotate(-120deg); }
-.year-unit .segment:nth-child(6)  .month { transform: rotate(-150deg); }
-.year-unit .segment:nth-child(7)  .month { transform: rotate(-180deg); }
-.year-unit .segment:nth-child(8)  .month { transform: rotate(-210deg); }
-.year-unit .segment:nth-child(9)  .month { transform: rotate(-240deg); }
-.year-unit .segment:nth-child(10) .month { transform: rotate(-270deg); }
-.year-unit .segment:nth-child(11) .month { transform: rotate(-300deg); }
-.year-unit .segment:nth-child(12) .month { transform: rotate(-330deg); }
-
-/* Colour assignments per year.  Each year unit has its own
-   distribution of colours based on the SBIR/SBTR schedule. */
-
-/* 2026: JAN–APR and AUG–OCT are grey; MAY–JUL are open (green);
-   NOV–DEC are Phase I (yellow). */
-.year-2026 .segment:nth-child(1),
-.year-2026 .segment:nth-child(2),
-.year-2026 .segment:nth-child(3),
-.year-2026 .segment:nth-child(4),
-.year-2026 .segment:nth-child(8),
-.year-2026 .segment:nth-child(9),
-.year-2026 .segment:nth-child(10) {
-  background-color: var(--gray);
+/* Gradient definitions for each year’s ring.  Colours correspond
+   to the SBIR/STTR calendar: gray for dormant months, green for
+   open periods (Phase 0), yellow for Phase I and red for Phase II. */
+.year-2026 {
+  --ring-gradient: conic-gradient(
+    var(--gray) 0deg 120deg,
+    var(--green) 120deg 210deg,
+    var(--gray) 210deg 300deg,
+    var(--yellow) 300deg 360deg
+  );
 }
-.year-2026 .segment:nth-child(5),
-.year-2026 .segment:nth-child(6),
-.year-2026 .segment:nth-child(7) {
-  background-color: var(--green);
+.year-2027 {
+  --ring-gradient: conic-gradient(
+    var(--yellow) 0deg 120deg,
+    var(--red)    120deg 330deg,
+    var(--yellow) 330deg 360deg
+  );
 }
-.year-2026 .segment:nth-child(11),
-.year-2026 .segment:nth-child(12) {
-  background-color: var(--yellow);
+.year-2028 {
+  --ring-gradient: conic-gradient(
+    var(--red) 0deg 360deg
+  );
+}
+.year-2029 {
+  --ring-gradient: conic-gradient(
+    var(--red) 0deg 180deg,
+    var(--gray) 180deg 330deg,
+    var(--red) 330deg 360deg
+  );
 }
 
-/* 2027: JAN–APR and DEC are Phase I; MAY–NOV are Phase II. */
-.year-2027 .segment:nth-child(1),
-.year-2027 .segment:nth-child(2),
-.year-2027 .segment:nth-child(3),
-.year-2027 .segment:nth-child(4),
-.year-2027 .segment:nth-child(12) {
-  background-color: var(--yellow);
-}
-.year-2027 .segment:nth-child(5),
-.year-2027 .segment:nth-child(6),
-.year-2027 .segment:nth-child(7),
-.year-2027 .segment:nth-child(8),
-.year-2027 .segment:nth-child(9),
-.year-2027 .segment:nth-child(10),
-.year-2027 .segment:nth-child(11) {
-  background-color: var(--red);
-}
-
-/* 2028: all months Phase II. */
-.year-2028 .segment {
-  background-color: var(--red);
-}
-
-/* 2029: JAN–JUN and DEC are Phase II; JUL–NOV are grey. */
-.year-2029 .segment:nth-child(1),
-.year-2029 .segment:nth-child(2),
-.year-2029 .segment:nth-child(3),
-.year-2029 .segment:nth-child(4),
-.year-2029 .segment:nth-child(5),
-.year-2029 .segment:nth-child(6),
-.year-2029 .segment:nth-child(12) {
-  background-color: var(--red);
-}
-.year-2029 .segment:nth-child(7),
-.year-2029 .segment:nth-child(8),
-.year-2029 .segment:nth-child(9),
-.year-2029 .segment:nth-child(10),
-.year-2029 .segment:nth-child(11) {
-  background-color: var(--gray);
-}
-
-/* Responsive stacking of rings on very narrow devices */
+/* Responsive adjustments for very narrow devices: stack the rings
+   vertically and reduce their size slightly. */
 @media (max-width: 600px) {
   .timeline-years {
     flex-direction: column;
@@ -597,5 +565,10 @@
   .year-unit {
     width: 8rem;
     height: 8rem;
+  }
+  /* Adjust label radius for smaller rings */
+  .month-label {
+    transform: rotate(var(--angle)) translateX(4.5rem) rotate(calc(-1 * var(--angle)));
+    font-size: 0.55rem;
   }
 }
