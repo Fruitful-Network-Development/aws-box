@@ -36,6 +36,7 @@
 .service_info_card p,
 .service_info_card ul {
    margin: 0;
+   margin-bottom: var(--space-md);
 }
 
 .service_info_card__footer {
