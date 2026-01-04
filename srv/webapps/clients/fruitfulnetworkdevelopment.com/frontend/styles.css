@@ -53,6 +53,7 @@ body {
    --royale: #490072;
    --lilac: #7b4b8c;
    --portage: #8f86d8;
+   --pattens: #cfe2f3ff;
    
    /* Sizing Variables */
    --space-2xs: 0.25rem;
@@ -234,25 +235,34 @@ img {
 }
 
 .pill-link {
-  /* Layout & Shape */
-  display: inline-block;
-  padding: 12px 40px; /* Adjust vertical/horizontal padding to match width */
-  border-radius: 9999px; /* Creates the perfect pill shape */
-  text-decoration: none; /* Removes default underline (optional, image shows underline?) */
+  /* 1. Define the height in a variable */
+  --pill-height: 50px;
+
+  /* 2. Set dimensions */
+  height: var(--pill-height);
+  /* The Magic Formula: Minimum width is 2.5x the height */
+  min-width: calc(var(--pill-height) * 2.5);
+
+  /* 3. Flexbox Layout (Essential for centering text in fixed-height container) */
+  display: inline-flex;
+  align-items: center;      /* Centers text vertically */
+  justify-content: center;  /* Centers text horizontally */
   
-  /* Visuals */
-  background-color: #d3e4f7; /* Light blue color estimate */
-  border: 3px solid #000000; /* Thick black border */
+  padding: 0.75rem 2.5rem;
+  box-sizing: border-box;   /* Ensures padding/borders don't break dimensions */
+  border-radius: 50%;
   
-  /* Typography */
-  color: #0000cd; /* Medium blue text */
-  font-family: sans-serif;
-  font-size: 16px;
-  text-align: center;
-  text-decoration: underline; /* The image text looks underlined */
+  background-color: var(--pattens);
+  border: 1px solid;
+  
+  /* 5. Typography */
+  color: var(--nero);
+  font-weight: bold;
+  text-decoration: underline;
+  white-space: nowrap;      /* Prevents text from breaking into two lines */
 }
 
-/* Optional: Hover state for better UX */
+/* Hover state */
 .pill-link:hover {
   background-color: #c0d8f0;
   cursor: pointer;
