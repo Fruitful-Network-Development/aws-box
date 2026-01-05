@@ -67,7 +67,6 @@ section .page-hero .hero h1 {
 section .page-hero .hero__tagline {
    margin: 0;
    padding: 0;
-   color: var(--G-txt-color); /*override*/
 }
 
 /* ======================================
