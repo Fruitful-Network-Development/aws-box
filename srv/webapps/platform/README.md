@@ -13,3 +13,23 @@ to load.
 
 The combination keeps routing and file I/O bounded to what each client declares
 in their manifest while allowing host-based multi-tenant serving.
+
+## Layout
+
+srv/webapps/platform/
+├── app.py              # Flask application entry point
+├── data_access.py      # Client/manifest helpers:contentReference[oaicite:4]{index=4}
+├── data/               # <--- NEW: global data (taxonomy/product types)
+│   ├── taxonomy.json
+│   └── product_type.json
+├── modules/            # API blueprints exposed to clients
+│   ├── donation_receipts.py
+│   ├── weather.py
+│   └── catalog.py      # <--- NEW: exposes taxonomy & product types
+└── services/           # (optional) internal helpers/integrations, not directly exposed
+    └── newsletter.py   # e.g. SES ingestion and sending
+
+
+- Everything in modules/ contains a Flask Blueprint registered under /api/ that clients can call.
+- Everything in services/ contains helper functions or long‑running tasks (e.g. sending newsletters, polling POS systems). They are imported from blueprints or Celery tasks, not exposed over HTTP.
+- The new data/ directory holds platform‑wide JSON that can be read by any blueprint.
