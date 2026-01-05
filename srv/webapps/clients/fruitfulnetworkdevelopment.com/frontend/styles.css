@@ -2,12 +2,15 @@
    IMPORTS
   ====================================== */
 @import "css/home.css";
-@import "css/webservices.css";
-@import "css/research.css";
-@import "css/tables.css";
-@import "css/hero.css";
 @import "css/header.css";
 @import "css/footer.css";
+@import "css/hero.css";
+
+
+@import "css/calendar.css";
+@import "css/roadmap.css";
+@import "css/timeline.css";
+@import "css/tables.css";
 
 *,
 *::before,
