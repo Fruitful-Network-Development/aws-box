@@ -29,3 +29,15 @@
    margin: 0 auto;
    /* Override for table cells - maintain aspect ratio */
 }
+
+/* ======================================
+   RESPONSIVE MEDIA (if any)
+  ====================================== */
+
+/* BASE STYLES (Mobile ~ >= 0px) */
+/* TABLET STYLES (Don't use unless special use) */
+@media (min-width: 768px) {
+}
+/* DESKTOP STYLES */
+@media (min-width: 1024) {
+}
