@@ -84,7 +84,7 @@
   --G-txt-color: var(--nero);
   --G-bkg-clr: var(--mosswash);
   --G-bkg-clr_header: var(--nero);
-  --G-bkg-clr_subheader: var(--nerolight);
+  --G-bkg-clr_subheader: var(--nero-light);
   --G-link-clr: var(--blue);
   --G-acnt-suttle: var(--silverback);
   --G-acnt-linkbox: var(--pattens);
@@ -103,7 +103,7 @@ body {
   
   font-family: var(--G-font);
   background-color: var(--G-bkg-clr);
-  color: var(--G-txt-clr);
+  color: var(--G-txt-color);
   text-align: center;
 }
 
