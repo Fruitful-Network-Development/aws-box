@@ -3,16 +3,21 @@
   ====================================== */
 @import "css/home.css";
 @import "css/header.css";
-@import "css/footer.css";
 @import "css/hero.css";
+@import "css/target.css";
+@import "css/aside.css";
+@import "css/process.css";
+@import "css/technology.css";
+@import "css/personnel.css";
+@import "css/footer.css";
 
+@import "css/services.css";
+@import "css/tables.css";
 @import "css/calendar.css";
 @import "css/roadmap.css";
 @import "css/timeline.css";
 @import "css/market.css";
 @import "css/proposal.css";
-
-@import "css/tables.css";
 
 *,
 *::before,
