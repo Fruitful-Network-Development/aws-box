@@ -18,10 +18,27 @@ from data_access import (
 )
 from modules.weather import weather_bp
 from modules.donation_receipts import donation_receipts_bp
+from modules.catalog import catalog_bp  # NEW
 
 # -------------------------------------------------------------------
 # Configuration and Environment Setup
 # -------------------------------------------------------------------
+
+# Base directories for locating client sites and data:contentReference[oaicite:5]{index=5}
+PLATFORM_ROOT = Path(__file__).resolve().parent  # NEW
+
+# NEW: directory for global shared data
+PLATFORM_DATA_DIR = PLATFORM_ROOT / "data"  # NEW
+
+def load_platform_json(filename: str) -> Any:  # NEW
+    """
+    Load a JSON file from the platform-level data directory.
+    Raises FileNotFoundError if the file is missing.
+    """
+    path = (PLATFORM_DATA_DIR / filename).resolve()
+    if not path.is_file():
+        raise FileNotFoundError(f"{filename} not found in {PLATFORM_DATA_DIR}")
+    return load_json(path)
 
 
 def validate_env(required: list[str] = None, optional: dict[str, str] = None) -> dict[str, str]:
@@ -219,8 +236,10 @@ def serve_client_file(frontend_root: Path, rel_path: str):
 #   1. Import it: from modules.your_module import your_bp
 #   2. Register it: app.register_blueprint(your_bp)
 
-
 app.register_blueprint(weather_bp)
+app.register_blueprint(donation_receipts_bp)
+app.register_blueprint(catalog_bp)  # NEW
+
 app.register_blueprint(donation_receipts_bp)
 
 # Example of how to register additional blueprints (commented out until needed):
