@@ -60,12 +60,13 @@
       "name_1": "margaret", 
       "name_2": "lytz"
     }, 
-    { "msn_id": "9570_riverview_road_brecksville", 
-      "title": "ben_bebenroth", 
+    { "msn_id": "3_2_3_17_18_2_1_1_1", 
+      "title": "benjamin_bebenroth", 
       "name_1": "benjamin", 
-      "name_2": "bebenroth"
+      "name_2": "bebenroth", 
+      "alias": "ben", 
     }, 
-    { "msn_id": "9570_riverview_road_brecksville", 
+    { "msn_id": "3_2_3_17_18_2_1_1_2", 
       "title": "jackie_bebenroth", 
       "name_1": "jackie", 
       "name_2": "bebenroth"
@@ -126,7 +127,7 @@
       "name_1": "adrian", 
       "name_2": "neitenbach"
       "name_3": "james"
-      "name_4": "aj"
+      "alias": "aj"
     }
   ]
 }
