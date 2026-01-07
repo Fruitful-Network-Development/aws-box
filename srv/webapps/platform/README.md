@@ -41,3 +41,24 @@ From any client domain a query can target the global taxonomy and product types:
 `GET https://<client-domain>/api/product-types` → returns the JSON contents of product_type.json.
 
 If you decide later that clients should not see the entire taxonomy, you can move the blueprint into an internal package and restrict access by origin or authentication. For now, the above approach keeps the data read‑only and globally available.
+
+## Python Scaper:
+Visit:
+```url
+https://fiscaloffice.summitoh.net/index.php/documents-a-forms/viewdownload/10-cama/236-sc705pardat
+```
+to get a copy of the adress CSV
+
+Re-create your Python environment (venv)
+```bash
+cd ~/csascraper
+sudo apt update
+sudo apt install -y python3-full python3-venv
+python3 -m venv .venv
+source .venv/bin/activate
+python --version
+```
+To leave the venv later:
+```bash
+deactivate
+```
