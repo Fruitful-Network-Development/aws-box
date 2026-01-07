@@ -38,13 +38,14 @@
       "dns_id": "thespicylamb.com"
     }, 
     { "msn_id": "3_2_3_17_77_3_133_2_1", 
-      "title": "sarahs_vineyard", 
+      "title": "sarahs_vineyard_winery", 
       "name_2": "Sarah's Vineyard", 
       "principle_party_id": "3_2_3_17_77_3_133_1_1", 
+      "dns_id": "sarahsvineyardwinery.com"
     }, 
-    { "msn_id": "3_2_3_17_77_3_133_1_1", 
+    { "msn_id": "3_2_3_17_77_3_133_1_3", 
       "title": "sarahs_vineyard_farm", 
-      "name_2": "Sarah's Vineyard Farm", 
+      "name_2": "Sarah's Vineyard", 
       "principle_party_id": "3_2_3_17_77_3_133_1_1", 
       "dns_id": "sarahsvineyardwinery.com"
     }, 
