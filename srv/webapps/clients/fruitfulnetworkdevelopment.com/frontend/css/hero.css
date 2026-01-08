@@ -1,0 +1,26 @@
+.hero__logo{
+  box-sizing: border-box;
+  width: 12rem;
+}
+
+/* ======================================
+   HERO SECTION FOR NONE index.html
+  ====================================== */
+
+.hero-panel {
+  flex-direction: column;
+  border: 1px solid var(--silverback);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: var(--space-xl) calc(var(--space-xl) + var(--space-xs));
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.hero-panel .eyebrow {
+  color: var(--blue-sour);
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.75rem 0;
+  text-transform: uppercase;
+}

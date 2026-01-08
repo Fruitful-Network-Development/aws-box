@@ -1,0 +1,72 @@
+/* Footer extends section--duo variant */
+footer {
+  box-sizing: border-box;
+  width: 95%;
+  margin: 0 auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: transparent;
+  gap: 1rem;
+}
+
+.footer .duo-item-1 {
+  flex-basis: 25%;
+  justify-content: flex-start;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.footer .duo-item-2 {
+   display: flex;
+   flex-shrink: 0;
+   flex-direction: row;
+   align-items: stretch;
+   flex-wrap: wrap;
+   gap: 1rem;
+}
+
+.footer .duo-item-2 .trio-item-1,
+.footer .duo-item-2 .trio-item-2,
+.footer .duo-item-2 .trio-item-3 {
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: flex-start;
+   border: 1px solid var(--incremental);
+   padding: 1rem;
+   flex: 1 1 0;
+   min-width: 200px;
+   min-height: 0;
+   box-sizing: border-box;
+   max-width: 100%;
+}
+
+.footer .duo-item-2 .trio-item-3 {
+   justify-content: center;
+   align-items: center;
+   background-color: var(--G-txt-color);
+   border-radius: 1rem;
+   color: var(--G-acnt-contrast);  /*override*/
+
+} 
+
+.footer .duo-item-2 .trio-item-3 p {
+   color: var(--G-acnt-contrast); /*override*/
+}
+.footer .duo-item-2 .trio-item-3 h4 {
+   color: var(--G-acnt-contrast); /*override*/
+}
+
+/* ======================================
+   RESPONSIVE MEDIA (if any)
+  ====================================== */
+
+/* BASE STYLES (Mobile ~ >= 0px) */
+/* TABLET STYLES (Don't use unless special use) */
+@media (min-width: 768px) {
+}
+
+/* DESKTOP STYLES */
+@media (min-width: 1024px) {
+}

@@ -1,0 +1,175 @@
+/* ======================================
+   TARGET - SECTION
+  ====================================== */
+/* Trio section with each item being a triplet section. Overrides and extension rules go here */
+
+.section-target {
+    gap: var(--space-lg);
+    padding: var(--space-lg) var(--space-md);
+    background-color: var(--mosswash);
+}
+
+.section-target .trio-item-1,
+.section-target .trio-item-2,
+.section-target .trio-item-3 {
+    min-width: min(280px, 100%);
+}
+
+/* Icon container styling - olive green background */
+.section-target .triplets .triplets-item-1.img-box {
+    background-color: var(--camo);
+    border-radius: var(--space-md);
+    width: 12rem;
+}
+
+/* Heading styling - dark blue */
+.section-target .triplets .triplets-item-2 h2 {
+    color: var(--blue-sour);
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 0;
+    white-space: normal;
+}
+
+/* Content container styling */
+.section-target .triplets .triplets-item-3 {
+    text-align: left;
+}
+
+.section-target .triplets .triplets-item-3 p {
+    line-height: 1.6;
+    color: var(--nero);
+}
+
+@media (max-width: 768px) {
+   .section-target {
+       gap: var(--space-md);
+       padding: var(--space-md);
+   }
+   
+   .section-target .trio-item-1,
+   .section-target .trio-item-2,
+   .section-target .trio-item-3 {
+       min-width: 100%;
+   }
+}
+
+/* ======================================
+   PROCESS - SECTION
+  ====================================== */
+/* Triplets section with each item being a clever section. Overrides and extention rules go here*/
+
+.section-process {
+    gap: var(--space-lg);
+}
+
+/* Card-like styling for each clever section */
+.section-process .triplets-item-1,
+.section-process .triplets-item-2,
+.section-process .triplets-item-3 {
+    background-color: var(--offwhite);
+    border: 1px solid var(--G-acnt-suttle);
+    border-radius: var(--space-2xs);
+    padding: var(--space-lg);
+    box-sizing: border-box;
+}
+
+/* Icon container styling */
+.section-process .clever .clever-item-1.img-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md);
+    width: 12rem;
+}
+
+/* Heading styling */
+.section-process .clever .clever-item-2 h3 {
+    margin: 0;
+    color: var(--nero);
+    font-weight: bold;
+    text-transform: uppercase;
+    white-space: normal;
+}
+
+/* Content paragraph styling */
+.section-process .clever .clever-item-3 {
+    white-space: normal;
+}
+
+.section-process .clever .clever-item-3 p {
+    margin: 0;
+    line-height: 1.6;
+    color: var(--nero);
+    text-align: left;
+}
+
+@media (max-width: 767px) {
+    .section-process {
+        gap: var(--space-md);
+    }
+    
+    .section-process .triplets-item-1,
+    .section-process .triplets-item-2,
+    .section-process .triplets-item-3 {
+        padding: var(--space-md);
+    }
+}
+
+
+/* ======================================
+   PERSONNEL - SECTION
+  ====================================== */
+/* Down clever section with item 2 (bottom left) being a triplets section and item 3 (bottom right) being a twins section. Overrides and extention rules go here*/
+/* The item 3 twins section uses an image box for the top and a card anthology for the bottom. The card anthology uses the tag utility for each*/
+
+.section-personnel .down-clever-item-2 .triplets-item-1 .img-box{
+    box-sizing: border-box;
+    width: 4rem;
+}
+
+.section-personnel .down-clever-item-2 .triplets-item-3 .btn_action{
+    align-self: flex-end;
+}
+
+.section-personnel .down-clever-item-3 .twins-item-1 {
+    box-sizing: border-box;
+    width: 13rem;
+}
+
+/* ======================================
+   TECHNOLOGY - SECTION
+  ====================================== */
+/* Triplets section. Overrides and extension of rules go here */
+.section-technology .triplets-item-1, 
+.section-technology .triplets-item-3 {
+    display: flex;
+    width: 100%;
+    gap: 0;
+}
+
+.section-technology .triplets-item-1 .uno {
+    align-content: flex-start;
+    padding: 0;
+    gap: 0;
+}
+
+.section-technology .triplets-item-3 .uno {
+    justify-content: flex-end;
+    padding: 0;
+    gap: 0;
+}
+
+.section-technology .triplets-item-1 .btn {
+    background-color: var(--blue);
+    border-color: var(--incremental);
+    color: var(--offwhite);
+    padding: var(--space-2xs), var(--space-xs);
+}
+
+.section-technology .triplets-item-3 .btn {
+    background-color: var(--yellow);
+    border-color: var(--riverpanned);
+    color: var(--nero);
+    padding: var(--space-2xs), var(--space-xs);
+}

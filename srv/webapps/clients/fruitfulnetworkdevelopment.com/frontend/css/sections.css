@@ -1,0 +1,485 @@
+section {
+  box-sizing: border-box;
+  width: 95%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-md);
+  background-color: transparent;
+}
+
+/* ======================================
+   CLEVER SECTION
+   ====================================== */
+section .clever {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto;
+    min-height: 0;
+    gap: var(--space-md);
+    align-items: stretch;
+}
+
+section .clever .clever-item-1 {
+    grid-row: 1 / -1;
+    grid-column: 1;
+    min-width: 0;
+}
+
+section .clever .clever-item-2 {
+    grid-row: 1;
+    grid-column: 2;
+    min-width: 0;
+}
+
+section .clever .clever-item-3 {
+    grid-row: 2;
+    grid-column: 2;
+    min-width: 0;
+}
+
+/* Clever sections nested within triplets */
+section .triplets .clever {
+    width: 100%;
+    min-height: 0;
+}
+
+/* General clever item styling when in triplets */
+section .triplets .clever .clever-item-1 {
+    /* Icon/image container - spans full height */
+    align-self: stretch;
+}
+
+section .triplets .clever .clever-item-2 {
+    /* Heading container - top right */
+    align-self: start;
+}
+
+section .triplets .clever .clever-item-3 {
+    /* Content container - bottom right */
+    align-self: start;
+    white-space: normal;
+}
+
+section .triplets .clever .clever-item-3 p {
+    margin: 0;
+}
+
+/* ======================================
+   DOWN CLEVER SECTION
+   ====================================== */
+section .down-clever {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    min-height: 0;
+    gap: var(--space-md);
+    align-items: stretch;
+}
+
+section .down-clever .down-clever-item-1 {
+    grid-row: 1;
+    grid-column: 1 / -1;
+    min-width: 0;
+}
+
+section .down-clever .down-clever-item-2 {
+    grid-row: 2;
+    grid-column: 1;
+    min-width: 0;
+}
+
+section .down-clever .down-clever-item-3 {
+    grid-row: 2;
+    grid-column: 2;
+    min-width: 0;
+}
+
+/* ======================================
+   UP CLEVER SECTION
+   ====================================== */
+section .up-clever {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    min-height: 0;
+    gap: var(--space-md);
+    align-items: stretch;
+}
+
+section .up-clever .up-clever-item-1 {
+    grid-row: 1 / -1;
+    grid-column: 1;
+    min-width: 0;
+}
+
+section .up-clever .up-clever-item-2 {
+    grid-row: 1;
+    grid-column: 2;
+    min-width: 0;
+}
+
+section .up-clever .up-clever-item-3 {
+    grid-row: 2;
+    grid-column: 2;
+    min-width: 0;
+}
+
+/* ======================================
+   TRIO SECTION
+   ====================================== */
+section .trio {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+}
+
+section .trio .trio-item-1,
+section .trio .trio-item-2,
+section .trio .trio-item-3 {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-width: min(300px, 100%);
+}
+
+/* Triplets nested within trio items */
+section .trio .triplets {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    width: 100%;
+    height: 100%;
+}
+
+/* ======================================
+   TRIPLETS SECTION
+   ====================================== */
+section .stacked-trio,
+section .triplets {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    width: 100%;
+}
+
+section .stacked-trio .stacked-trio-item-1,
+section .stacked-trio .stacked-trio-item-2,
+section .stacked-trio .stacked-trio-item-3,
+section .triplets .triplets-item-1,
+section .triplets .triplets-item-2 {
+    flex: 1;
+    min-width: 0;
+}
+
+section .stacked-trio .stacked-trio-item-3,
+section .triplets .triplets-item-3 {
+    flex: 1;
+    margin-bottom: 0;
+    min-width: 0;
+}
+
+/* General triplets item styling */
+section .triplets .triplets-item-1 {
+    /* Icon/image container - typically first item */
+    flex-shrink: 0;
+}
+
+section .triplets .triplets-item-2 {
+    /* Heading container - typically second item */
+    flex-shrink: 0;
+}
+
+section .triplets .triplets-item-3 {
+    /* Content container - typically third item */
+    flex: 1 1 auto;
+    white-space: normal;
+}
+
+section .triplets .triplets-item-3 p {
+    margin: 0;
+    margin-bottom: var(--space-sm);
+}
+
+section .triplets .triplets-item-3 p:last-child {
+    margin-bottom: 0;
+}
+
+/* ======================================
+   DUO SECTION
+   ====================================== */
+section .duo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    align-items: stretch;
+}
+
+section .duo .duo-item-1,
+section .duo .duo-item-2 {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-width: min(300px, 100%);
+}
+
+/* ======================================
+   TWINS SECTION
+   ====================================== */
+section .twins {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    width: 100%;
+}
+
+section .twins .twins-item-1 {
+    flex: 1;
+    min-width: 0;
+    object-fit: cover; /* override of img-box utility */
+}
+
+section .twins .twins-item-2 {
+    flex: 1;
+    min-width: 0;
+}
+
+/* ======================================
+   DOSSIER SECTION
+   ====================================== */
+section .dossier {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+section .dossier .tag {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+section .dossier .tag-icon {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+}
+
+section .dossier .tag-label {
+  flex: 1;
+  white-space: normal;
+  text-align: left;
+}
+
+/* ======================================
+   ANTHOLOGY SECTION
+   ====================================== */
+section .anthology {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    width: 100%;
+}
+
+section .anthology .item,
+section .anthology .anthology-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    width: 100%;
+}
+
+section .anthology h2 {
+    margin-bottom: var(--space-md);
+}
+
+section .anthology h3 {
+    margin: 0 0 var(--space-xs) 0;
+    font-size: 1rem;
+    color: var(--blue-sour);
+    font-weight: bold;
+}
+
+section .anthology p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+
+/* ======================================
+   TABLE SECTION
+   ====================================== */
+   .table th[role="button"] {
+    position: relative;
+    user-select: none;
+    transition: background-color 0.2s ease;
+ }
+ 
+ .table th[role="button"]:hover {
+    background-color: var(--silverback);
+ }
+ 
+ .table th[role="button"]:focus {
+    outline: 2px solid var(--blue-sour);
+    outline-offset: -2px;
+ }
+ 
+ .table th.sort-asc::after {
+    content: ' ▲';
+    font-size: 0.8em;
+    color: var(--blue-sour);
+    margin-left: 0.25rem;
+ }
+ 
+ .table th.sort-desc::after {
+    content: ' ▼';
+    font-size: 0.8em;
+    color: var(--blue-sour);
+    margin-left: 0.25rem;
+ }
+ 
+ .table-card {
+    border: 1px solid var(--silverback);
+    padding: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+ }
+ 
+ .table-container {
+    overflow-x: auto;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+ }
+ 
+ .table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 600px;
+ }
+ 
+ .table th,
+ .table td {
+    border: 1px solid var(--silverback);
+    padding: 0.5rem;
+ }
+ 
+ .table img {
+    max-width: 80px;
+    max-height: 80px;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    /* Override for table cells - maintain aspect ratio */
+ }
+ 
+ .table-footnote {
+    margin: 0;
+    font-size: 0.9rem;
+    /* text-align: right via .align-r utility */
+ }
+ 
+ .table-scroll {
+    overflow-x: auto;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+ }
+ 
+ .data-table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 600px;
+ }
+ 
+ .data-table th,
+ .data-table td {
+    border: 1px solid var(--silverback);
+    padding: 0.5rem;
+    text-align: left;
+ }
+ 
+ .data-table img {
+    max-width: 80px;
+    max-height: 80px;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+ }
+ 
+ /* ======================================
+    RESPONSIVE MEDIA (if any)
+   ====================================== */
+ 
+/* ======================================
+   RESPONSIVE MEDIA QUERIES
+   ====================================== */
+
+/* BASE STYLES (Mobile ~ >= 0px) */
+/* Responsive stacking for flex layouts */
+@media (max-width: 767px) {
+    section .trio,
+    section .duo {
+        flex-direction: column;
+    }
+    
+    section .clever,
+    section .down-clever,
+    section .up-clever {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+    
+    section .clever .clever-item-1,
+    section .up-clever .up-clever-item-1 {
+        grid-row: 1;
+        grid-column: 1;
+    }
+    
+    section .clever .clever-item-2,
+    section .up-clever .up-clever-item-2 {
+        grid-row: 2;
+        grid-column: 1;
+    }
+    
+    section .clever .clever-item-3,
+    section .up-clever .up-clever-item-3 {
+        grid-row: 3;
+        grid-column: 1;
+    }
+    
+    section .down-clever .down-clever-item-1 {
+        grid-row: 1;
+        grid-column: 1;
+    }
+    
+    section .down-clever .down-clever-item-2 {
+        grid-row: 2;
+        grid-column: 1;
+    }
+    
+    section .down-clever .down-clever-item-3 {
+        grid-row: 3;
+        grid-column: 1;
+    }
+    
+    footer.section--duo {
+        flex-direction: column;
+    }
+}
+
+/* TABLET STYLES (Don't use unless special use) */
+@media (min-width: 768px) {
+    .table {
+        min-width: 100%;
+    }
+}
+
+/* DESKTOP STYLES */
+@media (min-width: 1024px) {
+    /* Additional desktop-specific overrides can go here */
+}
+ 

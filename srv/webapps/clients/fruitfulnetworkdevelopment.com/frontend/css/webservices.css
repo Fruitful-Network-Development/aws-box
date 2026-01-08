@@ -1,0 +1,60 @@
+/* ======================================
+   WEBSERVICES PAGE OVERRIDES
+   ====================================== */
+
+/* ======================================
+   SERVICE CARD SECTION
+   ====================================== */
+/* Anthology section with triplets items. Overrides and extension rules go here */
+
+.section-webservices .anthology h2{
+    gap: var(--space-md);
+}
+
+.section-webservices .anthology .anthology-item {
+    padding: var(--space-md);
+}
+
+.section-webservices .anthology .anthology-item .triplets-item-3 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.section-webservices .img-box {
+    width: 2rem;
+}
+
+/* ======================================
+   DATA SERVICES SECTION
+   ====================================== */
+/* Twins section with nested trio. Overrides and extension rules go here */
+
+section .twins .twins-item-2.trio {
+    gap: var(--space-md);
+}
+
+section .twins .twins-item-2.trio .trio-item-1,
+section .twins .twins-item-2.trio .trio-item-2,
+section .twins .twins-item-2.trio .trio-item-3 {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+/* ======================================
+   RESPONSIVE MEDIA (if any)
+  ====================================== */
+
+/* BASE STYLES (Mobile ~ >= 0px) */
+/* TABLET STYLES (Don't use unless special use) */
+@media (min-width: 768px) {
+}
+
+/* DESKTOP STYLES */
+@media (min-width: 1024px) {
+}
+

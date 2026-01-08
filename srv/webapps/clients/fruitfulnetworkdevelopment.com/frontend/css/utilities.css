@@ -1,0 +1,253 @@
+/* ======================================
+   VISUAL UTILITIES
+   Borders, dividers, boxes
+  ====================================== */
+
+  a {
+    color: var(--G-link-clr);
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  .divider {
+    border: none;
+    border-top: 1px solid var(--G-acnt-suttle);
+    margin: var(--space-2xs) 0;
+  }
+  
+  .box {
+    border: 1px solid var(--G-acnt-suttle);
+    box-sizing: border-box;
+    white-space: nowrap;
+  }
+  
+  /* ======================================
+     TEXT UTILITIES
+     Text alignment, typography modifiers
+    ====================================== */
+  
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 200;
+    text-transform: uppercase;
+    color: var(--nero);
+  }
+  
+  h2 {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--blue-sour);
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  h3 {
+    font-size: 1rem;
+    color: var(--blue-sour);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+  }
+  
+  h4 {
+    color: var(--blue-sour);
+    justify-self: center;
+    font-weight: bold;
+  }
+  
+  .muted {
+    color: var(--G-acnt-muted);
+    font-style: italic;
+    font-size: 0.75rem;
+  }
+  
+  .align-l {
+    text-align: left;
+  }
+  
+  .align-r {
+    text-align: right;
+  }
+  
+  .align-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .stacked-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    margin: 0;
+  }
+  
+  .list-spacing {
+    padding-left: var(--space-md);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding-left: 40px;
+  }
+  
+  .ul li::before {
+    content: "-";
+    position: absolute;
+    margin-left: -20px;
+  }
+  
+  .ol {
+    padding-left: 20px;
+  }
+  
+  .ol li {
+    margin-bottom: 10px;
+  }
+  
+  .no-indent {
+    padding-left: 20px;
+    margin-top: 5px;
+  }
+  
+  /* ======================================
+     EXCERPT SECTION STYLES
+    ====================================== */
+  
+    .excerpt {
+      max-width: 900px;
+      padding: var(--space-lg);
+      margin: 0 auto;
+      overflow: hidden;
+      font-family: "Georgia", serif;
+      color: var(--G-acnt-muted);
+      line-height: 1.4;
+    }
+    
+    .excerpt h2 {
+      font-family: "Times New Roman", sans-serif;
+      margin: 0;
+      color: var(--nero);
+    }
+    
+    .excerpt h3 {
+      font-family: "Times New Roman", sans-serif;
+      margin-top: 20px;
+      margin-bottom: 5px;
+      color: var(--nero);
+      margin: 0;
+      color: var(--nero-light);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    
+    .excerpt.intro {
+      font-size: 0.95rem;
+      margin-bottom: 25px;
+    }
+  
+  /* ======================================
+     IMAGE UTILITIES
+     Image containers and modifiers
+    ====================================== */
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+  
+  .img-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    object-fit: contain;
+    aspect-ratio: 1;
+  }
+
+  .img-box cover {
+    object-fit: cover; /* override of img-box utility */
+  }
+  
+  .imgbtn {
+    box-sizing: border-box;
+    width: 1.5rem;
+    flex-shrink: 0;
+  }
+  
+  /* ======================================
+     BUTTON UTILITIES
+     Button styles and variants
+    ====================================== */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2xs);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--space-2xs);
+    border: 1px solid transparent;
+    text-decoration: none;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  
+  .btn:hover {
+    text-decoration: none;
+    filter: brightness(1.05);
+  }
+  
+  .btn_nav {
+    box-sizing: border-box;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.25rem 0.25rem;
+    color: inherit;
+  }
+  
+  .btn_nav:hover,
+  .btn_nav--active {
+    font-weight: 600;
+    text-decoration: underline;
+  }
+  
+  .btn_link {
+    height: 3rem;
+    min-width: calc(3rem * 2.5);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 2.5rem;
+    box-sizing: border-box;
+    white-space: nowrap;
+    border-radius: 50%;
+    background-color: var(--G-acnt-linkbox);
+    font-weight: bold;
+    text-decoration: underline;
+    color: var(--G-txt-color);
+  }
+  
+  .btn_link:hover {
+    background-color: var(--G-acnt-linkboxhvr);
+    cursor: pointer;
+  }
+
+  .btn_action {
+    border: 1px solid var(--G-acnt-contrast); /*override*/
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.25rem;
+ }
