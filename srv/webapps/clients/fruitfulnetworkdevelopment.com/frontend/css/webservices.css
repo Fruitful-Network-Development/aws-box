@@ -8,11 +8,29 @@
 /* Anthology section with triplets items. Overrides and extension rules go here */
 
 .section-webservices .anthology h2{
+    margin: 0;
     gap: var(--space-md);
+}
+
+.section-webservices .anthology p {
+    margin: 0;
 }
 
 .section-webservices .anthology .anthology-item {
     padding: var(--space-md);
+    background-color: var(--mosswash);
+    border-radius: var(--space-2xs);
+    gap: var(--space-sm);
+}
+
+.section-webservices .anthology .anthology-item .triplets-item-1 {
+    margin: 0;
+    color: var(--blue-sour);
+}
+
+.section-webservices .anthology .anthology-item .triplets-item-2 {
+    margin: 0;
+    white-space: normal;
 }
 
 .section-webservices .anthology .anthology-item .triplets-item-3 {
@@ -21,11 +39,27 @@
     flex-wrap: wrap;
     gap: var(--space-sm);
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-end;
 }
 
 .section-webservices .img-box {
     width: 2rem;
+}
+
+.section-webservices .btn {
+    margin-right: auto;
+}
+
+/* ======================================
+   TABLES (sortable via /js/tables.js)
+   ====================================== */
+
+.table {
+    width: 100%;
+}
+
+.table th[role="button"] {
+    cursor: pointer;
 }
 
 /* ======================================
@@ -57,4 +91,3 @@ section .twins .twins-item-2.trio .trio-item-3 {
 /* DESKTOP STYLES */
 @media (min-width: 1024px) {
 }
-
