@@ -194,6 +194,12 @@
       "name_3": "Countryside", 
       "principle_party_id": "3_2_3_17_77_3_162_1_1", 
       "dns_id": "cuyahogavalleycountrysideconservancy.org"
+    }, 
+    { "msn_id": "HERE", 
+      "title": "hudson_farmers_market", 
+      "name_2": "Hudson Farmers' Market", 
+      "principle_party_id": "HERE", 
+      "dns_id": "hudsonohiofarmersmarket.org"
     }
   ]
 }
