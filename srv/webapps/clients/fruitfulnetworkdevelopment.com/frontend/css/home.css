@@ -204,21 +204,27 @@
 /* Triplets section. Overrides and extension of rules go here */
 .section-technology .triplets-item-1, 
 .section-technology .triplets-item-3 {
-    display: flex;
     width: 100%;
-    gap: 0;
 }
 
-.section-technology .triplets-item-1 .uno {
-    align-content: flex-start;
-    padding: 0;
-    gap: 0;
+.section-technology .uno {
+    padding: var(--space-xs) var(--space-md);
 }
 
-.section-technology .triplets-item-3 .uno {
-    justify-content: flex-end;
-    padding: 0;
-    gap: 0;
+.section-technology .uno p {
+    margin: 0;
+    flex: 1;
+    text-align: center;
+    white-space: normal;
+}
+
+.section-technology .uno .btn {
+    margin-left: auto;
+}
+
+.section-technology .triplets-item-2 {
+    padding: var(--space-md);
+    white-space: normal;
 }
 
 .section-technology .triplets-item-1 .btn {
