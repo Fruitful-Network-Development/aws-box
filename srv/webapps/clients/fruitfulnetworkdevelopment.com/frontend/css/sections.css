@@ -19,6 +19,12 @@ section .clever {
     align-items: stretch;
 }
 
+section .clever.clever--center {
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+}
+
 section .clever .clever-item-1 {
     grid-row: 1 / -1;
     grid-column: 1;
