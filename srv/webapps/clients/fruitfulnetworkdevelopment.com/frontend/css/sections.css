@@ -456,3 +456,10 @@ section .anthology .anthology-item {
     /* Additional desktop-specific overrides can go here */
 }
  
+.uno {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  width: 100%;
+}
