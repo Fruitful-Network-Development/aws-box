@@ -360,6 +360,7 @@ header {
    width: 1.5rem;
    flex-shrink: 0;
    /* img-container utility handles centering */
+   filter: invert(85%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(110%);
 } 
 
 /* Responsive header - reduce nav text size when viewport is small */
