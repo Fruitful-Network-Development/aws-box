@@ -786,7 +786,7 @@
   color: var(--nero-light);
 }
 
-.proposal-dotted-box {
+.proposal-cuebx {
   border: 2px dashed var(--blue-sour);
   border-radius: var(--space-2xs);
   background-color: var(--white);
