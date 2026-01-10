@@ -547,6 +547,7 @@
 .info-card__header {
   display: grid;
   gap: var(--space-xs);
+  padding: var(--space-xs) 0;
 }
 
 .info-card__eyebrow {
@@ -560,6 +561,7 @@
 .info-card h2 {
   margin: 0;
   color: var(--blue-sour);
+  line-height: 1.3;
 }
 
 .info-card__layout {
@@ -569,6 +571,11 @@
 
 .info-card__layout--split {
   grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  align-items: start;
+}
+
+.info-card__layout--rail {
+  grid-template-columns: minmax(0, 1.4fr) minmax(240px, 1fr);
   align-items: start;
 }
 
@@ -663,6 +670,11 @@
   border-color: var(--blue-sour);
 }
 
+.info-card__mini--rail {
+  min-width: 240px;
+  align-self: start;
+}
+
 .info-card__stats {
   display: grid;
   gap: var(--space-sm);
@@ -746,6 +758,10 @@
 
 @media (max-width: 900px) {
   .info-card__layout--split {
+    grid-template-columns: 1fr;
+  }
+
+  .info-card__layout--rail {
     grid-template-columns: 1fr;
   }
 }
