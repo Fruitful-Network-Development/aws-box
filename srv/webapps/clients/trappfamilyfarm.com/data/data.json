@@ -1,0 +1,117 @@
+{ "mss_profile": {
+    "HERE": {"for_later": "for_later"}
+    { "msn_profile": {
+      "msn_id": "HERE"
+      "title": "mark_trap"
+      "name1": "mark"
+      "name2": "trapp"
+      "fnd_profile": {
+        { "points": {
+            { "local_id": "p-1", "coordinates": "41.233139, -81.519333"},
+            { "local_id": "p-2", "coordinates": "41.240444, -81.519417"},
+            { "local_id": "p-3", "coordinates": "41.240361, -81.522266"},
+            { "local_id": "p-4", "coordinates": "41.238444, -81.524417"},
+            { "local_id": "p-5", "coordinates": "41.238444, -81.527472"},
+            { "local_id": "p-6", "coordinates": "41.238132, -81.528786"},
+            { "local_id": "p-7", "coordinates": "41.238399, -81.528796"},
+            { "local_id": "p-8", "coordinates": "41.238314, -81.529341"},
+            { "local_id": "p-9", "coordinates": "41.237182, -81.529313"},
+            { "local_id": "p-10", "coordinates": "41.237103, -81.529475"},
+            { "local_id": "p-11", "coordinates": "41.236409, -81.529649"},
+            { "local_id": "p-12", "coordinates": "41.236369, -81.529285"},
+            { "local_id": "p-13", "coordinates": "41.235877, -81.529431"},
+            { "local_id": "p-14", "coordinates": "41.235500, -81.527528"},
+            { "local_id": "p-15", "coordinates": "41.235056, -81.525114"},
+            { "local_id": "p-16", "coordinates": "41.233750, -81.521404"},
+            { "local_id": "p-17", "coordinates": "41.235778, -81.528722"}
+          },
+          "lines": {
+              { "local_id": "l-1", "points": ["p-1", "p-2"]},
+              { "local_id": "l-2", "points": ["p-2", "p-3"]},
+              { "local_id": "l-3", "points": ["p-3", "p-4"]},
+              { "local_id": "l-4", "points": ["p-4", "p-5"]},
+              { "local_id": "l-5", "points": ["p-5", "p-14"]},
+              { "local_id": "l-6", "points": ["p-14", "p-15"]},
+              { "local_id": "l-7", "points": ["p-15", "p-16"]},
+              { "local_id": "l-8", "points": ["p-16", "p-1"]},
+          
+              { "local_id": "l-9", "points": ["p-14", "p-17"]},
+              { "local_id": "l-10", "points": ["p-17", "p-6"]},
+              { "local_id": "l-11", "points": ["p-6", "p-5"]},
+              
+              { "local_id": "l-12", "points": ["p-6", "p-7"]},
+              { "local_id": "l-13", "points": ["p-7", "p-8"]},
+              { "local_id": "l-14", "points": ["p-8", "p-9"]},
+              { "local_id": "l-15", "points": ["p-9", "p-10"]},
+              { "local_id": "l-16", "points": ["p-10", "p-11"]},
+              { "local_id": "l-17", "points": ["p-11", "p-12"]},
+              { "local_id": "l-18", "points": ["p-12", "p-13"]},
+              { "local_id": "l-19", "points": ["p-13", "p-17"]}
+            },
+          "parcels": {
+              { "local_id": "parcel-1", "line_join_sequence": ["l-1", "l-2", "l-3", "l-4", "l-5", "l-6", "l-7", "l-8"]},
+              { "local_id": "parcel-2", "triangles_joins": ["l-5", "l-9", "l-10", "l-11"]},
+              { "local_id": "parcel-3",
+              { "triangles_joins": ["l-10", "l-12", "l-13", "l-14", "l-15", "l-16", "l-17", "l-18", "l-19"]}
+            }
+          }
+        }
+      }
+    }
+  }
+}  
+{ "parcels": {
+    { "local_id": "parcel-1",
+      "line_join_sequence": ["l-1", "l-2", "l-3", "l-4", "l-5", "l-6", "l-7", "l-8"],
+      "county_info": {
+        "parcel_id": "1100444",
+        "alternate_id": "BO0002901005000",
+        "nbhd_code": "21100401",
+        "old_tax_map": "BO-00029",
+        "cvttxcd": "11",
+        "schltxcd": "~",
+        "schldscrp": "~",
+        "usecd": "600",
+        "usedscrp": "~",
+        "siteaddress": "STREETSBORO RD",
+        "prprtydscrp": "LOTS 23 S E 24 E",
+        "cnvyname": "~",
+        "ownernme1": "USA",
+      }
+    },
+    { "local_id": "parcel-2",
+      "triangles_joins": ["l-5", "l-9", "l-10", "l-11"],
+      "county_info": {
+        "parcel_id": "1100440",
+        "alternate_id": "BO0002802034000",
+        "nbhd_code": "21100001",
+        "old_tax_map": "BO-00028",
+        "cvttxcd": "11",
+        "schltxcd": "~",
+        "schldscrp": "~",
+        "usecd": "600",
+        "usedscrp": "~",
+        "siteaddress": "STREETSBORO HUDSON RD",
+        "prprtydscrp": "LOT 23 24 N OF STREETSBORO HUD RD 7.120A",
+        "cnvyname": "~",
+        "ownernme1": "USA",
+    },
+    { "local_id": "parcel-3",
+      "triangles_joins": ["l-10", "l-12", "l-13", "l-14", "l-15", "l-16", "l-17", "l-18", "l-19"],
+      "county_info": {
+        "parcel_id": "1100439",
+        "alternate_id": "BO0002802033000",
+        "nbhd_code": "21100001",
+        "old_tax_map": "BO-00028",
+        "cvttxcd": "11",
+        "schltxcd": "~",
+        "schldscrp": "~",
+        "usecd": "600",
+        "usedscrp": "~",
+        "siteaddress": "1019 STREETSBORO RD",
+        "prprtydscrp": "LOT 23 24 N OF RD RICHFIELD HUDSON RD4.710A",
+        "cnvyname": "~",
+        "ownernme1": "UNITED STATES OF AMERICA",
+    }
+  }
+}
