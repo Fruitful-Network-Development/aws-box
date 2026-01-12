@@ -59,7 +59,8 @@
         { "legal_entity": {
             "msn_id": "3_2_3_17_77_19_10_1_6", 
             "title": "trapp_family_farm", 
-            "name_2": "The Trapp Family Farm", 
+            "name_1": "Trapp Family Farm, LLC", 
+            "alias": "The Trapp Family Farm", 
             "dns_id": "trappfamilyfarm.com"
           }
         }
