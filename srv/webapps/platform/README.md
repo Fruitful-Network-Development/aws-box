@@ -34,7 +34,7 @@ srv/webapps/platform/
 - Everything in services/ contains helper functions or long‑running tasks (e.g. sending newsletters, polling POS systems). They are imported from blueprints or Celery tasks, not exposed over HTTP.
 - The new data/ directory holds platform‑wide JSON that can be read by any blueprint.
 
-## After adding multi-tenant data acess
+## Multi-tenant Data Acess
 
 From any client domain a query can target the global taxonomy and product types:
 `GET https://<client-domain>/api/taxonomy` → returns the JSON contents of taxonomy.json.
@@ -42,23 +42,20 @@ From any client domain a query can target the global taxonomy and product types:
 
 If you decide later that clients should not see the entire taxonomy, you can move the blueprint into an internal package and restrict access by origin or authentication. For now, the above approach keeps the data read‑only and globally available.
 
-## Python Scaper:
-Visit:
-```url
-https://fiscaloffice.summitoh.net/index.php/documents-a-forms/viewdownload/10-cama/236-sc705pardat
-```
-to get a copy of the adress CSV
+## Client Spesific Data Acess
+Each client directory, `srv/webapps/clients/<client-directory>/`, contains a `/data` directory and a `/frontend` directory. Its in this `/data` directory where client spesific backend data it held. This is acessed via javascript for dynamic tasks that also needs to be prevented from being publicly accessible.
 
-Re-create your Python environment (venv)
-```bash
-cd ~/csascraper
-sudo apt update
-sudo apt install -y python3-full python3-venv
-python3 -m venv .venv
-source .venv/bin/activate
-python --version
-```
-To leave the venv later:
-```bash
-deactivate
-```
+### Flask indexes the directory, does not expose it
+Instead of “give me any file path,” you expose:
+  - a list of dataset IDs found in the allowed directory
+  - a single dataset load endpoint by dataset ID
+  - optional layer endpoints derived from the dataset
+In other words, Flask should behave like a dataset registry, not a generic file server.
+
+This prevents:
+  - path traversal issues
+  - accidental leakage of arbitrary server files
+  - frontend coupling to filenames and folder structure
+
+### Dataset IDs and layer IDs become your stable API vocabulary
+This is what makes the widget portable across multiple workspaces and future multi-user setups.
