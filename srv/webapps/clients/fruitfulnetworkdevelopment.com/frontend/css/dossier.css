@@ -1,0 +1,282 @@
+
+/* ======================================
+   PROPOSAL - SUBPAGE USAGE
+   AGRICULTURE INDUSTRY - SUBPAGE USAGE
+  ====================================== */
+.dossier-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.section-dossier {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) 3fr;
+  gap: var(--space-lg);
+  background-color: var(--offwhite);
+  border: 1px solid var(--silverback);
+  border-radius: var(--space-2xs);
+  padding: var(--space-lg);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  align-items: start;
+}
+
+.dossier-sidebar {
+  background-color: var(--mosswash);
+  border: 1px solid var(--silverback);
+  border-radius: var(--space-2xs);
+  padding: var(--space-md);
+  color: var(--nero);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.dossier-sidebar h3 {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.dossier-sidebar .custom-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.dossier-sidebar .custom-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  line-height: 1.4;
+}
+
+.dossier-sidebar .custom-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.3rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: transparent;
+  border: 1px solid var(--nero);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
+}
+
+.dossier-sidebar__note {
+  font-size: 0.9rem;
+  color: var(--nero-light);
+  margin: 0;
+}
+
+.dossier-digression, 
+.dossier-record {
+  background-color: var(--offwhite);
+  border: 1px solid var(--silverback);
+  border-radius: var(--space-2xs);
+  padding: var(--space-lg);
+  max-width: 900px;
+  margin: 0 auto;
+  overflow: hidden;
+  font-family: "Times New Roman", serif;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.02);
+}
+
+.dossier-digression, 
+.dossier-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.dossier-digression, 
+.dossier-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--incremental);
+  margin: 0;
+  font-weight: 700;
+}
+
+..dossier-digression, 
+.dossier-title {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.4;
+}
+
+.dossier-digression, 
+.dossier-byline {
+  margin: 0;
+  color: var(--nero-light);
+}
+
+.dossier-digression h1, 
+.dossier-digression h2, 
+.dossier-digression h3, 
+.dossier-record h1,
+.dossier-record h2,
+.dossier-record h3 {
+  font-family: "Times New Roman", serif;
+  text-transform: uppercase;
+  color: var(--blue-sour);
+}
+
+.dossier-digression h1, 
+.dossier-digression h2, 
+.dossier-record h1,
+.dossier-record h2 {
+  font-weight: bold;
+  margin-top: 1.25rem;
+  margin-bottom: 0.3rem;
+}
+
+.dossier-digression h1, 
+.dossier-record h1 {
+  text-align: center;
+}
+
+.dossier-digression h2, 
+.dossier-record h2 {
+  text-align: left;
+  color: var(--blue-sour);
+}
+
+.dossier-digression h3, 
+.dossier-record h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.3rem;
+  text-align: left;
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.proposal-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  line-height: 1.65;
+}
+
+.dossier-digression {
+  border: 2px dashed var(--blue-sour);
+  border-radius: var(--space-2xs);
+  background-color: transparent;
+  min-height: 10rem;
+  padding: var(--space-lg);
+  display: flow-root;
+  color: var(--nero-light);
+  text-align: center;
+  grid-column: 1 / -1;
+  max-width: none;
+  margin: 0;
+  width: 100%;
+}
+
+.dossier-graphic,
+.dossier-graphics {
+  float: right;
+  margin: 0 0 1rem 1.5rem;
+  width: clamp(200px, 40%, 300px);
+  border: 1px solid var(--nero-light);
+  background-color: var(--silverback);
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.dossier-graphic .img-container,
+.dossier-graphics .img-container {
+  width: 100%;
+  border-bottom: 1px solid var(--nero-light);
+  background-color: var(--offwhite);
+  display: block;
+}
+
+.dossier-graphic img,
+.dossier-graphics img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.dossier-graphic .caption,
+.dossier-graphics .caption {
+  font-family: "Times New Roman", serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 0.5rem;
+  margin: 0;
+  color: var(--nero);
+}
+
+.digression-header,
+.digression-text-grid {
+  display: block;
+  width: auto;
+  text-align: left;
+}
+
+.digression-eyebrow,
+.digression-header h2 {
+  text-align: center;
+}
+
+.digression-lede {
+  max-width: 70ch;
+  color: var(--nero);
+  line-height: 1.6;
+}
+
+.dossier-digression ul.diamond-set {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.dossier-digression ul.diamond-set li {
+  position: relative;
+  padding-left: 2rem;
+  line-height: 1.5;
+}
+
+.dossier-digression ul.diamond-set > li::before {
+  content: "\2756";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--nero);
+}
+
+.dossier-digression ul.diamond-set ul {
+  list-style: none;
+  padding-left: 1.5rem;
+  margin-top: var(--space-xs);
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.dossier-digression ul.diamond-set ul li {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.dossier-digression ul.diamond-set ul li::before {
+  content: "\27A2";
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  color: var(--nero);
+}
+
+@media (max-width: 960px) {
+  .section-dossier {
+    grid-template-columns: 1fr;
+  }
+}
