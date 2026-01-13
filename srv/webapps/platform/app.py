@@ -16,7 +16,6 @@ from data_access import (
     resolve_backend_data_path,
     save_json,
 )
-from modules.weather import weather_bp
 from modules.donation_receipts import donation_receipts_bp
 from modules.catalog import catalog_bp  # NEW
 
@@ -231,12 +230,11 @@ def serve_client_file(frontend_root: Path, rel_path: str):
 # Blueprint Registration
 # -------------------------------------------------------------------
 # All Flask blueprints should be registered here. Blueprints allow you to
-# organize routes into separate modules (e.g., weather.py, paypal_gateway.py).
+# organize routes into separate modules (e.g., donation_box.py, paypal_gateway.py).
 # To add a new blueprint:
 #   1. Import it: from modules.your_module import your_bp
 #   2. Register it: app.register_blueprint(your_bp)
 
-app.register_blueprint(weather_bp)
 app.register_blueprint(donation_receipts_bp)
 app.register_blueprint(catalog_bp)  # NEW
 
