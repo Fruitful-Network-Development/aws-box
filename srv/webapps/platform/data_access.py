@@ -1,10 +1,13 @@
-"""Simple helpers for client manifest + backend data management."""
 from __future__ import annotations
 
 import json
 import os
 from pathlib import Path
 from typing import Any, Dict
+
+# ===============================================================================
+#                             Multi-tenant Data Acess
+# ===============================================================================
 
 # Base directories for locating client sites and data
 PLATFORM_ROOT = Path(__file__).resolve().parent
@@ -111,3 +114,9 @@ def resolve_backend_data_path(
         raise ValueError("Resolved backend data path escapes the data directory")
 
     return target
+
+# ===============================================================================
+#                            Cient-Spesific Data Acess
+# ===============================================================================
+
+# HERE
