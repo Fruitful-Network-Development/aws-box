@@ -1,13 +1,78 @@
-
 /* ======================================
    PROPOSAL - SUBPAGE USAGE
    AGRICULTURE INDUSTRY - SUBPAGE USAGE
+   RESEARCH - USAGE
   ====================================== */
 .dossier-page {
   display: flex;
   flex-direction: column;
   gap: var(--space-xl);
 }
+
+/* ======================================
+   OEUVRE COMPONENTS
+  ====================================== */
+.dossier-oeuvre {
+  color: #555; /* Muted dark grey text */
+  line-height: 1.4;
+  max-width: 900px;
+  padding: var(--space-lg);
+  margin: 0 auto;
+}
+
+.dossier-oeuvre h2 {
+  color: #2a7298; /* The blueish tint from the image */
+  font-size: 1.2rem;
+  border-bottom: 1px solid #2a7298; /* The long line after the title */
+  display: flex;
+  align-items: center;
+}
+
+.dossier-oeuvre h3 {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+/* Introductory Italic Paragraph */
+.dossier-oeuvre .intro-text {
+  font-style: italic;
+  text-align: center;
+  font-size: 0.95rem;
+  margin-bottom: 25px;
+}
+
+/* Custom Dashed List */
+.dossier-oeuvre .dash-list {
+  list-style-type: none;
+  padding-left: 40px;
+}
+
+.dossier-oeuvre .dash-list li::before {
+  content: "-";
+  position: absolute;
+  margin-left: -20px;
+}
+
+/* Numbered List Styling */
+.dossier-oeuvre .numbered-list {
+  padding-left: 20px;
+}
+
+.dossier-oeuvre .numbered-list li {
+  margin-bottom: 10px;
+}
+
+.dossier-oeuvre .no-indent {
+    padding-left: 20px;
+    margin-top: 5px;
+}
+
+/* ======================================
+   DOSSIER COMPONENTS
+  ====================================== */
 
 .section-dossier {
   display: grid;
@@ -20,6 +85,11 @@
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
   align-items: start;
 }
+
+
+/* ======================================
+   DOSSIER-SIDEBAR COMPONENTS
+  ====================================== */
 
 .dossier-sidebar {
   background-color: var(--mosswash);
@@ -69,6 +139,11 @@
   color: var(--nero-light);
   margin: 0;
 }
+
+
+/* ======================================
+   DOSSIER-DIGRESSION & -RECORD COMPONENTS
+  ====================================== */
 
 .dossier-digression, 
 .dossier-record {
@@ -275,8 +350,102 @@
   color: var(--nero);
 }
 
-@media (max-width: 960px) {
-  .section-dossier {
-    grid-template-columns: 1fr;
-  }
+/*.concept--historic .concept__header*/
+.dossier-notion {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+/*.concept__header*/
+.dossier-banner::after {
+  content: "";
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: rgba(30, 108, 147, 0.08);
+}
+
+.dossier-banner h1 {
+  margin: 0;
+  color: var(--blue-sour);
+}
+
+.dossier-banner p {
+  margin: 0;
+  max-width: 75ch;
+  color: var(--nero-light);
+}
+
+.cutcard-timeline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.cutcard-timeline li {
+  padding-left: var(--space-md);
+  position: relative;
+}
+
+.cutcard-timeline li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.4rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--terracottaroof);
+}
+
+.cutcard-timeline {
+  background: linear-gradient(180deg, rgba(240, 238, 220, 0.9), rgba(243, 242, 229, 0.95));
+}
+
+.cutcard-header {
+  display: grid;
+  gap: var(--space-xs);
+  padding: var(--space-xs) 0;
+}
+
+.cutcard-eyebrow {
+  margin: 0;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--gray);
+}
+
+.dossier-excursus {
+   
+}
+
+.dossier-excursus h3 {
+   
+}
+
+.cutcard-codicil {
+   
+}
+
+.dossier-exibit figcaption {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: 0.85rem;
+  color: var(--gray);
+  background-color: rgba(240, 238, 220, 0.9);
+}
+   
+.dossier-exibit {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--silverback);
+  min-height: 220px;
+  background-color: var(--mosswash);
+  display: grid;
+  grid-template-rows: 1fr auto;
 }
