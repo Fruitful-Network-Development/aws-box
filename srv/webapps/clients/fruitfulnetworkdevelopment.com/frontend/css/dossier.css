@@ -134,13 +134,6 @@
   box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
 }
 
-.dossier-sidebar__note {
-  font-size: 0.9rem;
-  color: var(--nero-light);
-  margin: 0;
-}
-
-
 /* ======================================
    DOSSIER-DIGRESSION & -RECORD COMPONENTS
   ====================================== */
@@ -231,13 +224,6 @@
   text-decoration: underline;
 }
 
-.proposal-section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  line-height: 1.65;
-}
-
 .dossier-digression {
   border: 2px dashed var(--blue-sour);
   border-radius: var(--space-2xs);
@@ -253,8 +239,7 @@
   width: 100%;
 }
 
-.dossier-graphic,
-.dossier-graphics {
+.dossier-graphic {
   float: right;
   margin: 0 0 1rem 1.5rem;
   width: clamp(200px, 40%, 300px);
@@ -263,23 +248,20 @@
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.dossier-graphic .img-container,
-.dossier-graphics .img-container {
+.dossier-graphic .img-container {
   width: 100%;
   border-bottom: 1px solid var(--nero-light);
   background-color: var(--offwhite);
   display: block;
 }
 
-.dossier-graphic img,
-.dossier-graphics img {
+.dossier-graphic img {
   width: 100%;
   height: auto;
   display: block;
 }
 
-.dossier-graphic .caption,
-.dossier-graphics .caption {
+.dossier-graphic .caption {
   font-family: "Times New Roman", serif;
   font-style: italic;
   font-size: 0.9rem;
@@ -307,56 +289,11 @@
   line-height: 1.6;
 }
 
-.dossier-digression ul.diamond-set {
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-  display: grid;
-  gap: var(--space-sm);
-}
-
-.dossier-digression ul.diamond-set li {
-  position: relative;
-  padding-left: 2rem;
-  line-height: 1.5;
-}
-
-.dossier-digression ul.diamond-set > li::before {
-  content: "\2756";
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: var(--nero);
-}
-
-.dossier-digression ul.diamond-set ul {
-  list-style: none;
-  padding-left: 1.5rem;
-  margin-top: var(--space-xs);
-  display: grid;
-  gap: var(--space-xs);
-}
-
-.dossier-digression ul.diamond-set ul li {
-  position: relative;
-  padding-left: 1.5rem;
-}
-
-.dossier-digression ul.diamond-set ul li::before {
-  content: "\27A2";
-  position: absolute;
-  left: 0;
-  top: 0.1rem;
-  color: var(--nero);
-}
-
-/*.concept--historic .concept__header*/
 .dossier-notion {
   display: grid;
   gap: var(--space-lg);
 }
 
-/*.concept__header*/
 .dossier-banner::after {
   content: "";
   position: absolute;
@@ -419,18 +356,6 @@
   text-transform: uppercase;
   letter-spacing: 0.16em;
   color: var(--gray);
-}
-
-.dossier-excursus {
-   
-}
-
-.dossier-excursus h3 {
-   
-}
-
-.cutcard-codicil {
-   
 }
 
 .dossier-exibit figcaption {
