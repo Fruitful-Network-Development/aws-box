@@ -307,6 +307,31 @@ img {
    gap: 0.35rem;
 }
 
+.content-section {
+   border: 1px solid var(--silverback);
+   padding: calc(var(--space-md) + var(--space-2xs));
+   display: flex;
+   flex-direction: column;
+   gap: var(--space-sm);
+}
+
+.section-heading {
+   display: flex;
+   flex-direction: column;
+   gap: var(--space-2xs);
+}
+
+.section-heading h2 {
+   margin: 0;
+   color: var(--blue-sour);
+}
+
+.section-subtitle {
+   margin: 0;
+   font-style: italic;
+   color: var(--gray);
+}
+
 .section-shell {
    max-width: 1200px;
    margin: 0 auto;
