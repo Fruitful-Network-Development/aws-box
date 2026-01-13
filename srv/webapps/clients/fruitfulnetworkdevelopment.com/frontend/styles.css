@@ -93,14 +93,6 @@ main {
    background-color: var(--mosswash);
 }
 
-.section-block {
-   box-sizing: border-box;
-   width: 100%;
-   max-width: 1200px;
-   margin: 0 auto;
-   padding: var(--space-lg) var(--space-md);
-}
-
 .stack-v {
    display: flex;
    flex-direction: column;
