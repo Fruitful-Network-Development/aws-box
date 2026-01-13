@@ -289,68 +289,89 @@
   line-height: 1.6;
 }
 
-.dossier-notion {
+/* ======================================
+   HISTORY DOSSIER COMPONENTS
+  ====================================== */
+.dossier-history {
+  display: grid;
+  gap: var(--space-lg);
+  font-family: "Times New Roman", serif;
+  color: var(--nero);
+}
+
+.dossier-history__banner {
+  position: relative;
+  background-color: var(--offwhite);
+  border: 1px solid var(--silverback);
+  padding: var(--space-md) var(--space-lg);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.dossier-history__banner::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0.5rem;
+  background-color: var(--camo);
+}
+
+.dossier-history__banner h1 {
+  margin: 0;
+  padding-left: calc(var(--space-sm) + 0.5rem);
+  font-size: 1.5rem;
+  color: var(--nero);
+}
+
+.dossier-history__frame {
+  border: 2px dashed var(--blue-sour);
+  padding: var(--space-lg);
+  background-color: var(--offwhite);
   display: grid;
   gap: var(--space-lg);
 }
 
-.dossier-banner::after {
-  content: "";
-  position: absolute;
-  right: -40px;
-  top: -40px;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  background: rgba(30, 108, 147, 0.08);
+.dossier-history__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-lg);
 }
 
-.dossier-banner h1 {
+.dossier-history__card {
+  border: 1px solid var(--silverback);
+  border-radius: 0.75rem;
+  padding: var(--space-lg);
+  background-color: var(--mosswash);
+  display: grid;
+  gap: var(--space-md);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.dossier-history__card--featured {
+  border-style: dashed;
+  background-color: rgba(240, 238, 220, 0.7);
+}
+
+.dossier-history__card--wide {
+  background-color: rgba(240, 238, 220, 0.7);
+}
+
+.dossier-history__card-header {
+  text-align: center;
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.dossier-history__card-header h2 {
   margin: 0;
+  font-size: 1.25rem;
   color: var(--blue-sour);
+  text-transform: uppercase;
 }
 
-.dossier-banner p {
-  margin: 0;
-  max-width: 75ch;
-  color: var(--nero-light);
-}
-
-.cutcard-timeline {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: var(--space-sm);
-}
-
-.cutcard-timeline li {
-  padding-left: var(--space-md);
-  position: relative;
-}
-
-.cutcard-timeline li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.4rem;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background-color: var(--terracottaroof);
-}
-
-.cutcard-timeline {
-  background: linear-gradient(180deg, rgba(240, 238, 220, 0.9), rgba(243, 242, 229, 0.95));
-}
-
-.cutcard-header {
-  display: grid;
-  gap: var(--space-xs);
-  padding: var(--space-xs) 0;
-}
-
-.cutcard-eyebrow {
+.dossier-history__eyebrow {
   margin: 0;
   font-size: 0.75rem;
   text-transform: uppercase;
@@ -358,19 +379,165 @@
   color: var(--gray);
 }
 
-.dossier-exibit figcaption {
-  padding: var(--space-xs) var(--space-sm);
+.dossier-history__lead {
+  display: grid;
+  grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr);
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+.dossier-history__details {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
+  gap: var(--space-lg);
+}
+
+.dossier-history__columns {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: var(--space-lg);
+}
+
+.dossier-history__split {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 0.8fr);
+  gap: var(--space-md);
+  align-items: start;
+}
+
+.dossier-history__body {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.dossier-history__callout {
+  border: 1px solid var(--silverback);
+  background-color: var(--offwhite);
+  padding: var(--space-sm);
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.dossier-history__callout h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--nero);
+}
+
+.dossier-history__callout--accent {
+  border-left: 0.35rem solid var(--camo);
+  background-color: rgba(215, 225, 198, 0.4);
+}
+
+.dossier-history__timeline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.dossier-history__timeline li {
+  position: relative;
+  padding-left: 1.4rem;
+  line-height: 1.4;
+}
+
+.dossier-history__timeline li::before {
+  content: "◆";
+  position: absolute;
+  left: 0;
+  top: 0.25rem;
+  font-size: 0.6rem;
+  color: var(--blue-sour);
+}
+
+.dossier-history__stats {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.dossier-history__stat {
+  border: 1px solid var(--silverback);
+  background-color: var(--offwhite);
+  padding: var(--space-xs);
+  text-align: center;
+  text-transform: uppercase;
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.dossier-history__stat-label {
+  margin: 0;
+  font-size: 0.7rem;
+  color: var(--gray);
+}
+
+.dossier-history__stat-value {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--nero);
+}
+
+.dossier-history__figure {
+  border: 1px solid var(--silverback);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background-color: var(--offwhite);
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+  min-height: 220px;
+}
+
+.dossier-history__figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dossier-history__figure figcaption {
+  padding: var(--space-sm);
   font-size: 0.85rem;
   color: var(--gray);
   background-color: rgba(240, 238, 220, 0.9);
+  display: flex;
+  align-items: center;
 }
-   
-.dossier-exibit {
-  border-radius: 0.75rem;
-  overflow: hidden;
+
+.dossier-history__sources {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.dossier-history__source {
+  background-color: #444;
+  color: var(--offwhite);
+  padding: 0.3rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+}
+
+.dossier-history__quote {
+  margin: 0;
   border: 1px solid var(--silverback);
-  min-height: 220px;
-  background-color: var(--mosswash);
-  display: grid;
-  grid-template-rows: 1fr auto;
+  padding: var(--space-xs) var(--space-md);
+  background-color: rgba(243, 226, 221, 0.8);
+  position: relative;
+  font-style: italic;
+  text-align: center;
+}
+
+.dossier-history__quote::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0.35rem;
+  background-color: var(--red);
 }
