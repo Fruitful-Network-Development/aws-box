@@ -1,38 +1,4 @@
 /* ======================================
-    HEADER - SECTION
-====================================== */
-    /* SEE HEADER.CSS*/
-
-/* ======================================
-    HERO - SECTION
-====================================== */
-.hero--home {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: var(--space-md);
-  }
-  
-  .hero__logo{
-    width: 25%;
-    padding: var(--space-md);
-  }
-
-
-  .hero__text h1{
-    border: 1px solid var(--silverback);
-    padding: var(--space-md);
-  }
-
-.hero__text p{
-    border: 1px solid var(--silverback);
-    padding: var(--space-md);
-    font-style: italic;
-  }
-
-/* ======================================
     TARGET - SECTION
 ====================================== */
 
