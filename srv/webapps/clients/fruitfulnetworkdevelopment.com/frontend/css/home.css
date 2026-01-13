@@ -2,7 +2,7 @@
     TARGET - SECTION
 ====================================== */
 
-.section-target{
+.section-target {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -14,7 +14,7 @@
     flex-wrap: wrap;
 }
 
-.target__card{
+.target__card {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -25,19 +25,19 @@
 
 /* Mobile responsive - cards stack vertically */
 @media (max-width: 768px) {
-    .section-target{
+    .section-target {
         flex-direction: column;
         gap: 1.5rem;
         max-width: 95%;
     }
-    
-    .target__card{
+
+    .target__card {
         max-width: 100%;
         flex: none;
     }
 }
 
-.target__graphic{
+.target__graphic {
     width: 100%;
     aspect-ratio: 1;
     background-color: var(--camo);
@@ -47,18 +47,18 @@
 }
 
 
-.target__card h2{
+.target__card h2 {
     color: var(--blue-sour);
     margin-top: 0;
     margin-bottom: var(--space-md);
-    /* text-align: center via .text-center utility */
+    text-align: center;
 }
 
-.target__message{
+.target__message {
     border: 1px solid var(--silverback);
     padding: var(--space-md);
     flex: 1;
-    /* text-align: center via .text-center utility */
+    text-align: center;
 }
 
 /* ======================================
@@ -75,7 +75,7 @@
  
  .aside__text {
     font-style: italic;
-    /* text-align: center via .text-center utility */
+    text-align: center;
  }
 
 /* ======================================
@@ -86,8 +86,12 @@
     width: 100%;
 }
 
-.section-process .section-shell {
+.process-shell {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: calc(var(--space-md) + var(--space-2xs)) var(--space-md);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .process-grid {
@@ -103,6 +107,9 @@
     gap: calc(var(--space-md) + var(--space-2xs));
     padding: 0;
     width: 100%;
+    border: 1px solid var(--silverback);
+    background: var(--offwhite);
+    border-radius: var(--space-2xs);
 }
 
 .process-card__media {
@@ -126,19 +133,25 @@
     padding: 1rem;
 }
 
-.process-card .card__header {
+.process-card__content h3 {
     width: 100%;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    text-align: center;
+    padding: var(--space-sm);
+    font-weight: 700;
+    margin: 0;
 }
 
-.process-card .card__body {
+.process-card__content p {
     width: 100%;
     line-height: 1.45;
+    padding: calc(var(--space-md) + var(--space-2xs));
+    margin: 0;
 }
 
 @media (max-width: 768px) {
-    .section-process .section-shell {
+    .process-shell {
         padding: 1rem;
     }
 
@@ -185,7 +198,12 @@
     text-align: center;
   }
 
-  .personnel__top { grid-area: top; }
+  .personnel__top {
+    grid-area: top;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .personnel_biography { grid-area: bio; }
   .profile { grid-area: profile; }
 
@@ -226,7 +244,7 @@
 
   .biography__quote p {
     font-style: italic;
-    /* text-align: center via .text-center utility */
+    text-align: center;
   }
   
   .biography__quote p,

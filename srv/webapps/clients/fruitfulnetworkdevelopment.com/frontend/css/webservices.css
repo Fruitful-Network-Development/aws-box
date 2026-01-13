@@ -11,6 +11,23 @@
    gap: var(--space-md);
 }
 
+.section-service_cards > div:first-child {
+   display: flex;
+   flex-direction: column;
+   gap: var(--space-2xs);
+}
+
+.section-service_cards > div:first-child h2 {
+   margin: 0;
+   color: var(--blue-sour);
+}
+
+.section-service_cards > div:first-child p {
+   margin: 0;
+   font-style: italic;
+   color: var(--gray);
+}
+
 .service_cards-grid {
    display: grid;
    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -20,7 +37,14 @@
 .service_info_card {
    position: relative;
    padding: var(--space-md) var(--space-md) calc(var(--space-xl) + var(--space-md));
+   display: flex;
+   flex-direction: column;
+   gap: var(--space-sm);
    transition: transform 0.2s ease, box-shadow 0.2s ease;
+   border: 1px solid var(--silverback);
+   background: var(--offwhite);
+   border-radius: var(--space-2xs);
+   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 .service_info_card:hover {
@@ -37,6 +61,13 @@
 .service_info_card ul {
    margin: 0;
    margin-bottom: var(--space-md);
+}
+
+.service_info_card ul {
+   padding-left: var(--space-md);
+   display: flex;
+   flex-direction: column;
+   gap: 0.35rem;
 }
 
 .service_info_card__footer {
@@ -70,22 +101,36 @@
    color: var(--blue-sour);
 }
 
-.services-grid ul {
-   margin: 0.25rem 0 0;
+.services-section {
+   border: 1px solid var(--silverback);
+   padding: calc(var(--space-md) + var(--space-2xs));
+   display: flex;
+   flex-direction: column;
+   gap: var(--space-sm);
 }
 
-.services-grid ul li {
-   margin-bottom: 0.35rem;
+.services-section > div:first-child {
+   display: flex;
+   flex-direction: column;
+   gap: var(--space-2xs);
 }
 
-.services-section .section-heading h2 {
+.services-section > div:first-child h2 {
+   margin: 0;
+   color: var(--blue-sour);
    letter-spacing: 0.02em;
+}
+
+.services-section > div:first-child p {
+   margin: 0;
+   font-style: italic;
+   color: var(--gray);
 }
 
 .table-footnote {
    margin: 0;
    font-size: 0.9rem;
-   /* text-align: right via .text-right utility */
+   text-align: right;
 }
 
 /* Sortable table styles */
@@ -102,20 +147,6 @@
 .data-table th[role="button"]:focus {
    outline: 2px solid var(--blue-sour);
    outline-offset: -2px;
-}
-
-.data-table th.sort-asc::after {
-   content: ' ▲';
-   font-size: 0.8em;
-   color: var(--blue-sour);
-   margin-left: 0.25rem;
-}
-
-.data-table th.sort-desc::after {
-   content: ' ▼';
-   font-size: 0.8em;
-   color: var(--blue-sour);
-   margin-left: 0.25rem;
 }
 
 @media (max-width: 768px) {

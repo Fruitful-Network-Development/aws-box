@@ -48,7 +48,7 @@
   font-weight: bold;
   text-transform: uppercase;
   font-size: 0.7rem;
-\  /* padding and white-space will be overridden in responsive rules */
+  /* padding and white-space will be overridden in responsive rules */
 }
  
  /* Desktop (wide viewport) styles */
@@ -289,18 +289,6 @@
 /* ======================================
    ROADMAP - SECTION
   ====================================== */
-/* ----------------------------------------------------------------- */
-/*  GENERAL TYPE OVERRIDES                                           */
-.section-overview,
-.section-overview h2,
-.section-overview h3,
-.section-overview p,
-.section-overview li {
-  font-family: "Lato", sans-serif;
-}
-
-/* ----------------------------------------------------------------- */
-
 .section-roadmap {
   width: 100%;
   max-width: 1200px;
@@ -476,9 +464,7 @@
   position: relative;
   width: 9rem;
   height: 9rem;
-  margin-bottom: var(--space-lg);
-  margin-top: var(--space-md);
-  margin-bottom: var(--space-md);
+  margin: var(--space-md) 0;
 }
 
 /* The coloured ring itself.  A radial mask hollows out the centre
@@ -576,12 +562,6 @@
 /* ======================================
    MARKET - SECTION
   ====================================== */
-.market-page {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xl);
-}
-
 .market-section {
   background-color: var(--offwhite);
   border: 1px solid var(--silverback);
