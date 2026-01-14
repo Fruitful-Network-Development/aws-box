@@ -44,105 +44,114 @@
         <h1>Webservices</h1>
         <p class="hero__tagline">A practical digital foundation for hosting, payments, and integrations.</p>
       </section>
-      <!-- ======================================
-          OVERVIEW - SECTION
-      ====================================== -->
-      <section class="dossier-oeuvre">
-        <header>
-          <h2>Hardware & POS Overview</h2>
-          <p class="intro-text">
-            Practical, field-tested hardware and point-of-sale solutions designed for farms,
-            markets, and community-based organizations.
-          </p>
-        </header>
-        <div>
-          <div>
-            <h3>Point-of-Sale (POS) Options</h3>
-            <p>We support a range of POS configurations depending on operational needs, scale, and connectivity. Our approach prioritizes simplicity, reliability, and alignment with existing payment and bookkeeping workflows.</p>
-            <p>In most cases, we recommend using <strong>PayPal’s POS ecosystem</strong> as baseline. This allows organizations to unify online donations, in-person sales, and reporting under a single processor while maintaining flexibility to expand or segment workflows as needed.</p>
-            <ul class="dash-list">
-              <li><strong>Unified payments:</strong> align market-day sales with online transactions.</li>
-              <li><strong>Low operational overhead:</strong> minimal setup and widely supported hardware.</li>
-              <li><strong>Scalable:</strong> works for single-farm stands through multi-vendor markets.</li>
-              <li><strong>Clear reporting:</strong> transaction data can be reconciled with bookkeeping and sponsorship programs.</li>
-            </ul>
-          </div>
-          <div>
-            <h3>Why PayPal POS</h3>
-            <p>PayPal POS provides a pragmatic balance between accessibility and control. It is familiar to customers, supported across devices, and adaptable to environments where connectivity or staffing may vary. Importantly, it does not lock clients into proprietary data silos.</p>
-            <p>Where needed, POS can be configured alongside other processors or offline workflows, with clear separation between retail sales and charitable or program-related transactions.</p>
-          </div>
-          <div>
-            <h3>Hardware Development Services</h3>
-            <p>In addition to POS configuration, we design and deploy custom, open-source hardware solutions for monitoring, automation, and data collection in agricultural and food-system environments. All hardware is designed to integrate directly with our open-source software stack.</p>
-          </div>
+
+      <!-- DIVIDER LINE -->
+      <hr class="divider" />
+
+      <section class="dossier-editorial">
+        <div class="dossier-editorial-frame">
+        <!-- ======================================
+            OVERVIEW - SECTION
+        ====================================== -->
+          <section class="dossier-oeuvre">
+            <div>
+              <h2>Hardware & POS Overview</h2>
+              <p class="intro-text">
+                Practical, field-tested hardware and point-of-sale solutions designed for farms,
+                markets, and community-based organizations.
+              </p>
+            </div>
+            <div>
+              <div>
+                <h3>Point-of-Sale (POS) Options</h3>
+                <p>We support a range of POS configurations depending on operational needs, scale, and connectivity. Our approach prioritizes simplicity, reliability, and alignment with existing payment and bookkeeping workflows.</p>
+                <p>In most cases, we recommend using <strong>PayPal’s POS ecosystem</strong> as baseline. This allows organizations to unify online donations, in-person sales, and reporting under a single processor while maintaining flexibility to expand or segment workflows as needed.</p>
+                <ul class="dash-list">
+                  <li><strong>Unified payments:</strong> align market-day sales with online transactions.</li>
+                  <li><strong>Low operational overhead:</strong> minimal setup and widely supported hardware.</li>
+                  <li><strong>Scalable:</strong> works for single-farm stands through multi-vendor markets.</li>
+                  <li><strong>Clear reporting:</strong> transaction data can be reconciled with bookkeeping and sponsorship programs.</li>
+                </ul>
+              </div>
+              <div>
+                <h3>Why PayPal POS</h3>
+                <p>PayPal POS provides a pragmatic balance between accessibility and control. It is familiar to customers, supported across devices, and adaptable to environments where connectivity or staffing may vary. Importantly, it does not lock clients into proprietary data silos.</p>
+                <p>Where needed, POS can be configured alongside other processors or offline workflows, with clear separation between retail sales and charitable or program-related transactions.</p>
+              </div>
+              <div>
+                <h3>Hardware Development Services</h3>
+                <p>In addition to POS configuration, we design and deploy custom, open-source hardware solutions for monitoring, automation, and data collection in agricultural and food-system environments. All hardware is designed to integrate directly with our open-source software stack.</p>
+              </div>
+            </div>
+          </section>
         </div>
-      </section>
-      <!-- ======================================
-          HARDWARE DEVELOPMENT - SECTION
-      ====================================== -->
-      <section class="dossier-digression">
-        <div class="digression-header">
-          <p class="digression-eyebrow">Development Focus</p>
-          <h2>Hardware Development</h2>
-          <p class="digression-lede">Open-source, low-power devices built for real-world agricultural and food-system use.</p>
-        </div>
-        <div class="digression-text-grid">
-          <!-- Card: Freezer Temperature Monitoring -->
-          <div>
-            <h3>Freezer Temperature Monitoring</h3>
-            <p>Low-power temperature monitoring devices designed for produce storage and cold-chain environments. Built to operate independently during power outages.</p>
+
+        <!-- ======================================
+            HARDWARE DEVELOPMENT - SECTION
+        ====================================== -->
+        <div class="dossier-digression">
+          <div class="digression-header">
+            <p class="digression-eyebrow">Development Focus</p>
+            <h2>Hardware Development</h2>
+            <p class="digression-lede">Open-source, low-power devices built for real-world agricultural and food-system use.</p>
+          </div>
+          <div class="digression-text-grid">
+            <!-- Card: Freezer Temperature Monitoring -->
+            <div>
+              <h3>Freezer Temperature Monitoring</h3>
+              <p>Low-power temperature monitoring devices designed for produce storage and cold-chain environments. Built to operate independently during power outages.</p>
+              <ul>
+                <li>ESP32-based, low-power operation</li>
+                <li>Battery-powered for long-term deployment</li>
+                <li>IoT alerts for threshold breaches</li>
+                <li>No dependency on grid power</li>
+              </ul>
+            </div>
+            <!-- Card: Motion-Activated Lighting -->
+            <div>
+              <h3>Automatic Motion Lighting</h3>
+              <p>Motion-activated lighting systems for barns, storage areas, walkways, and workspaces, improving safety and energy efficiency.</p>
+              <ul>
+                <li>Low-power motion detection</li>
+                <li>Configurable activation logic</li>
+                <li>Indoor and outdoor deployments</li>
+                <li>Integration with facility automation rules</li>
+              </ul>
+            </div>
+            <!-- Card: Water Temperature Sensors -->
+            <div>
+              <h3>Water Temperature Sensors</h3>
+              <p>Sensors designed for monitoring water temperatures in live-stock systems, wash stations, and heated water lines.</p>
+              <ul>
+                <li>Continuous temperature monitoring</li>
+                <li>Alerting for freeze or overheating risk</li>
+                <li>Suitable for live-stock water heaters</li>
+                <li>Durable sensor housings</li>
+              </ul>
+            </div>
+            <!-- Card: Moisture Sensors -->
+            <div>
+              <h3>Moisture Sensors</h3>
+              <p>Environmental moisture sensors for seed nurseries, greenhouses, and mushroom grow rooms, enabling precise control over growing conditions.</p>
+              <ul>
+                <li>Soil and ambient moisture sensing</li>
+                <li>Low-power, long-duration deployment</li>
+                <li>Threshold-based alerts and logging</li>
+                <li>Supports controlled-environment agriculture</li>
+              </ul>
+            </div>
+          </div>
+          <div class="digression-text-grid">
+            <h3>Open Source, User-Controlled Systems</h3>
+            <p>All hardware we develop is fully open source and integrates with our open-source user management and operations software. Devices report directly to systems controlled by the client, not to third-party platforms.</p>
+            <p>This means clients retain full ownership of their data, devices, and infrastructure. Unlike many commercial IoT services, data is not first collected by a vendor and then relayed back. Control remains local, transparent, and auditable.</p>
             <ul>
-              <li>ESP32-based, low-power operation</li>
-              <li>Battery-powered for long-term deployment</li>
-              <li>IoT alerts for threshold breaches</li>
-              <li>No dependency on grid power</li>
+              <li><strong>Full data ownership:</strong> clients control storage, access, and retention.</li>
+              <li><strong>Device-level control:</strong> manage, configure, and automate hardware centrally.</li>
+              <li><strong>Integrated logistics:</strong> hardware data feeds directly into business operations and reporting.</li>
+              <li><strong>No vendor lock-in:</strong> open standards and open codebases.</li>
             </ul>
           </div>
-          <!-- Card: Motion-Activated Lighting -->
-          <div>
-            <h3>Automatic Motion Lighting</h3>
-            <p>Motion-activated lighting systems for barns, storage areas, walkways, and workspaces, improving safety and energy efficiency.</p>
-            <ul>
-              <li>Low-power motion detection</li>
-              <li>Configurable activation logic</li>
-              <li>Indoor and outdoor deployments</li>
-              <li>Integration with facility automation rules</li>
-            </ul>
-          </div>
-          <!-- Card: Water Temperature Sensors -->
-          <div>
-            <h3>Water Temperature Sensors</h3>
-            <p>Sensors designed for monitoring water temperatures in live-stock systems, wash stations, and heated water lines.</p>
-            <ul>
-              <li>Continuous temperature monitoring</li>
-              <li>Alerting for freeze or overheating risk</li>
-              <li>Suitable for live-stock water heaters</li>
-              <li>Durable sensor housings</li>
-            </ul>
-          </div>
-          <!-- Card: Moisture Sensors -->
-          <div>
-            <h3>Moisture Sensors</h3>
-            <p>Environmental moisture sensors for seed nurseries, greenhouses, and mushroom grow rooms, enabling precise control over growing conditions.</p>
-            <ul>
-              <li>Soil and ambient moisture sensing</li>
-              <li>Low-power, long-duration deployment</li>
-              <li>Threshold-based alerts and logging</li>
-              <li>Supports controlled-environment agriculture</li>
-            </ul>
-          </div>
-        </div>
-        <div class="digression-text-grid">
-          <h3>Open Source, User-Controlled Systems</h3>
-          <p>All hardware we develop is fully open source and integrates with our open-source user management and operations software. Devices report directly to systems controlled by the client, not to third-party platforms.</p>
-          <p>This means clients retain full ownership of their data, devices, and infrastructure. Unlike many commercial IoT services, data is not first collected by a vendor and then relayed back. Control remains local, transparent, and auditable.</p>
-          <ul>
-            <li><strong>Full data ownership:</strong> clients control storage, access, and retention.</li>
-            <li><strong>Device-level control:</strong> manage, configure, and automate hardware centrally.</li>
-            <li><strong>Integrated logistics:</strong> hardware data feeds directly into business operations and reporting.</li>
-            <li><strong>No vendor lock-in:</strong> open standards and open codebases.</li>
-          </ul>
         </div>
       </section>
       
@@ -285,6 +294,7 @@
           </div>
         </div>
       </section>
+
       <!-- DIVIDER LINE -->
       <hr class="divider" />
 
@@ -307,7 +317,7 @@
         <div class="footer__block">
           <h4>Contact: </h4>
           <p>Dylan Montgomery - Founder of FND</p>
-          <div><a href="mailto:dcmontgomery@fruifulnetworkdevelopment.com">dcmontgomery<wbr>@fruitful<wbr>network<wbr>development.com</a></div>
+          <div><a href="mailto:dcmontgomery@fruifulnetworkdevelopment.com">dcmontgomery@fruifulnetworkdevelopment.com</a></div>
           <a href="tel:+13305540940"><p>(330) 554-0940</p></a>
         </div>
         
