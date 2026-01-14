@@ -69,26 +69,6 @@ footer {
    padding: 0.35rem 1rem;
 }
 
-/* Tablet layout */
-@media (max-width: 1024px) {
-   footer {
-      padding: var(--space-md);
-      gap: var(--space-sm);
-   }
-
-   .footer__right {
-      gap: var(--space-sm);
-   }
-
-   .footer__block {
-      padding: var(--space-sm) var(--space-md);
-   }
-
-   .footer__block.contact {
-      border-radius: 1.25rem;
-   }
-}
-
 /* Mobile layout */
 @media (max-width: 700px) {
    footer {
