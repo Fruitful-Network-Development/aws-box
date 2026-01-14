@@ -487,8 +487,8 @@
   overflow: hidden;
   background-color: var(--offwhite);
   display: grid;
-  grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
-  min-height: 220px;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
+  min-height: 180px;
 }
 
 .dossier-history__figure img {
