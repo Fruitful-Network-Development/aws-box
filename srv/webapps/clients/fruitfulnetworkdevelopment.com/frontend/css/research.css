@@ -1,4 +1,19 @@
 /* ======================================
+   ROADMAP + CALENDAR WRAP - SECTION
+  ====================================== */
+.roadmap-calendar-layout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  padding: var(--space-lg) var(--space-md);
+}
+
+.roadmap-calendar-layout > section {
+  flex: 1 1 28rem;
+}
+
+/* ======================================
    CALENDAR - SECTION
   ====================================== */
 
@@ -44,256 +59,127 @@
 }
  
 /* Style weekday header cells.  Weight and case are common to both layouts. */
-.section-calendar .month.weekdays td {
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 0.7rem;
-  /* padding and white-space will be overridden in responsive rules */
+ .section-calendar .month.weekdays td {
+   font-weight: bold;
+   text-transform: uppercase;
+   font-size: 0.7rem;
+   /* padding and white-space will be overridden in responsive rules */
+ }
+
+/* Container holds all tables; stack them vertically */
+.section-calendar .calendar-blocks {
+  display: block;
 }
- 
- /* Desktop (wide viewport) styles */
- @media (min-width: 768px) {
-   /* Container holds all tables; stack them vertically */
-   .section-calendar .calendar-blocks {
-     display: block;
-   }
-   /* Show the first and last weekday rows.  Shift them right by their
-      offset so that the day names line up with the month that starts
-      with the same offset (January has an offset of 5). */
-   .section-calendar .month.weekdays {
-     display: block;
-     width: 100%;
-     /* apply horizontal indentation based on header offset */
-     margin-left: calc(3.375rem * 1.525);
-     margin-bottom: 0.75rem;
-   }
-   .section-calendar .calendar-blocks table.month.weekdays:last-child {
-     margin-top: 0.75rem;
-   }
-  /* Render the weekday row.  Each cell is displayed inline horizontally
-     but the text inside is rotated vertically so the first, second and
-     third letters of each abbreviation align in three horizontal bands. */
-  .section-calendar .month.weekdays tr,
-  .section-calendar .month.weekdays td {
-    display: inline-block;
-    white-space: nowrap;
-  }
-  .section-calendar .month.weekdays td {
-    /* rotate day names into vertical columns */
-    writing-mode: vertical-rl;
-    text-orientation: upright;
-    /* constrain width equal to day circle size so the vertical stack of
-       letters aligns with the circles below */
-    width: var(--circle-size);
-    /* remove horizontal padding (set above) and add a small right margin */
-    padding: 0;
-    margin-right: 0.375rem;
-  }
-  
-   /* Style month tables for horizontal flow */
-   .section-calendar .calendar-blocks table.month:not(.weekdays) {
-     /* Use flex to place month label and days row next to each other */
-     display: flex;
-     flex-direction: row;
-     align-items: center;
-     /* Use the offset to indent the entire month row to the right */
-     margin-left: calc(var(--offset) * var(--offset-unit));
-     margin-bottom: 0.5rem;
-   }
-   /* Month heading (e.g., JANUARY).  Reduce the width and padding so that
-      the label sits closer to its row of circles. */
-   .section-calendar .calendar-blocks table.month:not(.weekdays) thead {
-     flex: 0 0 5rem;
-   }
-   .section-calendar .calendar-blocks table.month:not(.weekdays) thead th {
-     text-align: left;
-     font-size: 0.8rem;
-     text-transform: uppercase;
-     padding-right: 0.25rem;
-     white-space: nowrap;
-   }
-   /* Days row: break out of table layout */
-   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody {
-     flex: 1;
-   }
-   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody tr {
-     display: block;
-   }
-   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td {
-     display: inline-block;
-     width: var(--circle-size);
-     height: var(--circle-size);
-     border-radius: 50%;
-     background-color: var(--nero);
-     color: var(--offwhite);
-     text-align: center;
-     line-height: var(--circle-size);
-     margin-right: 0.3rem;
-     font-size: 0.55rem;
-   }
-   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-1 {
-    background-color: var(--purple);
-    color: var(--nero);
-    border: 1px solid var(--silverback);
-    font-weight: 600;
-   }
-   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-2 {
-    background-color: var(--blue);
-    color: var(--nero);
-    border: 1px solid var(--silverback);
-    font-weight: 600;
-   }
-   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-3 {
-    background-color: var(--green);
-    color: var(--nero);
-    border: 1px solid var(--silverback);
-    font-weight: 600;
-   }
-   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-4 {
-    background-color: var(--yellow);
-    color: var(--nero);
-    border: 1px solid var(--silverback);
-    font-weight: 600;
-   }
-   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-5 {
-    background-color: var(--red);
-    color: var(--nero);
-    border: 1px solid var(--silverback);
-    font-weight: 600;
-   }
- }
- 
- /* Mobile (narrow viewport) styles */
- @media (max-width: 767px) {
-   /* The calendar-blocks container becomes a horizontal strip of vertical months */
-   .section-calendar .calendar-blocks {
-     display: flex;
-     flex-direction: row;
-     align-items: flex-start;
-     overflow-x: auto;
-   }
-  /* In narrow view the weekday header tables become vertical
-     lists on the left and right of the calendar. */
-  /*
-   * In the narrow/mobile layout the weekday header tables become
-   * vertical lists that flank the grid of month columns.  Each list
-   * must occupy a fixed width so that it doesn’t shrink as the user
-   * scrolls horizontally, and its cells should stack top‑to‑bottom
-   * with a small gap between entries.  Using a flex container allows
-   * the single <tr> containing all weekday cells to break into a
-   * column of rows.  The margin shorthand collapses the original
-   * left/right spacing rules into a single property.
-   */
-  .section-calendar .month.weekdays {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    flex-shrink: 0;
-    /* reserve horizontal space roughly equal to the day cell width
-       plus a little extra for legibility */
-    width: calc(var(--circle-size) * 1.8);
-    /* push the weekday list downward so that its first entry aligns with
-       the first day of January (offset of 5).  The vertical offset
-       uses the same unit as month offsets. */
-    margin-top: calc(var(--offset) * var(--offset-unit));
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-  }
-  .section-calendar .month.weekdays tr {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-  }
-  .section-calendar .month.weekdays td {
-    display: block;
-    padding: 0;
-    margin: 0;
-    /* space between weekday labels to align with the circle gap */
-    margin-bottom: 0.3rem;
-    width: 100%;
-    white-space: nowrap;
-    text-align: left;
-    /* capitalize so that Sun/MON look consistent */
-    text-transform: capitalize;
-  }
-   /* Each month becomes a vertical column. The offset pushes it downward. */
-   .section-calendar .calendar-blocks table.month:not(.weekdays) {
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     margin-right: 0.75rem;
-     margin-top: calc(var(--offset) * var(--offset-unit));
-   }
-  /* Rotate and stack the month heading vertically.  The text flows top-to-bottom
-     without being flipped so the first letter appears at the top. */
-  .section-calendar .calendar-blocks table.month:not(.weekdays) thead th {
-    writing-mode: vertical-rl;
-    text-orientation: upright;
-    /* remove the 180deg rotation so letters are not upside down */
-    transform: none;
-    font-size: 0.7rem;
-    margin-bottom: 0.5rem;
-    white-space: nowrap;
-    /* center the rotated text relative to its column */
-    align-self: center;
-  }
-   /* Days column: show each day as its own row */
-   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody tr {
-     display: flex;
-     flex-direction: column;
-   }
-   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td {
-     display: block;
-     width: var(--circle-size);
-     height: var(--circle-size);
-     border-radius: 50%;
-     background-color: var(--nero);
-     color: var(--offwhite);
-     line-height: var(--circle-size);
-     margin-bottom: 0.3rem;
-     font-size: 0.55rem;
-   }
-   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-1 {
-    background-color: var(--purple);
-    color: var(--nero);
-    border: 1px solid var(--silverback);
-    font-weight: 600;
-   }
-   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-2 {
-    background-color: var(--blue);
-    color: var(--nero);
-    border: 1px solid var(--silverback);
-    font-weight: 600;
-   }
-   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-3 {
-    background-color: var(--green);
-    color: var(--nero);
-    border: 1px solid var(--silverback);
-    font-weight: 600;
-   }
-   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-4 {
-    background-color: var(--yellow);
-    color: var(--nero);
-    border: 1px solid var(--silverback);
-    font-weight: 600;
-   }
-   .section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-5 {
-    background-color: var(--red);
-    color: var(--nero);
-    border: 1px solid var(--silverback);
-    font-weight: 600;
-   }
- }
+/* Show the first and last weekday rows.  Shift them right by their
+   offset so that the day names line up with the month that starts
+   with the same offset (January has an offset of 5). */
+.section-calendar .month.weekdays {
+  display: block;
+  width: 100%;
+  /* apply horizontal indentation based on header offset */
+  margin-left: calc(3.375rem * 1.525);
+  margin-bottom: 0.75rem;
+}
+.section-calendar .calendar-blocks table.month.weekdays:last-child {
+  margin-top: 0.75rem;
+}
+/* Render the weekday row.  Each cell is displayed inline horizontally
+   but the text inside is rotated vertically so the first, second and
+   third letters of each abbreviation align in three horizontal bands. */
+.section-calendar .month.weekdays tr,
+.section-calendar .month.weekdays td {
+  display: inline-block;
+  white-space: nowrap;
+}
+.section-calendar .month.weekdays td {
+  /* rotate day names into vertical columns */
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  /* constrain width equal to day circle size so the vertical stack of
+     letters aligns with the circles below */
+  width: var(--circle-size);
+  /* remove horizontal padding (set above) and add a small right margin */
+  padding: 0;
+  margin-right: 0.375rem;
+}
+
+/* Style month tables for horizontal flow */
+.section-calendar .calendar-blocks table.month:not(.weekdays) {
+  /* Use flex to place month label and days row next to each other */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* Use the offset to indent the entire month row to the right */
+  margin-left: calc(var(--offset) * var(--offset-unit));
+  margin-bottom: 0.5rem;
+}
+/* Month heading (e.g., JANUARY).  Reduce the width and padding so that
+   the label sits closer to its row of circles. */
+.section-calendar .calendar-blocks table.month:not(.weekdays) thead {
+  flex: 0 0 5rem;
+}
+.section-calendar .calendar-blocks table.month:not(.weekdays) thead th {
+  text-align: left;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  padding-right: 0.25rem;
+  white-space: nowrap;
+}
+/* Days row: break out of table layout */
+.section-calendar .calendar-blocks table.month:not(.weekdays) tbody {
+  flex: 1;
+}
+.section-calendar .calendar-blocks table.month:not(.weekdays) tbody tr {
+  display: block;
+}
+.section-calendar .calendar-blocks table.month:not(.weekdays) tbody td {
+  display: inline-block;
+  width: var(--circle-size);
+  height: var(--circle-size);
+  border-radius: 50%;
+  background-color: var(--nero);
+  color: var(--offwhite);
+  text-align: center;
+  line-height: var(--circle-size);
+  margin-right: 0.3rem;
+  font-size: 0.55rem;
+}
+.section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-1 {
+  background-color: var(--purple);
+  color: var(--nero);
+  border: 1px solid var(--silverback);
+  font-weight: 600;
+}
+.section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-2 {
+  background-color: var(--blue);
+  color: var(--nero);
+  border: 1px solid var(--silverback);
+  font-weight: 600;
+}
+.section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-3 {
+  background-color: var(--green);
+  color: var(--nero);
+  border: 1px solid var(--silverback);
+  font-weight: 600;
+}
+.section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-4 {
+  background-color: var(--yellow);
+  color: var(--nero);
+  border: 1px solid var(--silverback);
+  font-weight: 600;
+}
+.section-calendar .calendar-blocks table.month:not(.weekdays) tbody td.roadmap-5 {
+  background-color: var(--red);
+  color: var(--nero);
+  border: 1px solid var(--silverback);
+  font-weight: 600;
+}
 
 /* ======================================
    ROADMAP - SECTION
   ====================================== */
 .section-roadmap {
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: var(--space-lg) var(--space-md);
 }
 
 /* Grid layout for milestones and timeline column.  On wider screens
@@ -394,25 +280,6 @@
 #milestone-4 .roadmap_colorBlock:first-child { background-color: var(--yellow); color: var(--nero); }
 #milestone-5 .roadmap_colorBlock:first-child { background-color: var(--red); }
 
-/* Responsive layout: collapse to two columns on narrow screens. */
-@media (max-width: 900px) {
-  .roadmap-grid {
-    grid-template-columns: 2rem 1fr;
-    row-gap: var(--space-md);
-  }
-  /* Position timeline cells in the first column and cards in the
-     second column */
-  .timeline-cell { grid-column: 1; }
-  .roadmap__card.left,
-  .roadmap__card.right,
-  .roadmap__card.full { grid-column: 2; }
-  /* Reposition the vertical line to the centre of the narrow
-     timeline column (2rem wide). */
-  .roadmap-grid::before {
-    left: 1rem;
-    transform: translateX(-50%);
-  }
-}
 /* ======================================
    TIMELINE - SECTION
   ====================================== */
