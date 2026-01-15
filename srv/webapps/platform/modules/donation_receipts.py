@@ -50,9 +50,9 @@ from data_access import (
     get_client_slug,
     load_client_manifest,
     load_json,
-    resolve_backend_data_path,
     save_json,
 )
+from client_data_access import resolve_backend_data_path
 
 logger = logging.getLogger(__name__)
 

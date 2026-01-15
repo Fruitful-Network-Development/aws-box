@@ -9,12 +9,14 @@ from flask import Flask, request, jsonify, send_from_directory, abort
 from data_access import (
     get_client_paths,
     get_client_slug,
-    get_client_dataset_ids,
     load_client_manifest,
     load_json,
+    save_json,
+)
+from client_data_access import (
+    get_client_dataset_ids,
     resolve_client_dataset_for_request,
     resolve_backend_data_path,
-    save_json,
 )
 from modules.donation_receipts import donation_receipts_bp
 from modules.catalog import catalog_bp
