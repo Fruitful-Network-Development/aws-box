@@ -108,13 +108,10 @@ def _list_allowed_dataset_files(
     data_dir: Path, manifest: Dict[str, Any]
 ) -> List[Path]:
     backend_data = manifest.get("backend_data") or []
-    if backend_data:
-        return sorted(
-            (data_dir / _normalize_dataset_name(name)).resolve()
-            for name in backend_data
-        )
-
-    return sorted(path.resolve() for path in data_dir.glob("*.json"))
+    return sorted(
+        (data_dir / _normalize_dataset_name(name)).resolve()
+        for name in backend_data
+    )
 
 
 def list_client_dataset_ids(
@@ -183,4 +180,19 @@ def resolve_backend_data_path(
 #                            Cient-Spesific Data Acess
 # ===============================================================================
 
-# HERE
+def get_client_dataset_ids(request) -> List[str]:
+    """List dataset IDs available for the current client request."""
+
+    client_slug = get_client_slug(request)
+    paths = get_client_paths(client_slug)
+    manifest = load_client_manifest(paths)
+    return list_client_dataset_ids(paths, manifest)
+
+
+def resolve_client_dataset_for_request(request, dataset_id: str) -> Path:
+    """Resolve a dataset path for the current client request."""
+
+    client_slug = get_client_slug(request)
+    paths = get_client_paths(client_slug)
+    manifest = load_client_manifest(paths)
+    return resolve_client_dataset_path(paths, manifest, dataset_id)
