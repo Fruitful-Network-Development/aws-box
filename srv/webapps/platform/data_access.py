@@ -56,19 +56,14 @@ def get_client_paths(client_slug: str) -> Dict[str, Path]:
     }
 
 
-def _find_manifest(frontend_dir: Path) -> Optional[Path]:
-    matches = sorted(frontend_dir.glob("msn_*.json"))
-    if not matches:
-        return None
-
-    return matches[0]
+def _find_manifest(client_root: Path) -> Optional[Path]:
+    matches = sorted(client_root.glob("msn_*.json"))
+    return matches[0] if matches else None
 
 
 def load_client_manifest(paths: Dict[str, Path]) -> Dict[str, Any]:
-    """Load msn_<user>.json for a client and expose default + backend data info."""
-
-    frontend_dir = paths["frontend_dir"]
-    manifest_path = _find_manifest(frontend_dir)
+    client_root = paths["client_root"]
+    manifest_path = _find_manifest(client_root)
     if manifest_path:
         manifest = load_json(manifest_path)
     else:
