@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from flask import Blueprint, jsonify
-from data_access import load_platform_json
+from platform_data_access import load_platform_json
 
 # Blueprint for platform-level catalog data
 catalog_bp = Blueprint("catalog", __name__, url_prefix="/api")
