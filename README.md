@@ -1,11 +1,14 @@
 # aws-box
 
-This repository is the **infrastructure sandbox** for the EC2 instance that
-hosts the shared Flask platform and multiple client frontends. It mirrors key
-parts of `/etc/` and `/srv/webapps/` and provides scripts for auditing and
-deploying changes safely.
+This repository is the **infrastructure sandbox** for the EC2 instance that hosts the shared Flask platform and multiple client frontends. It mirrors key parts of `/etc/` and `/srv/webapps/` and provides scripts for auditing and deploying changes safely.
 
 ---
+
+## Overview
+The EC2 instance serves two kinds of content:
+    1. Static front‑ends for each client domain – delivered directly by Nginx from /srv/webapps/clients/<domain>/frontend. These sites can function entirely on their own.
+    2. Optional JSON APIs provided by a shared Flask application. This app runs under Gunicorn and only becomes part of a site when you choose to enable /api proxying in the Nginx configuration.
+Keeping these concerns separated means you can host simple brochure sites without running any Python code, while still having the option to expose structured data via the API when needed.
 
 ## Environment Overview
 
@@ -57,12 +60,10 @@ home/admin/etc/
 └── systemd/system/
     └── platform.service
 ```
-
-Notes:
-
-- Each client domain has its own frontend directory and manifest JSON.
-- The platform backend is shared and domain-agnostic.
-- The default Nginx site is removed to prevent accidental serving of stale content.
+Key points:
+    • Each client gets its own directory under /srv/webapps/clients/ and is identified by its domain name. All static files live in that directory.
+    • Manifests now live at the root of each client directory (e.g. msn_admin.json), not under frontend/. They define the client title, logo, and – most importantly – a backend_data array listing which files in data/ may be served by the API.
+    • The platform/venv/ directory is not stored in git and must be created on the server. Use python3 -m venv venv to set it up.
 
 This repo is then mirrored by the 'live' directories under:
 ```text
