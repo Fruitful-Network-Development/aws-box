@@ -9,11 +9,11 @@ from flask import Flask, request, jsonify, send_from_directory, abort
 from data_access import (
     get_client_paths,
     get_client_slug,
+    get_client_dataset_ids,
     load_client_manifest,
     load_json,
-    list_client_dataset_ids,
+    resolve_client_dataset_for_request,
     resolve_backend_data_path,
-    resolve_client_dataset_path,
     save_json,
 )
 from modules.donation_receipts import donation_receipts_bp
@@ -179,25 +179,19 @@ def backend_data(data_filename: str):
 @app.route("/api/datasets", methods=["GET"])
 def list_datasets():
     client_slug = get_client_slug(request)
-    paths = get_client_paths(client_slug)
-    settings = load_client_settings(client_slug, paths=paths)
 
     return jsonify(
         {
             "client": client_slug,
-            "datasets": list_client_dataset_ids(paths, settings),
+            "datasets": get_client_dataset_ids(request),
         }
     )
 
 
 @app.route("/api/datasets/<string:dataset_id>", methods=["GET"])
 def load_dataset(dataset_id: str):
-    client_slug = get_client_slug(request)
-    paths = get_client_paths(client_slug)
-    settings = load_client_settings(client_slug, paths=paths)
-
     try:
-        dataset_path = resolve_client_dataset_path(paths, settings, dataset_id)
+        dataset_path = resolve_client_dataset_for_request(request, dataset_id)
     except ValueError as exc:
         return jsonify({"error": "invalid_dataset", "message": str(exc)}), 400
 
