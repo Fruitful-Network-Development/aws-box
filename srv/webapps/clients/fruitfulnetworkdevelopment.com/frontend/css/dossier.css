@@ -338,6 +338,10 @@
   gap: var(--space-lg);
 }
 
+.dossier-editorial-grid > .dossier-digression {
+  grid-column: 1 / -1;
+}
+
 .dossier-editorial {
   border: 1px solid var(--silverback);
   border-radius: 0.75rem;
@@ -519,6 +523,12 @@
   font-size: 0.75rem;
   text-transform: lowercase;
   letter-spacing: 0.02em;
+}
+
+.dossier-editorial-source a,
+.dossier-editorial-source a:visited,
+.dossier-editorial-source p {
+  color: var(--offwhite);
 }
 
 .dossier-editorial-quote {
