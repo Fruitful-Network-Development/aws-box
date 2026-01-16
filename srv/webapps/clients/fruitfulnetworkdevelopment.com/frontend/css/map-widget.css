@@ -4,6 +4,9 @@
   background: var(--terracottaroof);
   border-radius: 16px;
   overflow: hidden;
+  --map-fill-color: var(--appleseed);
+  --map-stroke-color: var(--green);
+  --map-stroke-width: 2.5;
 }
 
 .widget--map .widget__section {
@@ -20,9 +23,10 @@
 }
 
 .map-widget__polygon {
-  fill: var(--appleseed);
-  stroke: var(--green);
-  stroke-width: 2;
+  fill: var(--map-fill-color);
+  stroke: var(--map-stroke-color);
+  stroke-width: var(--map-stroke-width);
+  vector-effect: non-scaling-stroke;
 }
 
 .map-widget__message {
