@@ -97,20 +97,28 @@ This repo is then mirrored by the live directories under:
 
 All Python services are run inside explicit virtual environments.
 
-Example setup:
-
+Create the venv and install requirements:
 ```bash
 cd /srv/webapps/platform
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
+, then make sure Gunicorn exists:
+```bash
+which gunicorn
+```
+- We expect to see `/srv/webapps/platform/venv/bin/gunicorn`
 
-Important:
-
-- The `venv` directory is intentionally **not** version controlled.
-- Each backend service should manage its own `venv`.
-- systemd services explicitly reference the `venv` binary paths.
+If sucessful, we can exit:
+```bash
+deactivate
+```
+, and then restart:
+```bash
+sudo systemctl restart platform.service
+sudo systemctl status platform.service --no-pager
+```
 
 ---
 
@@ -253,15 +261,19 @@ prod. Reset to origin (see the drift section below).
 
 ### Deploy `/srv` payload (static sites + platform code)
 
-Only if your commit includes changes under `srv/`:
-
+For the initial commit that only includes changes under `srv/`:
 ```bash
 sudo rsync -a --delete /home/admin/aws-box/srv/ /srv/
 sudo chown -R admin:admin /srv/webapps
 ```
+, otherwise run:
+```bash
+sudo rsync -a --delete --exclude 'webapps/platform/venv' /home/admin/aws-box/srv/ /srv/
+```
+This prevents the deletion of /srv/webapps/platform/venv because it’s not in git.
 
+#### Dry run Test
 To check what files would be updated before deploying run:
-
 ```bash
 sudo rsync -av --delete --dry-run /home/admin/aws-box/srv/ /srv/
 ```
@@ -274,8 +286,8 @@ Only if your commit includes changes under `etc/`:
 sudo rsync -a --delete /home/admin/aws-box/etc/nginx/ /etc/nginx/
 ```
 
+#### Dry run Test
 To check what files would be updated before deploying run:
-
 ```bash
 sudo rsync -av --delete --dry-run /home/admin/aws-box/etc/nginx/ /etc/nginx/
 ```
