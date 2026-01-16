@@ -1,8 +1,37 @@
 (() => {
   const DEFAULT_DATASET_ID = "3_2_3_17_77_19_10_1_1";
 
-  const getNestedPropertyGeometry = (payload) =>
-    payload?.mss_profile?.msn_profile?.fnd_profile?.property?.geometry || null;
+  const getGeometryCandidates = (payload) => {
+    const property = payload?.mss_profile?.msn_profile?.fnd_profile?.property;
+    if (!property) {
+      return [];
+    }
+
+    const parcels = property?.features?.parcels;
+    if (Array.isArray(parcels) && parcels.length > 0) {
+      return parcels.map((parcel) => parcel?.geometry).filter(Boolean);
+    }
+
+    return property.geometry ? [property.geometry] : [];
+  };
+
+  const collectPolygons = (geometry) => {
+    if (!geometry) {
+      return [];
+    }
+    if (geometry.type === "Polygon") {
+      return [geometry.coordinates];
+    }
+    if (geometry.type === "MultiPolygon") {
+      return geometry.coordinates;
+    }
+    return [];
+  };
+
+  const normalizePoints = (points) =>
+    points
+      .map(([lon, lat]) => [Number(lon), Number(lat)])
+      .filter(([lon, lat]) => Number.isFinite(lon) && Number.isFinite(lat));
 
   const createSvgElement = (tag, attrs = {}) => {
     const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
@@ -12,14 +41,16 @@
     return el;
   };
 
-  const renderPolygon = (container, coordinates) => {
-    const points = coordinates[0];
-    if (!Array.isArray(points) || points.length < 3) {
+  const renderPolygons = (container, polygons) => {
+    const allPoints = polygons.flatMap((polygon) =>
+      normalizePoints(Array.isArray(polygon) ? polygon[0] || [] : [])
+    );
+    if (allPoints.length < 3) {
       throw new Error("Polygon coordinates are missing or invalid.");
     }
 
-    const lons = points.map((point) => point[0]);
-    const lats = points.map((point) => point[1]);
+    const lons = allPoints.map((point) => point[0]);
+    const lats = allPoints.map((point) => point[1]);
     const minLon = Math.min(...lons);
     const maxLon = Math.max(...lons);
     const minLat = Math.min(...lats);
@@ -42,20 +73,29 @@
       "aria-label": "Property boundary",
     });
 
-    const polygonPoints = points
-      .map(([lon, lat]) => {
-        const x = lon - paddedMinLon;
-        const y = paddedHeight - (lat - paddedMinLat);
-        return `${x},${y}`;
-      })
-      .join(" ");
+    polygons.forEach((polygon) => {
+      const points = normalizePoints(
+        Array.isArray(polygon) ? polygon[0] || [] : []
+      );
+      if (points.length < 3) {
+        return;
+      }
 
-    const polygon = createSvgElement("polygon", {
-      points: polygonPoints,
-      class: "map-widget__polygon",
+      const polygonPoints = points
+        .map(([lon, lat]) => {
+          const x = lon - paddedMinLon;
+          const y = paddedHeight - (lat - paddedMinLat);
+          return `${x},${y}`;
+        })
+        .join(" ");
+
+      const shape = createSvgElement("polygon", {
+        points: polygonPoints,
+        class: "map-widget__polygon",
+      });
+      svg.appendChild(shape);
     });
 
-    svg.appendChild(polygon);
     container.appendChild(svg);
   };
 
@@ -78,13 +118,14 @@
       }
 
       const payload = await response.json();
-      const geometry = getNestedPropertyGeometry(payload);
+      const geometries = getGeometryCandidates(payload);
+      const polygons = geometries.flatMap(collectPolygons);
 
-      if (!geometry || geometry.type !== "Polygon" || !geometry.coordinates) {
+      if (polygons.length === 0) {
         throw new Error("Property polygon geometry was not found.");
       }
 
-      renderPolygon(container, geometry.coordinates);
+      renderPolygons(container, polygons);
     } catch (error) {
       renderMessage(container, "Property boundary data is unavailable.");
       console.error("Map widget error:", error);
