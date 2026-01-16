@@ -7,17 +7,7 @@
   overflow: hidden;
 }
 
-.widget--map .widget__header {
-  padding: 24px 32px 0;
-}
-
-.widget--map .widget__header h2 {
-  margin: 0;
-  font-size: 1.6rem;
-  color: #162138;
-}
-
-.widget--map .widget__body {
+.widget--map .widget__section {
   min-height: 360px;
   padding: 24px 32px 32px;
 }
@@ -45,4 +35,31 @@
   border: 2px dashed #d7dde8;
   border-radius: 12px;
   background: #f9fafc;
+}
+
+/* Demo page overrides: larger "application window" layout */
+.section-dossier {
+  grid-template-columns: 1fr;
+  padding: var(--space-md);
+}
+
+.section-dossier .dossier-digression {
+  padding: var(--space-md);
+  border: 1px solid var(--silverback);
+  background-color: var(--offwhite);
+  text-align: left;
+}
+
+.section-dossier .widget--map {
+  max-width: none;
+  margin: 0;
+}
+
+.section-dossier .widget--map .widget__section {
+  min-height: 420px;
+  padding: var(--space-sm);
+}
+
+.section-dossier .map-widget__svg {
+  height: 420px;
 }
