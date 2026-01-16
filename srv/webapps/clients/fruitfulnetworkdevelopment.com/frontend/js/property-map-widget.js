@@ -85,7 +85,6 @@
       }
 
       renderPolygon(container, geometry.coordinates);
-      container.dataset.datasetId = datasetId;
     } catch (error) {
       renderMessage(container, "Property boundary data is unavailable.");
       console.error("Map widget error:", error);
