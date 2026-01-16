@@ -1,19 +1,8 @@
 (() => {
   const DEFAULT_DATASET_ID = "3_2_3_17_77_19_10_1_1";
 
-  const getGeometryCandidates = (payload) => {
-    const property = payload?.mss_profile?.msn_profile?.fnd_profile?.property;
-    if (!property) {
-      return [];
-    }
-
-    const parcels = property?.features?.parcels;
-    if (Array.isArray(parcels) && parcels.length > 0) {
-      return parcels.map((parcel) => parcel?.geometry).filter(Boolean);
-    }
-
-    return property.geometry ? [property.geometry] : [];
-  };
+  const getPropertyGeometry = (payload) =>
+    payload?.mss_profile?.msn_profile?.fnd_profile?.property?.geometry || null;
 
   const collectPolygons = (geometry) => {
     if (!geometry) {
@@ -118,8 +107,8 @@
       }
 
       const payload = await response.json();
-      const geometries = getGeometryCandidates(payload);
-      const polygons = geometries.flatMap(collectPolygons);
+      const geometry = getPropertyGeometry(payload);
+      const polygons = collectPolygons(geometry);
 
       if (polygons.length === 0) {
         throw new Error("Property polygon geometry was not found.");
