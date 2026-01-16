@@ -7,7 +7,7 @@ import os
 import sys
 from pathlib import Path
 from flask import Flask, request, jsonify, send_from_directory, abort
-
+from modules.donation_receipts import donation_receipts_bp
 
 MODULE_DIR = Path(__file__).resolve().parent
 
@@ -162,8 +162,6 @@ def serve_client_file(frontend_root: Path, rel_path: str):
 
 
 app.register_blueprint(donation_receipts_bp)
-app.register_blueprint(catalog_bp)
-
 
 @app.route("/api/backend-data/<path:data_filename>", methods=["GET", "PUT"])
 def backend_data(data_filename: str):
