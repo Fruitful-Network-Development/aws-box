@@ -1,32 +1,46 @@
 # aws-box
 
-This repository is the **infrastructure sandbox** for the EC2 instance that hosts the shared Flask platform and multiple client frontends. It mirrors key parts of `/etc/` and `/srv/webapps/` and provides scripts for auditing and deploying changes safely.
+This repository is the **infrastructure sandbox** for the EC2 instance that
+hosts the shared Flask platform and multiple client frontends. It mirrors key
+parts of `/etc/` and `/srv/webapps/` and provides scripts for auditing and
+deploying changes safely.
 
 ---
 
 ## Overview
+
 The EC2 instance serves two kinds of content:
-    1. Static front‑ends for each client domain – delivered directly by Nginx from /srv/webapps/clients/<domain>/frontend. These sites can function entirely on their own.
-    2. Optional JSON APIs provided by a shared Flask application. This app runs under Gunicorn and only becomes part of a site when you choose to enable /api proxying in the Nginx configuration.
-Keeping these concerns separated means you can host simple brochure sites without running any Python code, while still having the option to expose structured data via the API when needed.
 
-## Environment Overview
+1. **Static frontends** for each client domain – delivered directly by Nginx
+   from `/srv/webapps/clients/<domain>/frontend`. These sites can function
+   entirely on their own.
+2. **Optional JSON APIs** provided by a shared Flask application. This app runs
+   under Gunicorn and only becomes part of a site when `/api` proxying is
+   enabled in the Nginx configuration.
 
-This infrastructure runs on a freshly rebuilt EC2 instance (Debian-based).
+Keeping these concerns separated means you can host simple brochure sites
+without running any Python code, while still having the option to expose
+structured data via the API when needed.
+
+---
+
+## Environment overview
+
+This infrastructure runs on a freshly rebuilt Debian-based EC2 instance.
 
 Key components:
 
-- **Nginx**: virtual hosting, static file serving, and reverse-proxy for backend APIs.
-- **Gunicorn**: application server for the Flask platform.
-- **Flask**: shared backend platform serving multiple client sites.
-- **Certbot / Let’s Encrypt**: automatic TLS certificate provisioning and renewal.
+- **Nginx**: virtual hosting, static file serving, and reverse-proxy for backend APIs
+- **Gunicorn**: application server for the Flask platform
+- **Flask**: shared backend platform serving multiple client sites
+- **Certbot / Let’s Encrypt**: automatic TLS certificate provisioning and renewal
 
 This instance replaces an older degraded EC2 instance and incorporates
 additional recovery and access mechanisms not previously present.
 
 ---
 
-## Directory Structure & Ownership
+## Directory structure & ownership
 
 Primary sources of truth and where this repo exists are on the server as:
 
@@ -34,25 +48,24 @@ Primary sources of truth and where this repo exists are on the server as:
 home/admin/srv/webapps/
 ├── platform/
 │   ├── app.py
-│   ├── data_access.py
-│   ├── venv/                  # Python virtual environment (NOT in git)
+│   ├── multi-tennant-data-access.py
+│   ├── client-data-acess.py
 │   ├── requirements.txt
+│   ├── venv/                  # Python virtual environment (NOT in git)
 │   └── platform.service       # systemd service (installed under /etc/systemd)
 ├── clients/
-├── fruitfulnetworkdevelopment.com/
-│   └── frontend/
-│       ├── index.html
-│       ├── assets/
-│       └── msn_<userId>.json
-├── cuyahogaterravita.com/
-│   └── frontend/
-│       └── msn_<userId>.json
+│   ├── fruitfulnetworkdevelopment.com/
+│   │   ├── frontend/
+│   │   └── data/
+│   └── cuyahogaterravita.com/
+│       ├── frontend/
+│       └── data/
 
 home/admin/etc/
 ├── nginx/
 │   ├── nginx.conf
 │   ├── mime.types
-│   ├──sites-available/
+│   ├── sites-available/
 │   │   ├── fruitfulnetworkdevelopment.com.conf
 │   │   └── cuyahogaterravita.com.conf
 │   └── sites-enabled/
@@ -60,19 +73,27 @@ home/admin/etc/
 └── systemd/system/
     └── platform.service
 ```
-Key points:
-    • Each client gets its own directory under /srv/webapps/clients/ and is identified by its domain name. All static files live in that directory.
-    • Manifests now live at the root of each client directory (e.g. msn_admin.json), not under frontend/. They define the client title, logo, and – most importantly – a backend_data array listing which files in data/ may be served by the API.
-    • The platform/venv/ directory is not stored in git and must be created on the server. Use python3 -m venv venv to set it up.
 
-This repo is then mirrored by the 'live' directories under:
+Key points:
+
+- Each client gets its own directory under `/srv/webapps/clients/` and is
+  identified by its domain name. All static files live in that directory.
+- Manifests live at the root of each client directory (e.g. `msn_admin.json`),
+  not under `frontend/`. They define the client title, logo, and the
+  `backend_data` array listing which files in `data/` may be served by the API.
+- The `platform/venv/` directory is not stored in git and must be created on the
+  server. Use `python3 -m venv venv` to set it up.
+
+This repo is then mirrored by the live directories under:
+
 ```text
 /etc/
 /srv/webapps/
 ```
+
 ---
 
-## Python Virtual Environments (venv)
+## Python virtual environments (venv)
 
 All Python services are run inside explicit virtual environments.
 
@@ -93,9 +114,9 @@ Important:
 
 ---
 
-## Access Methods
+## Access methods
 
-### SSH (Primary)
+### SSH (primary)
 
 - Access is performed using a PEM key:
 
@@ -105,9 +126,11 @@ Important:
 
 - The `admin` user’s `~/.ssh/authorized_keys` contains the public key material.
 
-## System Services
+---
 
-### Gunicorn (Flask Platform)
+## System services
+
+### Gunicorn (Flask platform)
 
 - Managed by systemd via `platform.service`.
 - Restart via:
@@ -131,7 +154,7 @@ Important:
   sudo systemctl reload nginx
   ```
 
-### Logging & Disk Safety
+### Logging & disk safety
 
 - `journald` limits enforced:
 
@@ -158,19 +181,19 @@ Important:
 
 ---
 
-## Troubleshooting & Differences from Old Instance
+## Troubleshooting & differences from old instance
 
 - The original instance suffered SSH banner hangs due to system-level corruption.
 - Recovery was not possible without rebuilding.
 - This instance was rebuilt cleanly with:
-  - Explicit systemd services
-  - Enforced logging limits
+  - explicit systemd services
+  - enforced logging limits
   - SSM access for recovery
-  - Cleaner separation of platform vs client assets
+  - cleaner separation of platform vs client assets
 
 ---
 
-## Multi-tenant Platform & Manifests (MSN)
+## Multi-tenant platform & manifests (MSN)
 
 At a high level, the platform follows a **manifest-first** design:
 
@@ -180,125 +203,102 @@ At a high level, the platform follows a **manifest-first** design:
 - The shared Flask backend in `/srv/webapps/platform` discovers these manifests
   and serves APIs and data according to each manifest.
 
-For details on how the manifests are used, see:
+### Platform data access files
 
-- `flask-app-main/platform/README.md` (backend behavior)
-- Each client’s `README.md` under `flask-app-main/clients/<domain>/`
+The platform’s data-access logic is consolidated into two files:
+
+- `multi-tennant-data-access.py` handles host-based client detection, filesystem
+  path resolution, and manifest parsing.
+- `client-data-acess.py` handles dataset discovery, dataset resolution, and
+  backend data filename validation.
+
+The filenames contain hyphens, so the Flask app loads them using `importlib`
+when it starts.
+
+### Client-specific data access
+
+Each client directory contains a `data/` directory alongside `frontend/`. The
+`data/` directory holds client-specific JSON that the frontend can read through
+API routes. Files must be whitelisted in the manifest before Flask will read
+or write them.
+
+Flask behaves like a dataset registry rather than a generic file server:
+
+- It exposes a list of dataset IDs found in the allowed directory.
+- It provides a single dataset load endpoint by dataset ID.
+
+This prevents path traversal issues, accidental leakage of arbitrary server
+files, and tight coupling between frontend code and filesystem structure.
 
 ---
 
-## Platform service overview
-
-This Flask app serves multiple client frontends and a small set of backend data
-files per client, using each client's `msn_<user>.json` manifest to decide what
-to load.
-
-- `data_access.py` determines the client slug from the request host, loads that
-  client's manifest, exposes the default entry HTML, and provides the whitelist
-  of backend data files the API may read or write.
-- `app.py` wires these utilities into Flask routes: it uses the manifest to
-  serve the correct frontend files and restricts backend data access to the
-  whitelisted filenames from the manifest.
-
-The combination keeps routing and file I/O bounded to what each client declares
-in their manifest while allowing host-based multi-tenant serving.
-
-### Layout
-```txt
-srv/webapps/platform/
-├── app.py              # Flask application entry point
-├── data_access.py      # Client/manifest helpers:contentReference[oaicite:4]{index=4}
-├── data/               # <--- NEW: global data (taxonomy/product types)
-│   ├── taxonomy.json
-│   └── product_type.json
-├── modules/            # API blueprints exposed to clients
-│   ├── donation_receipts.py
-│   ├── weather.py
-│   └── catalog.py      # <--- NEW: exposes taxonomy & product types
-└── services/           # (optional) internal helpers/integrations, not directly exposed
-    └── newsletter.py   # e.g. SES ingestion and sending
-```
-
-- Everything in modules/ contains a Flask Blueprint registered under /api/ that clients can call.
-- Everything in services/ contains helper functions or long‑running tasks (e.g. sending newsletters, polling POS systems). They are imported from blueprints or Celery tasks, not exposed over HTTP.
-- The new data/ directory holds platform‑wide JSON that can be read by any blueprint.
-
-### Multi-tenant Data Acess
-
-From any client domain a query can target the global taxonomy and product types:
-`GET https://<client-domain>/api/taxonomy` → returns the JSON contents of taxonomy.json.
-`GET https://<client-domain>/api/product-types` → returns the JSON contents of product_type.json.
-
-If you decide later that clients should not see the entire taxonomy, you can move the blueprint into an internal package and restrict access by origin or authentication. For now, the above approach keeps the data read‑only and globally available.
-
-### Client Spesific Data Acess
-Each client directory, `srv/webapps/clients/<client-directory>/`, contains a `/data` directory and a `/frontend` directory. Its in this `/data` directory where client spesific backend data it held. This is acessed via javascript for dynamic tasks that also needs to be prevented from being publicly accessible.
-
-#### Flask indexes the directory, does not expose it
-Instead of “give me any file path,” you expose:
-  - a list of dataset IDs found in the allowed directory
-  - a single dataset load endpoint by dataset ID
-  - optional layer endpoints derived from the dataset
-In other words, Flask should behave like a dataset registry, not a generic file server.
-
-This prevents:
-  - path traversal issues
-  - accidental leakage of arbitrary server files
-  - frontend coupling to filenames and folder structure
-
-#### Dataset IDs and layer IDs become your stable API vocabulary
-This is what makes the widget portable across multiple workspaces and future multi-user setups.
----
-
-## WorkFlow
+## Workflow
 
 ### Update the repo on the server
+
 ```bash
 ssh -i ~/.ssh/aws-main-key.pem admin@52.70.228.90
 ```
+
 Run on the instance:
+
 ```bash
 cd /home/admin/aws-box
 git fetch origin
 git pull --ff-only
 ```
-If `git pull --ff-only` fails, stop (it means local drift). Don’t “fix” it in prod. Reset to origin (see the drift section below).
+
+If `git pull --ff-only` fails, stop (it means local drift). Don’t “fix” it in
+prod. Reset to origin (see the drift section below).
 
 ### Deploy `/srv` payload (static sites + platform code)
-Only if your commit includes changes under srv/:
+
+Only if your commit includes changes under `srv/`:
+
 ```bash
 sudo rsync -a --delete /home/admin/aws-box/srv/ /srv/
 sudo chown -R admin:admin /srv/webapps
 ```
-To Check what files would be updated before deploying run:
+
+To check what files would be updated before deploying run:
+
 ```bash
 sudo rsync -av --delete --dry-run /home/admin/aws-box/srv/ /srv/
 ```
 
 ### Deploy `/etc` payload (nginx, systemd, etc.)
+
 Only if your commit includes changes under `etc/`:
+
 ```bash
 sudo rsync -a --delete /home/admin/aws-box/etc/nginx/ /etc/nginx/
 ```
-To Check what files would be updated before deploying run:
+
+To check what files would be updated before deploying run:
+
 ```bash
 sudo rsync -av --delete --dry-run /home/admin/aws-box/etc/nginx/ /etc/nginx/
 ```
 
 ### Apply service changes safely
-Nginx
+
+Nginx:
+
 ```bash
 sudo nginx -t
 sudo systemctl reload nginx
 ```
 
-systemd units (only if you changed etc/systemd/system/*.service)
+systemd units (only if you changed `etc/systemd/system/*.service`):
+
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl restart platform.service
 sudo systemctl status platform.service --no-pager
 ```
+
 ### Sanity checks
+
 ```bash
 curl -I https://fruitfulnetworkdevelopment.com | head -10
 curl -I https://cuyahogaterravita.com | head -10

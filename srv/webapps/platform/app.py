@@ -2,24 +2,49 @@
 
 from __future__ import annotations
 
+import importlib.util
 import os
+import sys
 from pathlib import Path
 from flask import Flask, request, jsonify, send_from_directory, abort
-
-from data_access import (
-    get_client_paths,
-    get_client_slug,
-    load_client_manifest,
-    load_json,
-    save_json,
-)
-from client_data_access import (
-    get_client_dataset_ids,
-    resolve_client_dataset_for_request,
-    resolve_backend_data_path,
-)
 from modules.donation_receipts import donation_receipts_bp
 from modules.catalog import catalog_bp
+
+
+MODULE_DIR = Path(__file__).resolve().parent
+
+
+def _load_data_module(module_name: str, filename: str):
+    if module_name in sys.modules:
+        return sys.modules[module_name]
+
+    module_path = MODULE_DIR / filename
+    spec = importlib.util.spec_from_file_location(module_name, module_path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Unable to load module: {filename}")
+
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[module_name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+multi_access = _load_data_module(
+    "multi_tennant_data_access", "multi-tennant-data-access.py"
+)
+client_access = _load_data_module(
+    "client_data_acess", "client-data-acess.py"
+)
+
+get_client_paths = multi_access.get_client_paths
+get_client_slug = multi_access.get_client_slug
+load_client_manifest = multi_access.load_client_manifest
+load_json = multi_access.load_json
+save_json = multi_access.save_json
+
+get_client_dataset_ids = client_access.get_client_dataset_ids
+resolve_client_dataset_for_request = client_access.resolve_client_dataset_for_request
+resolve_backend_data_path = client_access.resolve_backend_data_path
 
 
 
