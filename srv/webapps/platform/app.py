@@ -7,8 +7,6 @@ import os
 import sys
 from pathlib import Path
 from flask import Flask, request, jsonify, send_from_directory, abort
-from modules.donation_receipts import donation_receipts_bp
-from modules.catalog import catalog_bp
 
 
 MODULE_DIR = Path(__file__).resolve().parent
